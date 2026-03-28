@@ -1,0 +1,155 @@
+{%- liquid
+  assign bs = block.settings
+  assign product_form_id = 'BuyButtons-ProductForm-' | append: section.id
+  assign property_name = bs.property_key | default: 'Lens type'
+  assign field_id = 'lens-select-' | append: block.id
+  assign options_list = bs.options | newline_to_br | split: '<br />'
+-%}
+
+<div
+  class="atelier-lens-select spacing-style"
+  style="{% render 'spacing-style', settings: block.settings %}"
+  {{ block.shopify_attributes }}
+>
+  {% if bs.heading != blank %}
+    <label class="atelier-lens-select__label" for="{{ field_id }}">{{ bs.heading | escape }}</label>
+  {% endif %}
+  {% if bs.description != blank %}
+    <p class="atelier-lens-select__desc">{{ bs.description | escape }}</p>
+  {% endif %}
+  <div class="select-wrapper">
+    <select
+      id="{{ field_id }}"
+      class="field__input atelier-lens-select__select"
+      name="properties[{{ property_name | strip | replace: '"', '' }}]"
+      form="{{ product_form_id }}"
+      {% if bs.required %}
+        required
+      {% endif %}
+    >
+      {% if bs.placeholder != blank %}
+        <option value="" disabled selected>{{ bs.placeholder | escape }}</option>
+      {% endif %}
+      {% for opt in options_list %}
+        {% assign opt_clean = opt | strip %}
+        {% if opt_clean != blank %}
+          <option value="{{ opt_clean | escape }}">{{ opt_clean | escape }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+    <span class="svg-wrapper atelier-lens-select__caret" aria-hidden="true">
+      {{- 'icon-caret.svg' | inline_asset_content -}}
+    </span>
+  </div>
+</div>
+
+{% stylesheet %}
+  .atelier-lens-select__label {
+    display: block;
+    margin-bottom: var(--padding-2xs);
+    font-weight: 600;
+  }
+
+  .atelier-lens-select__desc {
+    margin: 0 0 var(--padding-sm);
+    font-size: 0.9em;
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text, 0.75));
+  }
+
+  .atelier-lens-select .select-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .atelier-lens-select__select {
+    width: 100%;
+    padding-inline-end: 2.5rem;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .atelier-lens-select__caret {
+    position: absolute;
+    right: var(--padding-md);
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: 0.65rem;
+    opacity: 0.7;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Lens type selector",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Label",
+      "default": "Lens type"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Choose how your lenses are finished. Add-ons can be combined in cart notes if needed."
+    },
+    {
+      "type": "text",
+      "id": "property_key",
+      "label": "Line item property key",
+      "default": "Lens type",
+      "info": "Appears on the order; use a short label."
+    },
+    {
+      "type": "textarea",
+      "id": "options",
+      "label": "Options (one per line)",
+      "default": "Demo / display lenses\nSingle vision\nProgressive\nBlue-light filter\nPolarized sun"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Placeholder option",
+      "default": "Select a lens type"
+    },
+    {
+      "type": "checkbox",
+      "id": "required",
+      "label": "Required before add to cart",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lens type selector"
+    }
+  ]
+}
+{% endschema %}

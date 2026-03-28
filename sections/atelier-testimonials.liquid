@@ -1,0 +1,301 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} spacing-style atelier-testimonials"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  {% if section.settings.heading != blank %}
+    <h2 class="atelier-testimonials__title">{{ section.settings.heading | escape }}</h2>
+  {% endif %}
+
+  <div class="atelier-testimonials__wrap">
+    <button
+      type="button"
+      class="atelier-testimonials__nav atelier-testimonials__nav--prev"
+      aria-label="{{ 'accessibility.slideshow_previous' | t }}"
+      data-testimonials-prev
+    >
+      <span class="svg-wrapper">{{ 'icon-chevron-left.svg' | inline_asset_content }}</span>
+    </button>
+
+    <div
+      class="atelier-testimonials__track"
+      data-testimonials-track
+      tabindex="0"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="{{ section.settings.heading | default: 'Testimonials' | escape }}"
+    >
+      <ul class="atelier-testimonials__list">
+        {% for block in section.blocks %}
+          <li
+            class="atelier-testimonials__slide"
+            data-testimonials-slide
+            {{ block.shopify_attributes }}
+          >
+            <div class="atelier-testimonials__stars" aria-hidden="true">
+              {% assign r = block.settings.rating | default: 5 | at_most: 5 | at_least: 1 %}
+              {% for i in (1..r) %}
+                <span class="atelier-testimonials__star">★</span>
+              {% endfor %}
+            </div>
+            {% if block.settings.quote != blank %}
+              <blockquote class="atelier-testimonials__quote">
+                {{ block.settings.quote | escape }}
+              </blockquote>
+            {% endif %}
+            {% if block.settings.author != blank %}
+              <cite class="atelier-testimonials__author">{{ block.settings.author | escape }}</cite>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <button
+      type="button"
+      class="atelier-testimonials__nav atelier-testimonials__nav--next"
+      aria-label="{{ 'accessibility.slideshow_next' | t }}"
+      data-testimonials-next
+    >
+      <span class="svg-wrapper">{{ 'icon-chevron-right.svg' | inline_asset_content }}</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const root = document.currentScript.previousElementSibling;
+    if (!root || !root.classList.contains('atelier-testimonials')) return;
+    const track = root.querySelector('[data-testimonials-track]');
+    const slides = root.querySelectorAll('[data-testimonials-slide]');
+    const prev = root.querySelector('[data-testimonials-prev]');
+    const next = root.querySelector('[data-testimonials-next]');
+    if (!track || slides.length === 0) return;
+
+    const scrollSlide = (dir) => {
+      const w = track.clientWidth;
+      track.scrollBy({ left: dir * w * 0.92, behavior: 'smooth' });
+    };
+    prev?.addEventListener('click', () => scrollSlide(-1));
+    next?.addEventListener('click', () => scrollSlide(1));
+  })();
+</script>
+
+{% stylesheet %}
+  .atelier-testimonials__title {
+    text-align: center;
+    margin: 0 0 var(--padding-2xl);
+    font-family: var(--font-heading--family);
+    font-size: clamp(1.5rem, 3.5vw, var(--font-h3--size));
+  }
+
+  .atelier-testimonials__wrap {
+    display: flex;
+    align-items: center;
+    gap: var(--padding-sm);
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  .atelier-testimonials__nav {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 999px;
+    border: 1px solid rgb(var(--color-foreground-rgb) / 0.2);
+    background: var(--color-background);
+    color: var(--color-foreground);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .atelier-testimonials__nav:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  @media screen and (max-width: 749px) {
+    .atelier-testimonials__nav {
+      display: none;
+    }
+  }
+
+  .atelier-testimonials__track {
+    flex: 1;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .atelier-testimonials__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .atelier-testimonials__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: var(--padding-lg);
+  }
+
+  .atelier-testimonials__slide {
+    flex: 0 0 min(100%, 28rem);
+    scroll-snap-align: center;
+    padding: var(--padding-xl);
+    border-radius: var(--style-border-radius-cards);
+    border: 1px solid rgb(var(--color-foreground-rgb) / 0.1);
+    background: rgb(var(--color-foreground-rgb) / 0.03);
+    text-align: center;
+  }
+
+  .atelier-testimonials__stars {
+    color: var(--color-primary);
+    letter-spacing: 0.15em;
+    margin-bottom: var(--padding-md);
+    font-size: 1rem;
+  }
+
+  .atelier-testimonials__star {
+    font-style: normal;
+  }
+
+  .atelier-testimonials__quote {
+    margin: 0 0 var(--padding-md);
+    font-family: var(--font-heading--family);
+    font-size: 1.15rem;
+    line-height: 1.45;
+    font-style: italic;
+  }
+
+  .atelier-testimonials__author {
+    font-style: normal;
+    font-size: 0.9rem;
+    opacity: 0.85;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Atelier testimonials",
+  "tag": "section",
+  "class": "atelier-testimonials-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Client reflections"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "Impeccable curation and service—my everyday frames feel bespoke."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "— Amelia R., London"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Atelier testimonials",
+      "blocks": [
+        {
+          "type": "quote",
+          "settings": {
+            "rating": 5,
+            "quote": "The attention to detail rivals any maison I've visited in Geneva.",
+            "author": "— Daniel K., NYC"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "rating": 5,
+            "quote": "Finally found sunglasses that balance edge with true optical quality.",
+            "author": "— Sofia M., Los Angeles"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "rating": 4,
+            "quote": "Fast, discreet shipping and packaging worthy of the pieces inside.",
+            "author": "— James T., Chicago"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,202 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} spacing-style atelier-newsletter-section"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="atelier-newsletter">
+    {% if section.settings.heading != blank %}
+      <h2 class="atelier-newsletter__heading">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
+    {% if section.settings.text != blank %}
+      <p class="atelier-newsletter__text">{{ section.settings.text | escape }}</p>
+    {% endif %}
+
+    {% assign form_id = 'AtelierNewsletter-' | append: section.id %}
+    {%- form 'customer', class: 'atelier-newsletter__form' %}
+      <input type="hidden" name="contact[id]" value="{{ form_id }}">
+      <input type="hidden" name="contact[tags]" value="newsletter, atelier">
+
+      <div class="atelier-newsletter__row">
+        <label class="visually-hidden" for="AtelierEmail-{{ section.id }}">
+          {{ 'blocks.email_signup.label' | t }}
+        </label>
+        <input
+          id="AtelierEmail-{{ section.id }}"
+          class="atelier-newsletter__input field__input"
+          type="email"
+          name="contact[email]"
+          autocomplete="email"
+          autocorrect="off"
+          autocapitalize="off"
+          placeholder="{{ section.settings.placeholder | escape }}"
+          required
+          {% if form.errors and form.id == form_id %}
+            autofocus
+            aria-invalid="true"
+            aria-describedby="AtelierNewsletter-error-{{ section.id }}"
+          {% elsif form.posted_successfully? and form.id == form_id %}
+            aria-describedby="AtelierNewsletter-success-{{ section.id }}"
+      {% endif %}
+        >
+        <button type="submit" class="atelier-newsletter__submit button">
+          {{ section.settings.button_label | escape }}
+        </button>
+      </div>
+
+      {% if form.errors and form.id == form_id %}
+        <p id="AtelierNewsletter-error-{{ section.id }}" class="atelier-newsletter__message" tabindex="-1">
+          {{ form.errors.translated_fields.email | capitalize }}
+          {{ form.errors.messages.email }}
+        </p>
+      {% endif %}
+      {% if form.posted_successfully? and form.id == form_id %}
+        <p id="AtelierNewsletter-success-{{ section.id }}" class="atelier-newsletter__message" tabindex="-1">
+          {{ 'blocks.email_signup.success' | t }}
+        </p>
+      {% endif %}
+    {% endform %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .atelier-newsletter {
+    max-width: 36rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .atelier-newsletter__heading {
+    margin: 0 0 var(--padding-sm);
+    font-family: var(--font-heading--family);
+    font-size: clamp(1.5rem, 3.5vw, var(--font-h3--size));
+  }
+
+  .atelier-newsletter__text {
+    margin: 0 0 var(--padding-xl);
+    opacity: 0.88;
+    line-height: 1.5;
+  }
+
+  .atelier-newsletter__row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-sm);
+
+    @media screen and (min-width: 600px) {
+      flex-direction: row;
+      align-items: stretch;
+    }
+  }
+
+  .atelier-newsletter__input {
+    flex: 1;
+    min-height: var(--height-buy-buttons);
+  }
+
+  .atelier-newsletter__submit.button {
+    --color-primary-button-background: var(--atelier-gold, #c9a962);
+    --color-primary-button-text: #141210;
+    --color-primary-button-border: var(--atelier-gold, #c9a962);
+    --color-primary-button-hover-background: #ddb867;
+    --color-primary-button-hover-text: #141210;
+    --color-primary-button-hover-border: #ddb867;
+    background: var(--color-primary-button-background);
+    color: var(--color-primary-button-text);
+    border-color: var(--color-primary-button-border);
+    white-space: nowrap;
+    padding-inline: var(--padding-xl);
+  }
+
+  .atelier-newsletter__submit.button:hover {
+    background: var(--color-primary-button-hover-background);
+    color: var(--color-primary-button-hover-text);
+    border-color: var(--color-primary-button-hover-border);
+  }
+
+  .atelier-newsletter__message {
+    margin: var(--padding-md) 0 0;
+    font-size: 0.95rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Atelier newsletter",
+  "tag": "section",
+  "class": "atelier-newsletter",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Join the atelier list"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Early access to drops, private fittings, and editorial notes on craft."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Email placeholder",
+      "default": "Email address"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Subscribe"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Atelier newsletter"
+    }
+  ]
+}
+{% endschema %}

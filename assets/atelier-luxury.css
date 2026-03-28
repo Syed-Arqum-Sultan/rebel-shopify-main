@@ -1,0 +1,22 @@
+/* Atelier — global luxury refinements (mobile-first, defers to color schemes) */
+:root {
+  --atelier-gold: #c9a962;
+  --atelier-gold-hover: #ddb867;
+  --atelier-cream: #f5efe6;
+  --atelier-charcoal: #141210;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
