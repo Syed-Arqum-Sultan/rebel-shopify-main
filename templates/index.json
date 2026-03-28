@@ -19,7 +19,7 @@
         "cta_2_label": "Shop Watches",
         "cta_2_link": "shopify://collections/all",
         "watermark_text": "OPTICA",
-        "section_width": "full-width",
+        "section_width": "page-width",
         "color_scheme": "scheme-1",
         "padding-block-start": 24,
         "padding-block-end": 32
