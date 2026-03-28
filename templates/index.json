@@ -1,1 +1,456 @@
-{"sections":{"optica_split_hero":{"type":"optica-split-hero","settings":{"heading":"<h1>See the World in <em>Style</em></h1>","subtext":"Premium eyewear and timepieces selected like a private salon—UV400 lenses, Swiss calibres, and a concierge team behind every order.","cta_1_label":"Shop Eyewear","cta_1_link":"shopify://collections/all","cta_2_label":"Shop Watches","cta_2_link":"shopify://collections/all","watermark_text":"OPTICA","section_width":"full-width","color_scheme":"scheme-1","padding-block-start":24,"padding-block-end":32}},"marquee_strip":{"type":"marquee","blocks":{"marq_a":{"type":"text","settings":{"text":"<p>Bespoke fittings · Hand-selected frames · Certified UV optics ·</p>","width":"fit-content","max_width":"normal","alignment":"left","type_preset":"custom","font":"var(--font-body--family)","font_size":"0.75rem","line_height":"tight","letter_spacing":"tight","case":"uppercase","wrap":"nowrap","color":"","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"marq_b":{"type":"text","settings":{"text":"<p>Bespoke fittings · Hand-selected frames · Certified UV optics ·</p>","width":"fit-content","max_width":"normal","alignment":"left","type_preset":"custom","font":"var(--font-body--family)","font_size":"0.75rem","line_height":"tight","letter_spacing":"tight","case":"uppercase","wrap":"nowrap","color":"","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}}},"block_order":["marq_a","marq_b"],"name":"Marquee","settings":{"movement_direction":"reverse","color_scheme":"scheme-5","padding-block-start":10,"padding-block-end":10,"gap_between_elements":40}},"optica_trust":{"type":"optica-trust-bar","blocks":{"t1":{"type":"trust_item","settings":{"icon":"warranty","title":"2-Year Warranty","subtitle":""}},"t2":{"type":"trust_item","settings":{"icon":"shipping","title":"Free Shipping","subtitle":""}},"t3":{"type":"trust_item","settings":{"icon":"uv","title":"UV400 Lenses","subtitle":""}},"t4":{"type":"trust_item","settings":{"icon":"exchange","title":"30-Day Exchange","subtitle":""}}},"block_order":["t1","t2","t3","t4"],"settings":{"color_scheme":"scheme-1","padding-block-start":8,"padding-block-end":8}},"category_tiles":{"type":"atelier-category-tiles","blocks":{"t1":{"type":"category","settings":{"title":"Eyeglasses","link":"shopify://collections/all","image":""}},"t2":{"type":"category","settings":{"title":"Sunglasses","link":"shopify://collections/all","image":""}},"t3":{"type":"category","settings":{"title":"Watches","link":"shopify://collections/all","image":""}}},"block_order":["t1","t2","t3"],"settings":{"heading":"Shop by Category","section_width":"page-width","color_scheme":"scheme-1","padding-block-start":48,"padding-block-end":48}},"new_arrivals":{"type":"product-list","settings":{"collection":"all","layout_type":"grid","carousel_on_mobile":false,"max_products":4,"columns":4,"mobile_columns":"2","columns_gap":12,"rows_gap":28,"icons_style":"arrow","icons_shape":"none","section_width":"page-width","horizontal_alignment":"flex-start","gap":24,"color_scheme":"scheme-1","padding-block-start":40,"padding-block-end":56},"blocks":{"static-header":{"type":"_product-list-content","name":"t:names.header","static":true,"settings":{"content_direction":"row","vertical_on_mobile":false,"horizontal_alignment":"space-between","vertical_alignment":"flex-end","align_baseline":true,"horizontal_alignment_flex_direction_column":"flex-start","vertical_alignment_flex_direction_column":"center","gap":12,"width":"fill","custom_width":100,"width_mobile":"fill","custom_width_mobile":100,"height":"fit","custom_height":100,"inherit_color_scheme":true,"color_scheme":"","background_media":"none","video_position":"cover","background_image_position":"cover","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{"product_list_text":{"type":"_product-list-text","name":"t:names.collection_title","settings":{"text":"<h2>New Arrivals</h2>","type_preset":"h3","font":"var(--font-heading--family)","font_size":"","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","width":"fit-content","max_width":"normal","alignment":"left","padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0}},"product_list_button":{"type":"_product-list-button","name":"t:names.product_list_button","settings":{"label":"View all","open_in_new_tab":false,"style_class":"link","width":"fit-content","custom_width":100,"width_mobile":"fit-content","custom_width_mobile":100}}},"block_order":["product_list_text","product_list_button"]},"static-product-card":{"type":"_product-card","name":"t:names.product_card","static":true,"settings":{"product_card_gap":8,"inherit_color_scheme":true,"color_scheme":"","border":"solid","border_width":1,"border_opacity":25,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{"product-card-gallery":{"type":"_product-card-gallery","name":"t:names.product_card_media","settings":{"image_ratio":"portrait","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0}},"product_title":{"type":"product-title","name":"t:names.product_title","settings":{"width":"100%","max_width":"normal","alignment":"left","type_preset":"rte","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"var(--color-foreground)","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":4,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0}},"price":{"type":"price","name":"t:names.product_price","settings":{"show_sale_price_first":true,"show_installments":false,"show_tax_info":false,"type_preset":"paragraph","width":"100%","alignment":"left","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","color":"var(--color-foreground)","padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0}},"swatches":{"type":"swatches","name":"t:names.swatches","settings":{"product":"{{ closest.product }}","product_swatches_alignment":"flex-start","hide_padding":false,"product_swatches_padding_top":4,"product_swatches_padding_bottom":0,"product_swatches_padding_left":0,"product_swatches_padding_right":0}}},"block_order":["product-card-gallery","product_title","price","swatches"]}},"block_order":[]},"testimonials":{"type":"atelier-testimonials","blocks":{"q1":{"type":"quote","settings":{"rating":5,"quote":"The attention to detail rivals any maison I have visited in Geneva.","author":"— Daniel K., NYC"}},"q2":{"type":"quote","settings":{"rating":5,"quote":"Finally found sunglasses that balance edge with true optical quality.","author":"— Sofia M., Los Angeles"}},"q3":{"type":"quote","settings":{"rating":5,"quote":"Discreet packaging and service worthy of the pieces inside.","author":"— James T., Chicago"}}},"block_order":["q1","q2","q3"],"settings":{"heading":"What Our Clients Say","section_width":"page-width","color_scheme":"scheme-1","padding-block-start":56,"padding-block-end":56}},"newsletter":{"type":"atelier-newsletter","blocks":{},"block_order":[],"settings":{"heading":"Join the Inner Circle","placeholder":"Email address","button_label":"Subscribe","section_width":"page-width","color_scheme":"scheme-2","padding-block-start":64,"padding-block-end":72,"text":"Early access to drops, private fittings, and notes on craft."}}},"order":["optica_split_hero","marquee_strip","optica_trust","category_tiles","new_arrivals","testimonials","newsletter"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "optica_split_hero": {
+      "type": "optica-split-hero",
+      "settings": {
+        "heading": "<h1>See the World in <em>Style</em></h1>",
+        "subtext": "Premium eyewear and timepieces selected like a private salon—UV400 lenses, Swiss calibres, and a concierge team behind every order.",
+        "cta_1_label": "Shop Eyewear",
+        "cta_1_link": "shopify://collections/all",
+        "cta_2_label": "Shop Watches",
+        "cta_2_link": "shopify://collections/all",
+        "watermark_text": "OPTICA",
+        "section_width": "full-width",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 24,
+        "padding-block-end": 32
+      }
+    },
+    "marquee_strip": {
+      "type": "marquee",
+      "blocks": {
+        "marq_a": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Bespoke fittings · Hand-selected frames · Certified UV optics ·</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "custom",
+            "font": "var(--font-body--family)",
+            "font_size": "0.75rem",
+            "line_height": "tight",
+            "letter_spacing": "tight",
+            "case": "uppercase",
+            "wrap": "nowrap",
+            "color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "marq_b": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Bespoke fittings · Hand-selected frames · Certified UV optics ·</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "custom",
+            "font": "var(--font-body--family)",
+            "font_size": "0.75rem",
+            "line_height": "tight",
+            "letter_spacing": "tight",
+            "case": "uppercase",
+            "wrap": "nowrap",
+            "color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "marq_a",
+        "marq_b"
+      ],
+      "name": "Marquee",
+      "settings": {
+        "movement_direction": "reverse",
+        "color_scheme": "scheme-5",
+        "padding-block-start": 10,
+        "padding-block-end": 10,
+        "gap_between_elements": 40
+      }
+    },
+    "optica_trust": {
+      "type": "optica-trust-bar",
+      "blocks": {
+        "t1": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "warranty",
+            "title": "2-Year Warranty",
+            "subtitle": ""
+          }
+        },
+        "t2": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "shipping",
+            "title": "Free Shipping",
+            "subtitle": ""
+          }
+        },
+        "t3": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "uv",
+            "title": "UV400 Lenses",
+            "subtitle": ""
+          }
+        },
+        "t4": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "exchange",
+            "title": "30-Day Exchange",
+            "subtitle": ""
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding-block-start": 8,
+        "padding-block-end": 8
+      }
+    },
+    "category_tiles": {
+      "type": "atelier-category-tiles",
+      "blocks": {
+        "t1": {
+          "type": "category",
+          "settings": {
+            "title": "Eyeglasses",
+            "link": "shopify://collections/all",
+            "image": "shopify://shop_images/pexels-santiago-sauceda-gonzalez-3426899-6563025.jpg"
+          }
+        },
+        "t2": {
+          "type": "category",
+          "settings": {
+            "title": "Sunglasses",
+            "link": "shopify://collections/all",
+            "image": "shopify://shop_images/pexels-lasvane-31614951-6978556.jpg"
+          }
+        },
+        "t3": {
+          "type": "category",
+          "settings": {
+            "title": "Watches",
+            "link": "shopify://collections/all",
+            "image": "shopify://shop_images/pexels-szafran-36384644.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {
+        "heading": "Shop by Category",
+        "section_width": "page-width",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "new_arrivals": {
+      "type": "product-list",
+      "blocks": {
+        "static-header": {
+          "type": "_product-list-content",
+          "name": "t:names.header",
+          "static": true,
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_list_text": {
+              "type": "_product-list-text",
+              "name": "t:names.collection_title",
+              "settings": {
+                "text": "<h2>New Arrivals</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h3",
+                "font": "var(--font-heading--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_list_button": {
+              "type": "_product-list-button",
+              "name": "t:names.product_list_button",
+              "settings": {
+                "label": "View all",
+                "open_in_new_tab": false,
+                "style_class": "link",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_list_text",
+            "product_list_button"
+          ]
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 8,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "solid",
+            "border_width": 1,
+            "border_opacity": 25,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product-card-gallery": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "portrait",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_title": {
+              "type": "product-title",
+              "name": "t:names.product_title",
+              "settings": {
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "price": {
+              "type": "price",
+              "name": "t:names.product_price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "paragraph",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "swatches": {
+              "type": "swatches",
+              "name": "t:names.swatches",
+              "settings": {
+                "product_swatches_alignment": "flex-start",
+                "product_swatches_alignment_mobile": "flex-start",
+                "hide_padding": false,
+                "product_swatches_padding_top": 4,
+                "product_swatches_padding_bottom": 0,
+                "product_swatches_padding_left": 0,
+                "product_swatches_padding_right": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product-card-gallery",
+            "product_title",
+            "price",
+            "swatches"
+          ]
+        }
+      },
+      "settings": {
+        "collection": "all",
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "max_products": 4,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 12,
+        "rows_gap": 28,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "horizontal_alignment": "flex-start",
+        "gap": 24,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 40,
+        "padding-block-end": 56
+      }
+    },
+    "testimonials": {
+      "type": "atelier-testimonials",
+      "blocks": {
+        "q1": {
+          "type": "quote",
+          "settings": {
+            "rating": 5,
+            "quote": "The attention to detail rivals any maison I have visited in Geneva.",
+            "author": "— Daniel K., NYC"
+          }
+        },
+        "q2": {
+          "type": "quote",
+          "settings": {
+            "rating": 5,
+            "quote": "Finally found sunglasses that balance edge with true optical quality.",
+            "author": "— Sofia M., Los Angeles"
+          }
+        },
+        "q3": {
+          "type": "quote",
+          "settings": {
+            "rating": 5,
+            "quote": "Discreet packaging and service worthy of the pieces inside.",
+            "author": "— James T., Chicago"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3"
+      ],
+      "settings": {
+        "heading": "What Our Clients Say",
+        "section_width": "page-width",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 56,
+        "padding-block-end": 56
+      }
+    },
+    "newsletter": {
+      "type": "atelier-newsletter",
+      "settings": {
+        "heading": "Join the Inner Circle",
+        "text": "Early access to drops, private fittings, and notes on craft.",
+        "placeholder": "Email address",
+        "button_label": "Subscribe",
+        "section_width": "page-width",
+        "color_scheme": "scheme-2",
+        "padding-block-start": 64,
+        "padding-block-end": 72
+      }
+    }
+  },
+  "order": [
+    "optica_split_hero",
+    "marquee_strip",
+    "optica_trust",
+    "category_tiles",
+    "new_arrivals",
+    "testimonials",
+    "newsletter"
+  ]
+}
