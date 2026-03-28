@@ -1,0 +1,33 @@
+{% liquid
+  assign v = closest.product.selected_or_first_available_variant
+  if request.visual_preview_mode and v == blank
+    assign v = collections.all.products.first.selected_or_first_available_variant
+  endif
+  assign compare = v.compare_at_price
+  assign price = v.price
+  assign show = false
+  assign pct = 0
+  if compare != blank and price != blank and compare > price
+    assign show = true
+    assign pct = compare | minus: price | times: 100.0 | divided_by: compare | round
+  endif
+%}
+
+{% if show %}
+  <span class="optica-pdp-save" {{ block.shopify_attributes }}>{{ block.settings.prefix | escape }} {{ pct }}%</span>
+{% endif %}
+
+{% schema %}
+{
+  "name": "OPTICA savings badge",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "prefix",
+      "label": "Prefix",
+      "default": "SAVE"
+    }
+  ]
+}
+{% endschema %}

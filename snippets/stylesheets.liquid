@@ -1,3 +1,6 @@
 {{ 'overflow-list.css' | asset_url | preload_tag: as: 'style' }}
 {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
 {{ 'atelier-luxury.css' | asset_url | stylesheet_tag: preload: false }}
+{% if template.name == 'product' %}
+  {{ 'optica-pdp.css' | asset_url | stylesheet_tag: preload: false }}
+{% endif %}

@@ -1,0 +1,45 @@
+{% liquid
+  assign url = block.settings.link | default: '#'
+  assign label = block.settings.label | default: 'Wishlist'
+%}
+
+<a
+  href="{{ url }}"
+  class="optica-pdp-wishlist"
+  aria-label="{{ label | escape }}"
+  {% if block.settings.open_in_new_tab %}
+    target="_blank" rel="noopener noreferrer"
+  {% endif %}
+  {{ block.shopify_attributes }}
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M12 21s-6.716-4.1-9-8.5C1.538 9.63 3.437 6 7.06 6c2.077 0 3.578 1.166 4.94 2.804C13.363 7.166 14.864 6 16.94 6 20.563 6 22.462 9.63 21 12.5 18.716 16.9 12 21 12 21z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+  </svg>
+</a>
+
+{% schema %}
+{
+  "name": "OPTICA wishlist button",
+  "tag": null,
+  "settings": [
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link",
+      "info": "Use a wishlist app URL or a placeholder page."
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Accessible label",
+      "default": "Add to wishlist"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_in_new_tab",
+      "label": "Open in new tab",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

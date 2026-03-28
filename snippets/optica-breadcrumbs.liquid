@@ -1,0 +1,17 @@
+{% liquid
+  assign crumb_product = product
+  if crumb_product == blank and closest.product
+    assign crumb_product = closest.product
+  endif
+  assign coll = crumb_product.collections.first
+%}
+
+<nav class="optica-product-breadcrumbs__nav" aria-label="Breadcrumb">
+  <a href="{{ routes.root_url }}">Home</a>
+  <span class="optica-product-breadcrumbs__sep" aria-hidden="true">/</span>
+  {% if coll %}
+    <a href="{{ coll.url }}">{{ coll.title | escape }}</a>
+    <span class="optica-product-breadcrumbs__sep" aria-hidden="true">/</span>
+  {% endif %}
+  <span>{{ crumb_product.title | escape }}</span>
+</nav>

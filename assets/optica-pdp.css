@@ -1,0 +1,334 @@
+/**
+ * OPTICA product page — luxury PDP (scoped; loaded only on template.product)
+ */
+body.template-product {
+  --optica-gold: #c5a36d;
+  --optica-gold-rgb: 197 163 109;
+  --optica-charcoal: #121212;
+}
+
+body.template-product .section-background,
+body.template-product .product-information {
+  background-color: var(--optica-charcoal);
+}
+
+/* Breadcrumb strip */
+body.template-product .optica-product-breadcrumbs {
+  border-block-end: 1px solid rgb(var(--optica-gold-rgb) / 0.25);
+}
+
+body.template-product .optica-product-breadcrumbs__nav {
+  font-family: var(--font-body--family);
+  font-size: var(--font-size--xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--color-foreground-rgb) / 0.75);
+}
+
+body.template-product .optica-product-breadcrumbs__nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+body.template-product .optica-product-breadcrumbs__nav a:hover {
+  color: var(--optica-gold);
+}
+
+body.template-product .optica-product-breadcrumbs__sep {
+  margin-inline: 0.5rem;
+  opacity: 0.5;
+}
+
+/* Product title — serif */
+body.template-product .product-details h1,
+body.template-product .product-details .text-block.h1 h1,
+body.template-product .product-details .text-block.h2 h1 {
+  font-family: var(--font-heading--family);
+  font-weight: var(--font-heading--weight);
+  letter-spacing: 0.02em;
+}
+
+/* Vendor line */
+body.template-product .optica-pdp-vendor {
+  font-family: var(--font-body--family);
+  font-size: var(--font-size--xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(var(--color-foreground-rgb) / 0.85);
+}
+
+/* Badges */
+body.template-product .optica-pdp-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block-end: 0.25rem;
+}
+
+body.template-product .optica-pdp-badges__item {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  font-family: var(--font-body--family);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+
+body.template-product .optica-pdp-badges__item--new {
+  background: rgb(var(--color-foreground-rgb) / 0.12);
+  color: rgb(var(--color-foreground-rgb) / 0.95);
+}
+
+body.template-product .optica-pdp-badges__item--stock {
+  background: transparent;
+  color: var(--optica-gold);
+  border: 1px solid var(--optica-gold);
+}
+
+/* SKU + reviews row */
+body.template-product .optica-pdp-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+body.template-product .optica-pdp-meta-row product-sku,
+body.template-product .optica-pdp-meta-row .product-sku {
+  font-size: var(--font-size--xs);
+  color: rgb(var(--color-foreground-rgb) / 0.55);
+}
+
+body.template-product .optica-pdp-meta-row .rating-wrapper {
+  margin: 0;
+}
+
+body.template-product .optica-pdp-meta-row .rating {
+  --star-fill-color: var(--optica-gold);
+}
+
+body.template-product .rating-color--primary {
+  --star-fill-color: var(--optica-gold);
+  --star-fill-color-rgb: var(--optica-gold-rgb);
+  --color: var(--optica-gold);
+}
+
+body.template-product .group-block:has(product-sku-component) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+body.template-product .group-block:has(.optica-pdp-wishlist) {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: var(--gap-sm);
+  width: 100%;
+}
+
+/* Price row + savings */
+body.template-product .optica-pdp-price-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem 1rem;
+}
+
+body.template-product .optica-pdp-price-row product-price .price {
+  font-family: var(--font-heading--family);
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+}
+
+body.template-product .optica-pdp-price-row product-price .compare-at-price {
+  color: rgb(var(--color-foreground-rgb) / 0.45);
+  font-size: var(--font-size--sm);
+}
+
+body.template-product .optica-pdp-save {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  font-family: var(--font-body--family);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #b8e0c8;
+  background: rgb(60 120 90 / 0.35);
+  border-radius: 2px;
+}
+
+/* Variant picker — gold selection */
+body.template-product .variant-option__button-label:has(input:checked) {
+  border-color: var(--optica-gold);
+  box-shadow: 0 0 0 1px var(--optica-gold);
+}
+
+body.template-product .variant-option--swatches .variant-option__button-label:has(input:checked) {
+  box-shadow: 0 0 0 2px var(--optica-gold);
+}
+
+body.template-product .swatch {
+  outline-offset: 2px;
+}
+
+body.template-product .variant-option__button-label:has(input:checked) .swatch {
+  outline: 1px solid var(--optica-gold);
+}
+
+/* Gallery thumbnails */
+body.template-product .slideshow-controls__thumbnail[aria-selected='true'] {
+  outline: 2px solid var(--optica-gold);
+  outline-offset: 2px;
+}
+
+/* Buy band: inventory + form + wishlist */
+body.template-product .optica-pdp-atc-band {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+@media screen and (min-width: 750px) {
+  body.template-product .optica-pdp-atc-band--split {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--gap-md);
+  }
+
+  body.template-product .optica-pdp-atc-band--split .buy-buttons-block {
+    flex: 1 1 220px;
+    min-width: min(100%, 280px);
+  }
+
+  body.template-product .optica-pdp-atc-band--split .product-inventory {
+    flex: 0 1 auto;
+    align-self: center;
+    margin-block-start: 0.35rem;
+  }
+}
+
+body.template-product .product-inventory {
+  font-size: var(--font-size--xs);
+  color: rgb(var(--color-foreground-rgb) / 0.7);
+}
+
+/* Gold primary CTA */
+body.template-product .optica-pdp-atc-band .add-to-cart-button.button,
+body.template-product .optica-pdp-atc-band .add-to-cart-button {
+  background-color: var(--optica-gold);
+  color: var(--optica-charcoal);
+  border-color: var(--optica-gold);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+body.template-product .optica-pdp-atc-band .add-to-cart-button:hover {
+  filter: brightness(1.05);
+}
+
+/* Wishlist */
+body.template-product .optica-pdp-wishlist {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--height-buy-buttons, 48px);
+  height: var(--height-buy-buttons, 48px);
+  flex-shrink: 0;
+  border: 1px solid var(--optica-gold);
+  color: var(--optica-gold);
+  background: transparent;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+body.template-product .optica-pdp-wishlist:hover {
+  background: rgb(var(--optica-gold-rgb) / 0.12);
+}
+
+body.template-product .optica-pdp-wishlist svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* ATC + wishlist row */
+body.template-product .optica-pdp-atc-wishlist-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: var(--gap-sm);
+  width: 100%;
+}
+
+body.template-product .optica-pdp-atc-wishlist-row .buy-buttons-block {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+
+/* Accordions */
+body.template-product .accordion--plus .details__header .icon-caret {
+  display: none;
+}
+
+body.template-product .accordion .details {
+  border-color: rgb(var(--optica-gold-rgb) / 0.35);
+}
+
+body.template-product .accordion .details__header {
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: var(--font-size--xs);
+}
+
+/* Recommendations header */
+body.template-product .product-recommendations .optica-recos-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  text-align: left;
+}
+
+body.template-product .product-recommendations .optica-recos-head__eyebrow {
+  font-family: var(--font-body--family);
+  font-size: var(--font-size--xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(var(--color-foreground-rgb) / 0.65);
+  margin: 0;
+}
+
+body.template-product .product-recommendations .optica-recos-head__title {
+  font-family: var(--font-heading--family);
+  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+  margin: 0;
+  font-weight: normal;
+}
+
+body.template-product .product-recommendations .section-resource-list__content > .group-block:first-child {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--gap-md);
+  width: 100%;
+}
+
+body.template-product .product-recommendations .optica-recos-head .button {
+  letter-spacing: 0.12em;
+  font-size: var(--font-size--xs);
+}
+
+/* Minimal cards — de-emphasize quick add if present */
+body.template-product .product-recommendations .card-gallery quick-add-component {
+  opacity: 0.85;
+}
+
+@media screen and (max-width: 749px) {
+  body.template-product .product-information__grid {
+    flex-direction: column;
+  }
+}

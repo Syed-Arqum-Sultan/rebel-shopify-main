@@ -1,0 +1,53 @@
+{% liquid
+  assign product = closest.product
+  if request.visual_preview_mode and product == blank
+    assign product = collections.all.products.first
+  endif
+  assign new_tag = block.settings.new_product_tag | strip | downcase
+  assign show_new = false
+  if new_tag != blank
+    for t in product.tags
+      assign td = t | downcase
+      if td == new_tag
+        assign show_new = true
+      endif
+    endfor
+  endif
+%}
+
+<div class="optica-pdp-badges" {{ block.shopify_attributes }}>
+  {% if show_new %}
+    <span class="optica-pdp-badges__item optica-pdp-badges__item--new">{{ block.settings.new_label | escape }}</span>
+  {% endif %}
+  {% if product.selected_or_first_available_variant.available %}
+    <span class="optica-pdp-badges__item optica-pdp-badges__item--stock">{{ block.settings.in_stock_label | escape }}</span>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "OPTICA product badges",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "new_product_tag",
+      "label": "New arrival tag",
+      "default": "new",
+      "info": "Products with this tag show the new badge."
+    },
+    {
+      "type": "text",
+      "id": "new_label",
+      "label": "New badge text",
+      "default": "NEW ARRIVAL"
+    },
+    {
+      "type": "text",
+      "id": "in_stock_label",
+      "label": "In stock badge text",
+      "default": "IN STOCK"
+    }
+  ]
+}
+{% endschema %}
