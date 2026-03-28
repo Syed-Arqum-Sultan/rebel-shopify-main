@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "Footer",
@@ -8,8 +17,11 @@
         "brand_title": "OPTICA",
         "brand_text": "Curated eyewear and Swiss watches with salon-level fittings and concierge support.",
         "menu_shop_heading": "Shop",
+        "menu_shop": "main-menu",
         "menu_support_heading": "Support",
+        "menu_support": "customer-account-main-menu",
         "menu_company_heading": "Company",
+        "menu_company": "footer",
         "show_copyright": true,
         "copyright_note": "All rights reserved.",
         "show_payments": true,
@@ -20,5 +32,7 @@
       }
     }
   },
-  "order": ["optica_footer_main"]
+  "order": [
+    "optica_footer_main"
+  ]
 }
