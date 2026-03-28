@@ -322,7 +322,8 @@
   <div
     class="header__underlay header__underlay-open"
   ></div>
-  {%- if request.page_type == 'index' -%}
+  {%- comment -%} Homepage visible H1 lives in OPTICA split hero. {%- endcomment -%}
+  {%- if request.page_type != 'index' -%}
     <h1 class="visually-hidden">{{ shop.name }}</h1>
   {%- endif -%}
   {% for row in rows %}

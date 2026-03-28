@@ -1,4 +1,4 @@
-/* Atelier — global luxury refinements (mobile-first, defers to color schemes) */
+/* Atelier / OPTICA — luxury refinements */
 :root {
   --atelier-gold: #c9a962;
   --atelier-gold-hover: #ddb867;
@@ -19,4 +19,100 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* --- Homepage (OPTICA layout): index template only --- */
+body.template-index {
+  /* Sharp, gold-accent primary buttons theme-wide on home context */
+  --style-border-radius-buttons-primary: 0;
+  --style-border-radius-buttons-secondary: 0;
+}
+
+/* Header: centered OPTICA navigation + utility styling on homepage */
+@media screen and (min-width: 750px) {
+  body.template-index .header__row--bottom .header-menu {
+    justify-content: center;
+  }
+
+  body.template-index .header__columns {
+    justify-items: center;
+  }
+
+  body.template-index .header__column--center .header-logo {
+    justify-content: center;
+  }
+
+  body.template-index .header-actions__text-style,
+  body.template-index .header-actions__cart-icon {
+    letter-spacing: 0.08em;
+  }
+
+  body.template-index cart-icon.header-actions__cart-icon {
+    border: 1px solid color-mix(in srgb, var(--color-primary) 70%, transparent);
+    padding: 0.35rem 0.75rem;
+    border-radius: 0;
+    min-height: 2.25rem;
+    align-items: center;
+  }
+
+  body.template-index .header-logo {
+    color: var(--color-primary);
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+    text-transform: uppercase;
+  }
+}
+
+/* Gold marquee strip legibility on scheme-5 */
+body.template-index marquee-component.section.color-scheme-5 .marquee__content,
+body.template-index marquee-component.color-scheme-5 .marquee__content {
+  color: var(--color-foreground);
+}
+
+/* Product grid: thin gold frame + darker tile feel */
+body.template-index .product-card {
+  border: 1px solid color-mix(in srgb, var(--color-primary) 25%, var(--color-background));
+  border-radius: 0;
+  background: color-mix(in srgb, var(--color-background) 92%, var(--color-foreground));
+}
+
+body.template-index .product-card__link {
+  border-radius: 0;
+}
+
+/* Quick add: gold square */
+body.template-index .quick-add__button {
+  border-radius: 0;
+  border: 1px solid var(--color-primary);
+  background: color-mix(in srgb, var(--color-background) 80%, transparent);
+  color: var(--color-primary);
+}
+
+body.template-index .quick-add__button:hover {
+  background: color-mix(in srgb, var(--color-primary) 18%, transparent);
+}
+
+/* Newsletter section gold CTA alignment with comp */
+body.template-index .atelier-newsletter-section .atelier-newsletter__submit.button {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.72rem;
+  border-radius: 0;
+}
+
+body.template-index .atelier-testimonials-section .atelier-testimonials__slide {
+  border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-background));
+  border-radius: 0;
+}
+
+body.template-index .atelier-testimonials-section .atelier-testimonials__title {
+  font-family: var(--font-heading--family);
+  letter-spacing: 0.02em;
+}
+
+body.template-index .atelier-category-tiles-section .atelier-cat__section-title {
+  font-family: var(--font-heading--family);
+  letter-spacing: 0.04em;
 }

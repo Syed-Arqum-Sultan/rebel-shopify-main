@@ -1,0 +1,296 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<section
+  class="section section--{{ section.settings.section_width }} spacing-style optica-split-hero color-{{ section.settings.color_scheme }}"
+  style="{% render 'spacing-style', settings: section.settings %}"
+  {{ section.shopify_attributes }}
+>
+  <div class="optica-split-hero__grid">
+    <div class="optica-split-hero__copy">
+      {% if section.settings.heading != blank %}
+        <div class="optica-split-hero__heading rte">{{ section.settings.heading }}</div>
+      {% endif %}
+      {% if section.settings.subtext != blank %}
+        <p class="optica-split-hero__sub">{{ section.settings.subtext | escape }}</p>
+      {% endif %}
+      <div class="optica-split-hero__ctas">
+        {% if section.settings.cta_1_label != blank %}
+          <a
+            class="optica-split-hero__btn optica-split-hero__btn--outline"
+            href="{{ section.settings.cta_1_link | default: routes.all_products_collection_url }}"
+          >
+            {{ section.settings.cta_1_label | escape }}
+          </a>
+        {% endif %}
+        {% if section.settings.cta_2_label != blank %}
+          <a
+            class="optica-split-hero__btn optica-split-hero__btn--outline"
+            href="{{ section.settings.cta_2_link | default: routes.all_products_collection_url }}"
+          >
+            {{ section.settings.cta_2_label | escape }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="optica-split-hero__visual" aria-hidden="true">
+      <span class="optica-split-hero__watermark">{{ section.settings.watermark_text | escape }}</span>
+      <div class="optica-split-hero__illustration">
+        <svg class="optica-split-hero__svg optica-split-hero__svg--glasses" viewBox="0 0 120 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M8 28 C8 18 18 12 32 12 C46 12 52 18 60 22 C68 18 74 12 88 12 C102 12 112 18 112 28 C112 36 104 40 88 40 C72 40 66 34 60 30 C54 34 48 40 32 40 C16 40 8 36 8 28 Z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+          <path d="M60 22 L60 34" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+          <path d="M2 26 L8 26 M112 26 L118 26" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+        <svg class="optica-split-hero__svg optica-split-hero__svg--watch" viewBox="0 0 64 88" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="14" y="10" width="36" height="68" rx="10" stroke="currentColor" stroke-width="1.2" fill="none"/>
+          <circle cx="32" cy="44" r="14" stroke="currentColor" stroke-width="1" fill="none"/>
+          <path d="M32 34 L32 44 L38 48" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+          <path d="M32 6 L32 10 M32 78 L32 82" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .optica-split-hero {
+    --optica-hero-min-h: min(92svh, 720px);
+    min-height: var(--optica-hero-min-h);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .optica-split-hero__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+    width: 100%;
+    max-width: var(--page-width, 1200px);
+    margin-inline: auto;
+    padding-inline: var(--padding-inline, 1.25rem);
+
+    @media screen and (min-width: 900px) {
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 6vw, 5rem);
+    }
+  }
+
+  .optica-split-hero__copy {
+    text-align: center;
+
+    @media screen and (min-width: 900px) {
+      text-align: left;
+    }
+  }
+
+  .optica-split-hero__heading :is(h1, h2, h3) {
+    font-family: var(--font-heading--family);
+    font-weight: var(--font-heading--weight);
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin: 0 0 var(--padding-md);
+    color: var(--color-foreground-heading, var(--color-foreground));
+  }
+
+  .optica-split-hero__heading em {
+    font-style: italic;
+    color: var(--color-primary);
+  }
+
+  .optica-split-hero__sub {
+    margin: 0 0 var(--padding-xl);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    max-width: 36rem;
+    margin-inline: auto;
+    color: rgb(var(--color-foreground-rgb) / 0.88);
+
+    @media screen and (min-width: 900px) {
+      margin-inline: 0;
+    }
+  }
+
+  .optica-split-hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--padding-sm);
+    justify-content: center;
+
+    @media screen and (min-width: 900px) {
+      justify-content: flex-start;
+    }
+  }
+
+  .optica-split-hero__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0.65rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 0;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .optica-split-hero__btn--outline {
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    background: transparent;
+  }
+
+  .optica-split-hero__btn--outline:hover {
+    background: color-mix(in srgb, var(--color-primary) 14%, transparent);
+  }
+
+  .optica-split-hero__visual {
+    position: relative;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (min-width: 900px) {
+      min-height: 320px;
+    }
+  }
+
+  .optica-split-hero__watermark {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading--family);
+    font-size: clamp(4rem, 18vw, 10rem);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: color-mix(in srgb, var(--color-primary) 10%, var(--color-background));
+    text-transform: uppercase;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .optica-split-hero__illustration {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    color: var(--color-primary);
+  }
+
+  .optica-split-hero__svg--glasses {
+    width: min(200px, 50vw);
+    height: auto;
+  }
+
+  .optica-split-hero__svg--watch {
+    width: min(72px, 18vw);
+    height: auto;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "OPTICA split hero",
+  "tag": "section",
+  "class": "optica-split-hero-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<h1>See the World in <em>Style</em></h1>"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Premium eyewear and timepieces selected like a private salon—UV400 lenses, Swiss calibres, and a concierge team behind every order."
+    },
+    {
+      "type": "text",
+      "id": "cta_1_label",
+      "label": "Primary button label",
+      "default": "Shop Eyewear"
+    },
+    {
+      "type": "url",
+      "id": "cta_1_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "cta_2_label",
+      "label": "Secondary button label",
+      "default": "Shop Watches"
+    },
+    {
+      "type": "url",
+      "id": "cta_2_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "text",
+      "id": "watermark_text",
+      "label": "Background word",
+      "default": "OPTICA"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "OPTICA split hero"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,179 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<section
+  class="section section--full-width spacing-style optica-trust-bar color-{{ section.settings.color_scheme }}"
+  style="{% render 'spacing-style', settings: section.settings %}"
+  {{ section.shopify_attributes }}
+>
+  <ul class="optica-trust-bar__list" role="list">
+    {% for block in section.blocks %}
+      <li class="optica-trust-bar__item" {{ block.shopify_attributes }}>
+        <div class="optica-trust-bar__icon" aria-hidden="true">
+          {% case block.settings.icon %}
+            {% when 'warranty' %}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 3l8 3v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-3z" stroke="currentColor" stroke-width="1.3"/></svg>
+            {% when 'shipping' %}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 10h11v8H3v-8zM14 12h4l3 3v3h-7v-6z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            {% when 'uv' %}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.3"/><path d="M8 14c2-2.5 3.5-5 4-5s2 2.5 4 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            {% when 'exchange' %}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M7 7h12M7 7l3-3M7 7l3 3M17 17H5M17 17l-3 3M17 17l-3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M6 12h12" stroke="currentColor" stroke-width="1" stroke-dasharray="2 3" opacity="0.5"/></svg>
+            {% else %}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.3"/></svg>
+          {% endcase %}
+        </div>
+        <div class="optica-trust-bar__text">
+          <span class="optica-trust-bar__title">{{ block.settings.title | escape }}</span>
+          {% if block.settings.subtitle != blank %}
+            <span class="optica-trust-bar__sub">{{ block.settings.subtitle | escape }}</span>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+{% stylesheet %}
+  .optica-trust-bar__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+
+    @media screen and (min-width: 750px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .optica-trust-bar__item {
+    display: flex;
+    align-items: center;
+    gap: var(--padding-md);
+    padding: var(--padding-md) var(--padding-lg);
+    border-block-end: 1px solid color-mix(in srgb, var(--color-primary) 35%, var(--color-background));
+
+    @media screen and (min-width: 750px) {
+      border-block-end: none;
+      border-inline-start: 1px solid color-mix(in srgb, var(--color-primary) 35%, var(--color-background));
+      justify-content: center;
+    }
+  }
+
+  .optica-trust-bar__item:first-child {
+    @media screen and (min-width: 750px) {
+      border-inline-start: none;
+    }
+  }
+
+  .optica-trust-bar__icon {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    display: flex;
+  }
+
+  .optica-trust-bar__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    text-align: left;
+
+    @media screen and (min-width: 750px) {
+      text-align: center;
+      align-items: center;
+    }
+  }
+
+  .optica-trust-bar__title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-foreground-heading, var(--color-foreground));
+  }
+
+  .optica-trust-bar__sub {
+    font-size: 0.75rem;
+    opacity: 0.75;
+    line-height: 1.35;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "OPTICA trust bar",
+  "tag": "section",
+  "class": "optica-trust-bar-section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "warranty", "label": "Warranty" },
+            { "value": "shipping", "label": "Shipping" },
+            { "value": "uv", "label": "UV / optics" },
+            { "value": "exchange", "label": "Exchange" }
+          ],
+          "default": "warranty"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "2-Year Warranty"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "OPTICA trust bar",
+      "blocks": [
+        { "type": "trust_item", "settings": { "icon": "warranty", "title": "2-Year Warranty" } },
+        { "type": "trust_item", "settings": { "icon": "shipping", "title": "Free Shipping" } },
+        { "type": "trust_item", "settings": { "icon": "uv", "title": "UV400 Lenses" } },
+        { "type": "trust_item", "settings": { "icon": "exchange", "title": "30-Day Exchange" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

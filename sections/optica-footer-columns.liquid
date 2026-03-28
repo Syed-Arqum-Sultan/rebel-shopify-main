@@ -1,0 +1,296 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--{{ section.settings.section_width }} spacing-style optica-footer color-{{ section.settings.color_scheme }}"
+  style="{% render 'spacing-style', settings: section.settings %}"
+  {{ section.shopify_attributes }}
+>
+  <div class="optica-footer__grid">
+    <div class="optica-footer__col optica-footer__col--brand">
+      {% if section.settings.brand_title != blank %}
+        <p class="optica-footer__brand-title">{{ section.settings.brand_title | escape }}</p>
+      {% endif %}
+      {% if section.settings.brand_text != blank %}
+        <p class="optica-footer__brand-text">{{ section.settings.brand_text | escape }}</p>
+      {% endif %}
+    </div>
+
+    <nav class="optica-footer__col" aria-label="{{ section.settings.menu_shop_heading | escape }}">
+      <h2 class="optica-footer__heading">{{ section.settings.menu_shop_heading | escape }}</h2>
+      {% if section.settings.menu_shop != blank %}
+        <ul class="optica-footer__links" role="list">
+          {% for link in section.settings.menu_shop.links %}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </nav>
+
+    <nav class="optica-footer__col" aria-label="{{ section.settings.menu_support_heading | escape }}">
+      <h2 class="optica-footer__heading">{{ section.settings.menu_support_heading | escape }}</h2>
+      {% if section.settings.menu_support != blank %}
+        <ul class="optica-footer__links" role="list">
+          {% for link in section.settings.menu_support.links %}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </nav>
+
+    <nav class="optica-footer__col" aria-label="{{ section.settings.menu_company_heading | escape }}">
+      <h2 class="optica-footer__heading">{{ section.settings.menu_company_heading | escape }}</h2>
+      {% if section.settings.menu_company != blank %}
+        <ul class="optica-footer__links" role="list">
+          {% for link in section.settings.menu_company.links %}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </nav>
+  </div>
+
+  <div class="optica-footer__bar">
+    <p class="optica-footer__copy">
+      {% if section.settings.show_copyright %}
+        © {{ 'now' | date: '%Y' }}
+        {{ shop.name | escape }}. {{ section.settings.copyright_note | escape }}
+      {% endif %}
+    </p>
+    {% if section.settings.show_payments %}
+      <ul class="optica-footer__payments" role="list" aria-label="{{ 'blocks.payment_methods' | t }}">
+        {% for type in shop.enabled_payment_types %}
+          <li class="optica-footer__pay-item">{{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .optica-footer__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--padding-2xl);
+
+    @media screen and (min-width: 750px) {
+      grid-template-columns: 1.2fr repeat(3, 1fr);
+      gap: var(--padding-xl);
+      align-items: start;
+    }
+  }
+
+  .optica-footer__brand-title {
+    font-family: var(--font-heading--family);
+    font-size: 1.35rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 var(--padding-sm);
+  }
+
+  .optica-footer__brand-text {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text, 0.82));
+    max-width: 28rem;
+  }
+
+  .optica-footer__heading {
+    margin: 0 0 var(--padding-md);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-foreground-heading, var(--color-foreground));
+  }
+
+  .optica-footer__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-xs);
+  }
+
+  .optica-footer__links a {
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text, 0.88));
+  }
+
+  .optica-footer__links a:hover {
+    color: var(--color-primary);
+  }
+
+  .optica-footer__bar {
+    margin-top: var(--padding-2xl);
+    padding-top: var(--padding-lg);
+    border-top: 1px solid color-mix(in srgb, var(--color-primary) 22%, var(--color-background));
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-md);
+    align-items: center;
+    text-align: center;
+
+    @media screen and (min-width: 750px) {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+
+  .optica-footer__copy {
+    margin: 0;
+    font-size: 0.78rem;
+    opacity: 0.72;
+  }
+
+  .optica-footer__payments {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .optica-footer__pay-item {
+    display: flex;
+    width: 36px;
+    height: 24px;
+  }
+
+  .optica-footer__pay-item .icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "OPTICA footer columns",
+  "tag": "section",
+  "class": "optica-footer-section",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_title",
+      "label": "Brand title",
+      "default": "OPTICA"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_text",
+      "label": "Brand description",
+      "default": "Curated eyewear and Swiss watches with salon-level fittings and concierge support."
+    },
+    {
+      "type": "header",
+      "content": "Menus"
+    },
+    {
+      "type": "text",
+      "id": "menu_shop_heading",
+      "label": "Shop column heading",
+      "default": "Shop"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_shop",
+      "label": "Shop menu"
+    },
+    {
+      "type": "text",
+      "id": "menu_support_heading",
+      "label": "Support heading",
+      "default": "Support"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_support",
+      "label": "Support menu"
+    },
+    {
+      "type": "text",
+      "id": "menu_company_heading",
+      "label": "Company heading",
+      "default": "Company"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_company",
+      "label": "Company menu"
+    },
+    {
+      "type": "header",
+      "content": "Bottom bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_copyright",
+      "label": "Show copyright",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "copyright_note",
+      "label": "Copyright note",
+      "default": "All rights reserved."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payments",
+      "label": "Show payment icons",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    }
+  ],
+  "presets": [
+    {
+      "name": "OPTICA footer columns"
+    }
+  ]
+}
+{% endschema %}
