@@ -441,7 +441,7 @@
         "placeholder": "Email address",
         "button_label": "Subscribe",
         "section_width": "page-width",
-        "color_scheme": "scheme-2",
+        "color_scheme": "scheme-1",
         "padding-block-start": 64,
         "padding-block-end": 72
       }
