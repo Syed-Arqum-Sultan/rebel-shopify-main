@@ -12,7 +12,7 @@
     "optica_split_hero": {
       "type": "optica-split-hero",
       "custom_css": [
-        "/* .optica-split-hero__watermark {right: 2px;} */"
+        ".optica-split-hero__watermark {right: 2px;}"
       ],
       "settings": {
         "heading": "<h1>  See the World in <em>Style</em></h1>",
