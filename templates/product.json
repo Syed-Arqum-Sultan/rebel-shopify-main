@@ -68,6 +68,39 @@
             "padding-inline-end": 0
           },
           "blocks": {
+            "product_inventory_dbgGgb": {
+              "type": "product-inventory",
+              "name": "t:names.product_inventory",
+              "settings": {
+                "inventory_threshold": 10,
+                "show_inventory_quantity": true,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "sku_MEtdgp": {
+              "type": "sku",
+              "name": "t:names.product_sku",
+              "settings": {
+                "type_preset": "",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "group_icgrde": {
               "type": "group",
               "name": "Header",
@@ -226,7 +259,6 @@
               "blocks": {
                 "quantity": {
                   "type": "quantity",
-                  "disabled": true,
                   "static": true,
                   "settings": {},
                   "blocks": {}
@@ -241,7 +273,6 @@
                 },
                 "accelerated-checkout": {
                   "type": "accelerated-checkout",
-                  "disabled": true,
                   "static": true,
                   "settings": {},
                   "blocks": {}
@@ -253,7 +284,7 @@
               "type": "text",
               "name": "Product description",
               "settings": {
-                "text": "<p>{{ closest.product.description }}</p>",
+                "text": "{{ closest.product.description }}",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -277,6 +308,8 @@
             }
           },
           "block_order": [
+            "product_inventory_dbgGgb",
+            "sku_MEtdgp",
             "group_icgrde",
             "divider_VJhene",
             "variant_picker_R3rGDr",
@@ -422,8 +455,8 @@
       ],
       "name": "t:names.product_recommendations",
       "settings": {
-        "product": "{{ closest.product }}",
-        "recommendation_type": "complementary",
+        "product": "watches-example-product-4",
+        "recommendation_type": "related",
         "layout_type": "grid",
         "carousel_on_mobile": false,
         "max_products": 6,
@@ -439,10 +472,62 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "atelier_trust_features_rEhnMG": {
+      "type": "atelier-trust-features",
+      "blocks": {
+        "feature_GfHcJY": {
+          "type": "feature",
+          "settings": {
+            "icon": "uv",
+            "title": "UV protection",
+            "text": "Lenses rated to help shield your eyes outdoors."
+          }
+        },
+        "feature_dTfkzY": {
+          "type": "feature",
+          "settings": {
+            "icon": "swiss",
+            "title": "Swiss movement",
+            "text": "Timepieces powered by precision Swiss calibres."
+          }
+        },
+        "feature_Xh4NU3": {
+          "type": "feature",
+          "settings": {
+            "icon": "shipping",
+            "title": "Complimentary shipping",
+            "text": "Tracked delivery on qualifying orders worldwide."
+          }
+        },
+        "feature_PzkY8E": {
+          "type": "feature",
+          "settings": {
+            "icon": "warranty",
+            "title": "2-year warranty",
+            "text": "Manufacturer-backed care on eligible pieces."
+          }
+        }
+      },
+      "block_order": [
+        "feature_GfHcJY",
+        "feature_dTfkzY",
+        "feature_Xh4NU3",
+        "feature_PzkY8E"
+      ],
+      "name": "Atelier trust features",
+      "settings": {
+        "heading": "Why choose us",
+        "section_width": "page-width",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 64,
+        "padding-block-end": 64
+      }
     }
   },
   "order": [
     "main",
-    "product_recommendations_qggXJq"
+    "product_recommendations_qggXJq",
+    "atelier_trust_features_rEhnMG"
   ]
 }
