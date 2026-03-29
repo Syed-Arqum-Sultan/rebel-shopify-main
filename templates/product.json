@@ -72,7 +72,7 @@
               "type": "sku",
               "name": "t:names.product_sku",
               "settings": {
-                "type_preset": "",
+                "type_preset": "custom",
                 "width": "100%",
                 "alignment": "left",
                 "font": "var(--font-body--family)",
@@ -194,19 +194,6 @@
               },
               "blocks": {}
             },
-            "variant_picker_R3rGDr": {
-              "type": "variant-picker",
-              "settings": {
-                "variant_style": "buttons",
-                "show_swatches": true,
-                "alignment": "left",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
             "atelier_lens_mK9p": {
               "type": "atelier-lens-select",
               "settings": {
@@ -298,7 +285,6 @@
             "sku_MEtdgp",
             "group_icgrde",
             "divider_VJhene",
-            "variant_picker_R3rGDr",
             "atelier_lens_mK9p",
             "atelier_frame_gT2n",
             "buy_buttons_eYQEYi",
