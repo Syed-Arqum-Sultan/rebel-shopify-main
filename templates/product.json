@@ -16,8 +16,8 @@
           "type": "_product-media-gallery",
           "static": true,
           "settings": {
-            "media_presentation": "grid",
-            "media_columns": "two",
+            "media_presentation": "carousel",
+            "media_columns": "one",
             "image_gap": 4,
             "large_first_image": false,
             "icons_style": "none",
@@ -26,14 +26,14 @@
             "thumbnail_position": "right",
             "thumbnail_width": 44,
             "thumbnail_radius": 0,
-            "aspect_ratio": "adapt",
+            "aspect_ratio": "1/1.25",
             "constrain_to_viewport": true,
             "media_fit": "cover",
             "media_radius": 0,
             "extend_media": false,
             "zoom": true,
             "video_loop": false,
-            "hide_variants": true,
+            "hide_variants": false,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -298,6 +298,16 @@
         "padding-block-end": 0
       }
     },
+    "optica_product_breadcrumbs_wrUVrV": {
+      "type": "optica-product-breadcrumbs",
+      "name": "OPTICA breadcrumbs",
+      "settings": {
+        "section_width": "page-width",
+        "color_scheme": "",
+        "padding-block-start": 12,
+        "padding-block-end": 12
+      }
+    },
     "product_recommendations_qggXJq": {
       "type": "product-recommendations",
       "blocks": {
@@ -552,6 +562,7 @@
   },
   "order": [
     "main",
+    "optica_product_breadcrumbs_wrUVrV",
     "product_recommendations_qggXJq",
     "atelier_trust_features_rEhnMG",
     "atelier_ugc_grid_P8CWmR"
