@@ -495,11 +495,71 @@
         "padding-block-start": 64,
         "padding-block-end": 64
       }
+    },
+    "atelier_ugc_grid_P8CWmR": {
+      "type": "atelier-ugc-grid",
+      "blocks": {
+        "photo_WQeg9j": {
+          "type": "photo",
+          "settings": {
+            "link": ""
+          }
+        },
+        "photo_KPFCec": {
+          "type": "photo",
+          "settings": {
+            "link": ""
+          }
+        },
+        "photo_G8K9J6": {
+          "type": "photo",
+          "settings": {
+            "link": ""
+          }
+        },
+        "photo_MhNbaC": {
+          "type": "photo",
+          "settings": {
+            "link": ""
+          }
+        },
+        "photo_xE98bT": {
+          "type": "photo",
+          "settings": {
+            "link": ""
+          }
+        },
+        "photo_c3CEMm": {
+          "type": "photo",
+          "settings": {
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "photo_WQeg9j",
+        "photo_KPFCec",
+        "photo_G8K9J6",
+        "photo_MhNbaC",
+        "photo_xE98bT",
+        "photo_c3CEMm"
+      ],
+      "disabled": true,
+      "name": "Atelier UGC grid",
+      "settings": {
+        "heading": "From our community",
+        "subheading": "Tag us @youratelier for a chance to be featured.",
+        "section_width": "full-width",
+        "color_scheme": "",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
     }
   },
   "order": [
     "main",
     "product_recommendations_qggXJq",
-    "atelier_trust_features_rEhnMG"
+    "atelier_trust_features_rEhnMG",
+    "atelier_ugc_grid_P8CWmR"
   ]
 }
