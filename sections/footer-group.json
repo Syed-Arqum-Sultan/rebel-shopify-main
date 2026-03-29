@@ -11,6 +11,55 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
+    "optica_trust_bar_XF8deG": {
+      "type": "optica-trust-bar",
+      "blocks": {
+        "trust_item_NmYHdr": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "warranty",
+            "title": "2-Year Warranty",
+            "subtitle": ""
+          }
+        },
+        "trust_item_3cEban": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "shipping",
+            "title": "Free Shipping",
+            "subtitle": ""
+          }
+        },
+        "trust_item_KKhEb9": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "uv",
+            "title": "UV400 Lenses",
+            "subtitle": ""
+          }
+        },
+        "trust_item_AK4zEz": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "exchange",
+            "title": "30-Day Exchange",
+            "subtitle": ""
+          }
+        }
+      },
+      "block_order": [
+        "trust_item_NmYHdr",
+        "trust_item_3cEban",
+        "trust_item_KKhEb9",
+        "trust_item_AK4zEz"
+      ],
+      "name": "OPTICA trust bar",
+      "settings": {
+        "color_scheme": "",
+        "padding-block-start": 12,
+        "padding-block-end": 12
+      }
+    },
     "optica_footer_main": {
       "type": "optica-footer-columns",
       "settings": {
@@ -33,6 +82,7 @@
     }
   },
   "order": [
+    "optica_trust_bar_XF8deG",
     "optica_footer_main"
   ]
 }

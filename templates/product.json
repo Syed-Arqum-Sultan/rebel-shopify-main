@@ -54,7 +54,7 @@
             "gap": 28,
             "sticky_details_desktop": true,
             "inherit_color_scheme": true,
-            "color_scheme": "scheme-1",
+            "color_scheme": "scheme-4",
             "background_media": "none",
             "video_position": "cover",
             "background_image_position": "cover",
@@ -189,6 +189,7 @@
             },
             "atelier_lens_mK9p": {
               "type": "atelier-lens-select",
+              "disabled": true,
               "settings": {
                 "heading": "Lens type",
                 "description": "Select lens finishing for eyewear. Skip for watches.",
