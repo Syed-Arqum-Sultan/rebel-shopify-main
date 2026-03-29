@@ -68,23 +68,16 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "sku_MEtdgp": {
-              "type": "sku",
-              "name": "t:names.product_sku",
+            "review_9BDtyT": {
+              "type": "review",
+              "name": "t:names.product_review_stars",
               "settings": {
-                "type_preset": "custom",
+                "stars_style": "shaded",
+                "show_number": true,
+                "rating_color": "primary",
+                "type_preset": "paragraph",
                 "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "color": "var(--color-foreground)",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "alignment": "left"
               },
               "blocks": {}
             },
@@ -282,7 +275,7 @@
             }
           },
           "block_order": [
-            "sku_MEtdgp",
+            "review_9BDtyT",
             "group_icgrde",
             "divider_VJhene",
             "atelier_lens_mK9p",
