@@ -28,7 +28,9 @@
           "blocks": {}
         }
       },
-      "block_order": ["announcement_cXDVCA"],
+      "block_order": [
+        "announcement_cXDVCA"
+      ],
       "name": "t:names.announcement_bar",
       "settings": {
         "speed": 5,
@@ -59,7 +61,7 @@
           "static": true,
           "settings": {
             "menu": "main-menu",
-            "color_scheme": "",
+            "color_scheme": "scheme-1",
             "type_font_primary_size": "var(--font-size--body-sm)",
             "menu_font_style": "inverse",
             "type_font_primary_link": "primary",
@@ -81,12 +83,15 @@
         "logo_position": "center",
         "menu_position": "center",
         "menu_row": "bottom",
+        "customer_account_menu": "customer-account-main-menu",
         "show_search": true,
         "search_position": "right",
         "search_row": "top",
         "show_country": true,
         "country_selector_style": false,
         "show_language": true,
+        "localization_font": "heading",
+        "localization_font_size": "1rem",
         "localization_position": "right",
         "localization_row": "top",
         "section_width": "full-width",
@@ -95,6 +100,10 @@
         "divider_width": 0,
         "divider_size": "page-width",
         "border_width": 0,
+        "actions_display_style": "text",
+        "actions_font_size": "0.75rem",
+        "actions_font": "heading",
+        "actions_text_case": "uppercase",
         "color_scheme_top": "scheme-1",
         "color_scheme_bottom": "scheme-1",
         "color_scheme_transparent": "scheme-6",
@@ -103,13 +112,12 @@
         "enable_transparent_header_product": false,
         "product_color_scheme": "default",
         "enable_transparent_header_collection": false,
-        "collection_color_scheme": "default",
-        "actions_display_style": "text",
-        "actions_font_size": "0.75rem",
-        "actions_font": "heading",
-        "actions_text_case": "uppercase"
+        "collection_color_scheme": "default"
       }
     }
   },
-  "order": ["header_announcements_QTBwtW", "header_section"]
+  "order": [
+    "header_announcements_QTBwtW",
+    "header_section"
+  ]
 }
