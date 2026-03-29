@@ -1,1 +1,448 @@
-{"sections":{"optica_product_breadcrumbs":{"type":"optica-product-breadcrumbs","settings":{"section_width":"page-width","color_scheme":"scheme-1","padding-block-start":12,"padding-block-end":12}},"main":{"type":"product-information","blocks":{"media-gallery":{"type":"_product-media-gallery","static":true,"settings":{"media_presentation":"carousel","media_columns":"one","image_gap":0,"large_first_image":false,"icons_style":"arrow","slideshow_controls_style":"thumbnails","slideshow_mobile_controls_style":"thumbnails","thumbnail_position":"bottom","thumbnail_width":64,"thumbnail_radius":0,"aspect_ratio":"1","constrain_to_viewport":true,"media_fit":"contain","media_radius":0,"extend_media":false,"zoom":true,"video_loop":false,"hide_variants":true,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"product-details":{"type":"_product-details","static":true,"settings":{"width":"fill","custom_width":100,"width_mobile":"fill","custom_width_mobile":100,"height":"fit","details_position":"flex-start","gap":28,"sticky_details_desktop":true,"inherit_color_scheme":true,"color_scheme":"scheme-1","background_media":"none","video_position":"cover","background_image_position":"cover","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"padding-block-start":24,"padding-block-end":24,"padding-inline-start":0,"padding-inline-end":0},"blocks":{"optica_badges":{"type":"optica-product-badges","settings":{"new_product_tag":"new","new_label":"NEW ARRIVAL","in_stock_label":"IN STOCK"},"blocks":{}},"text_vendor":{"type":"text","name":"Brand","settings":{"width":"100%","max_width":"normal","alignment":"left","font":"var(--font-primary--family)","font_size":"","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0,"text":"<p class=\"optica-pdp-vendor\">{{ closest.product.vendor }}</p>","type_preset":"paragraph"},"blocks":{}},"text_title":{"type":"text","name":"Product title","settings":{"width":"100%","max_width":"normal","alignment":"left","font":"var(--font-primary--family)","font_size":"","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0,"text":"<h1>{{ closest.product.title }}</h1>","type_preset":"h3"},"blocks":{}},"group_meta":{"type":"group","name":"SKU and reviews","settings":{"vertical_on_mobile":false,"align_baseline":false,"width":"fill","custom_width":100,"width_mobile":"fill","custom_width_mobile":100,"height":"fit","custom_height":100,"inherit_color_scheme":true,"color_scheme":"","background_media":"none","video_position":"cover","background_image_position":"cover","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"toggle_overlay":false,"overlay_color":"#00000026","overlay_style":"solid","gradient_direction":"to top","link":"","open_in_new_tab":false,"placeholder":"","padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0,"content_direction":"row","horizontal_alignment":"flex-start","vertical_alignment":"center","horizontal_alignment_flex_direction_column":"flex-start","vertical_alignment_flex_direction_column":"center","gap":16},"blocks":{"sku_meta":{"type":"sku","settings":{"type_preset":"paragraph","width":"fit-content","max_width":"normal","alignment":"left","color":"var(--color-foreground)","padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"review_meta":{"type":"review","settings":{"stars_style":"shaded","show_number":true,"rating_color":"primary","type_preset":"paragraph","width":"fit-content","alignment":"left","padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}}},"block_order":["sku_meta","review_meta"]},"group_price":{"type":"group","name":"Price","settings":{"vertical_on_mobile":false,"align_baseline":false,"width":"fill","custom_width":100,"width_mobile":"fill","custom_width_mobile":100,"height":"fit","custom_height":100,"inherit_color_scheme":true,"color_scheme":"","background_media":"none","video_position":"cover","background_image_position":"cover","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"toggle_overlay":false,"overlay_color":"#00000026","overlay_style":"solid","gradient_direction":"to top","link":"","open_in_new_tab":false,"placeholder":"","padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0,"content_direction":"row","horizontal_alignment":"flex-start","vertical_alignment":"baseline","gap":12},"blocks":{"price_main":{"type":"price","settings":{"show_sale_price_first":true,"show_installments":false,"show_tax_info":false,"type_preset":"paragraph","width":"fit-content","alignment":"left","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","color":"var(--color-foreground)","padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"save_badge":{"type":"optica-savings-badge","settings":{"prefix":"SAVE"},"blocks":{}}},"block_order":["price_main","save_badge"]},"variant_picker_R3rGDr":{"type":"variant-picker","settings":{"variant_style":"buttons","show_swatches":true,"alignment":"left","padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"atelier_lens_mK9p":{"type":"atelier-lens-select","settings":{"heading":"Lens type","description":"Select lens finishing for eyewear. Skip for watches.","property_key":"Lens type","options":"Demo / display lenses\nSingle vision\nProgressive\nBlue-light filter\nPolarized sun","placeholder":"Select a lens type","required":false,"padding-block-start":0,"padding-block-end":4},"blocks":{}},"atelier_frame_gT2n":{"type":"atelier-frame-guide","settings":{"trigger_label":"SIZE GUIDE","heading":"Find your fit","body":"<p>Measure lens width and bridge, or visit us for a bespoke fitting. Narrow: under 130mm width · Medium: 130–139mm · Wide: 140mm+.</p>","padding-block-start":0,"padding-block-end":8},"blocks":{}},"group_atc_outer":{"type":"group","name":"Purchase","settings":{"vertical_on_mobile":true,"align_baseline":false,"width":"fill","custom_width":100,"width_mobile":"fill","custom_width_mobile":100,"height":"fit","custom_height":100,"inherit_color_scheme":true,"color_scheme":"","background_media":"none","video_position":"cover","background_image_position":"cover","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"toggle_overlay":false,"overlay_color":"#00000026","overlay_style":"solid","gradient_direction":"to top","link":"","open_in_new_tab":false,"placeholder":"","padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0,"content_direction":"column","gap":12},"blocks":{"product_inventory_blk":{"type":"product-inventory","settings":{"inventory_threshold":10,"show_inventory_quantity":true,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"group_atc_row":{"type":"group","name":"Add to cart row","settings":{"vertical_on_mobile":false,"align_baseline":false,"width":"fill","custom_width":100,"width_mobile":"fill","custom_width_mobile":100,"height":"fit","custom_height":100,"inherit_color_scheme":true,"color_scheme":"","background_media":"none","video_position":"cover","background_image_position":"cover","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"toggle_overlay":false,"overlay_color":"#00000026","overlay_style":"solid","gradient_direction":"to top","link":"","open_in_new_tab":false,"placeholder":"","padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0,"content_direction":"row","horizontal_alignment":"flex-start","vertical_alignment":"stretch","gap":12},"blocks":{"buy_buttons_eYQEYi":{"type":"buy-buttons","settings":{"stacking":false,"show_pickup_availability":false,"gift_card_form":false,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{"quantity":{"type":"quantity","disabled":false,"static":true,"settings":{},"blocks":{}},"add-to-cart":{"type":"add-to-cart","static":true,"settings":{"style_class":"button"},"blocks":{}},"accelerated-checkout":{"type":"accelerated-checkout","disabled":true,"static":true,"settings":{},"blocks":{}}},"block_order":["quantity","add-to-cart","accelerated-checkout"]},"wishlist_blk":{"type":"optica-wishlist-button","settings":{"link":"/pages/wishlist","label":"Add to wishlist","open_in_new_tab":false},"blocks":{}}},"block_order":["buy_buttons_eYQEYi","wishlist_blk"]}},"block_order":["product_inventory_blk","group_atc_row"]},"accordion_pdp":{"type":"accordion","name":"Product information","settings":{"icon":"plus","dividers":true,"type_preset":"h6","inherit_color_scheme":true,"border":"solid","border_width":1,"border_opacity":100,"border_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{"acc_row1":{"type":"_accordion-row","settings":{"heading":"PRODUCT DETAILS","open_by_default":false,"icon":"none"},"blocks":{"acc_pd_desc":{"type":"product-description","settings":{"text":"{{ closest.product.description }}","width":"100%","max_width":"normal","alignment":"left","type_preset":"rte","font":"var(--font-body--family)","font_size":"","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}}},"block_order":["acc_pd_desc"]},"acc_row2":{"type":"_accordion-row","settings":{"heading":"SHIPPING & RETURNS","open_by_default":false,"icon":"none"},"blocks":{"acc_ship":{"type":"text","settings":{"width":"100%","max_width":"normal","alignment":"left","font":"var(--font-primary--family)","font_size":"","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0,"text":"<p>We ship nationwide with insured delivery. Returns accepted within 14 days in original condition. Update this text in the theme editor.</p>","type_preset":"rte"},"blocks":{}}},"block_order":["acc_ship"]},"acc_row3":{"type":"_accordion-row","settings":{"heading":"AUTHENTICITY GUARANTEE","open_by_default":false,"icon":"none"},"blocks":{"acc_auth":{"type":"text","settings":{"width":"100%","max_width":"normal","alignment":"left","font":"var(--font-primary--family)","font_size":"","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0,"text":"<p>Every frame and timepiece is sourced through authorized distributors. Serial numbers and warranty cards ship with your order.</p>","type_preset":"rte"},"blocks":{}}},"block_order":["acc_auth"]}},"block_order":["acc_row1","acc_row2","acc_row3"]}},"block_order":["optica_badges","text_vendor","text_title","group_meta","group_price","variant_picker_R3rGDr","atelier_lens_mK9p","atelier_frame_gT2n","group_atc_outer","accordion_pdp"]}},"settings":{"content_width":"content-center-aligned","desktop_media_position":"left","equal_columns":false,"limit_details_width":false,"gap":48,"enable_sticky_add_to_cart":true,"color_scheme":"","padding-block-start":0,"padding-block-end":0}},"product_recommendations_qggXJq":{"type":"product-recommendations","blocks":{"group_rec_head":{"type":"group","name":"Section header","settings":{"vertical_on_mobile":false,"align_baseline":false,"width":"fill","custom_width":100,"width_mobile":"fill","custom_width_mobile":100,"height":"fit","custom_height":100,"inherit_color_scheme":true,"color_scheme":"","background_media":"none","video_position":"cover","background_image_position":"cover","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"toggle_overlay":false,"overlay_color":"#00000026","overlay_style":"solid","gradient_direction":"to top","link":"","open_in_new_tab":false,"placeholder":"","padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0,"content_direction":"row","horizontal_alignment":"space-between","vertical_alignment":"flex-end","gap":16},"blocks":{"text_rec_head":{"type":"text","name":"Heading","settings":{"width":"fit-content","max_width":"normal","alignment":"left","font":"var(--font-primary--family)","font_size":"","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0,"text":"<div class=\"optica-recos-head\"><p class=\"optica-recos-head__eyebrow\">COMPLETE THE LOOK</p><h2 class=\"optica-recos-head__title\">You May Also Like</h2></div>","type_preset":"rte"},"blocks":{}},"btn_view_all":{"type":"button","settings":{"label":"VIEW ALL","link":"shopify://collections/all","open_in_new_tab":false,"style_class":"link","width":"fit-content","custom_width":100,"width_mobile":"fit-content","custom_width_mobile":100},"blocks":{}}},"block_order":["text_rec_head","btn_view_all"]},"static-product-card":{"type":"_product-card","name":"t:names.product_card","static":true,"settings":{"product_card_gap":8,"inherit_color_scheme":true,"color_scheme":"","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"padding-block-start":0,"padding-block-end":8,"padding-inline-start":0,"padding-inline-end":0},"blocks":{"product_card_gallery_DNizbJ":{"type":"_product-card-gallery","name":"t:names.product_card_media","settings":{"image_ratio":"adapt","border":"none","border_width":1,"border_opacity":100,"border_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"product_title_M7MJkb":{"type":"product-title","name":"t:names.product_title","settings":{"width":"100%","max_width":"normal","alignment":"left","type_preset":"rte","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"var(--color-foreground)","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":4,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"price_gLWgA6":{"type":"price","settings":{"show_sale_price_first":true,"show_installments":false,"show_tax_info":false,"type_preset":"h6","width":"100%","alignment":"left","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","color":"var(--color-foreground)","padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}}},"block_order":["product_card_gallery_DNizbJ","product_title_M7MJkb","price_gLWgA6"]}},"block_order":["group_rec_head"],"name":"t:names.product_recommendations","settings":{"product":"{{ closest.product }}","recommendation_type":"complementary","layout_type":"grid","carousel_on_mobile":false,"max_products":4,"columns":4,"mobile_columns":"2","columns_gap":12,"rows_gap":24,"icons_style":"arrow","icons_shape":"none","section_width":"page-width","gap":28,"color_scheme":"scheme-1","padding-block-start":48,"padding-block-end":48}}},"order":["optica_product_breadcrumbs","main","product_recommendations_qggXJq"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "product-information",
+      "blocks": {
+        "media-gallery": {
+          "type": "_product-media-gallery",
+          "static": true,
+          "settings": {
+            "media_presentation": "grid",
+            "media_columns": "two",
+            "image_gap": 4,
+            "large_first_image": false,
+            "icons_style": "none",
+            "slideshow_controls_style": "counter",
+            "slideshow_mobile_controls_style": "dots",
+            "thumbnail_position": "right",
+            "thumbnail_width": 44,
+            "thumbnail_radius": 0,
+            "aspect_ratio": "adapt",
+            "constrain_to_viewport": true,
+            "media_fit": "contain",
+            "media_radius": 0,
+            "extend_media": false,
+            "zoom": true,
+            "video_loop": false,
+            "hide_variants": true,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "product-details": {
+          "type": "_product-details",
+          "static": true,
+          "settings": {
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "details_position": "flex-start",
+            "gap": 28,
+            "sticky_details_desktop": true,
+            "inherit_color_scheme": true,
+            "color_scheme": "scheme-1",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 24,
+            "padding-block-end": 24,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "group_icgrde": {
+              "type": "group",
+              "name": "Header",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "text_xrnftG": {
+                  "type": "text",
+                  "name": "Product title",
+                  "settings": {
+                    "text": "<h1>{{ closest.product.title }}</h1>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h3",
+                    "font": "var(--font-primary--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "price_tVjtKg": {
+                  "type": "price",
+                  "settings": {
+                    "show_sale_price_first": true,
+                    "show_installments": false,
+                    "show_tax_info": false,
+                    "type_preset": "paragraph",
+                    "width": "100%",
+                    "alignment": "left",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "color": "var(--color-foreground)",
+                    "padding-block-start": 4,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_xrnftG",
+                "price_tVjtKg"
+              ]
+            },
+            "divider_VJhene": {
+              "type": "_divider",
+              "name": "t:names.divider",
+              "settings": {
+                "thickness": 1,
+                "corner_radius": "square",
+                "width_percent": 100,
+                "padding-block-start": 0,
+                "padding-block-end": 0
+              },
+              "blocks": {}
+            },
+            "variant_picker_R3rGDr": {
+              "type": "variant-picker",
+              "settings": {
+                "variant_style": "buttons",
+                "show_swatches": true,
+                "alignment": "left",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "atelier_lens_mK9p": {
+              "type": "atelier-lens-select",
+              "settings": {
+                "heading": "Lens type",
+                "description": "Select lens finishing for eyewear. Skip for watches.",
+                "property_key": "Lens type",
+                "options": "Demo / display lenses\nSingle vision\nProgressive\nBlue-light filter\nPolarized sun",
+                "placeholder": "Select a lens type",
+                "required": false,
+                "padding-block-start": 0,
+                "padding-block-end": 4
+              },
+              "blocks": {}
+            },
+            "atelier_frame_gT2n": {
+              "type": "atelier-frame-guide",
+              "settings": {
+                "trigger_label": "Frame size guide",
+                "heading": "Find your fit",
+                "body": "<p>Measure lens width and bridge, or visit us for a bespoke fitting. Narrow: under 130mm width · Medium: 130–139mm · Wide: 140mm+.</p>",
+                "padding-block-start": 0,
+                "padding-block-end": 8
+              },
+              "blocks": {}
+            },
+            "buy_buttons_eYQEYi": {
+              "type": "buy-buttons",
+              "settings": {
+                "stacking": true,
+                "show_pickup_availability": false,
+                "gift_card_form": true,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "quantity": {
+                  "type": "quantity",
+                  "disabled": true,
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                },
+                "add-to-cart": {
+                  "type": "add-to-cart",
+                  "static": true,
+                  "settings": {
+                    "style_class": "button"
+                  },
+                  "blocks": {}
+                },
+                "accelerated-checkout": {
+                  "type": "accelerated-checkout",
+                  "disabled": true,
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                }
+              },
+              "block_order": []
+            },
+            "text_aEtTtq": {
+              "type": "text",
+              "name": "Product description",
+              "settings": {
+                "text": "<p>{{ closest.product.description }}</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-primary--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "group_icgrde",
+            "divider_VJhene",
+            "variant_picker_R3rGDr",
+            "atelier_lens_mK9p",
+            "atelier_frame_gT2n",
+            "buy_buttons_eYQEYi",
+            "text_aEtTtq"
+          ]
+        }
+      },
+      "settings": {
+        "content_width": "content-center-aligned",
+        "desktop_media_position": "left",
+        "equal_columns": false,
+        "limit_details_width": false,
+        "gap": 48,
+        "enable_sticky_add_to_cart": true,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "product_recommendations_qggXJq": {
+      "type": "product-recommendations",
+      "blocks": {
+        "text_cbcgyb": {
+          "type": "text",
+          "name": "t:names.header",
+          "settings": {
+            "text": "<h3>Complete the look</h3>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h4",
+            "font": "var(--font-primary--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 8,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 8,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_card_gallery_DNizbJ": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "adapt",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_title_M7MJkb": {
+              "type": "product-title",
+              "name": "t:names.product_title",
+              "settings": {
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "price_gLWgA6": {
+              "type": "price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "h6",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_card_gallery_DNizbJ",
+            "product_title_M7MJkb",
+            "price_gLWgA6"
+          ]
+        }
+      },
+      "block_order": [
+        "text_cbcgyb"
+      ],
+      "name": "t:names.product_recommendations",
+      "settings": {
+        "product": "{{ closest.product }}",
+        "recommendation_type": "complementary",
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "max_products": 6,
+        "columns": 3,
+        "mobile_columns": "2",
+        "columns_gap": 12,
+        "rows_gap": 24,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "gap": 28,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    }
+  },
+  "order": [
+    "main",
+    "product_recommendations_qggXJq"
+  ]
+}
