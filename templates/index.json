@@ -422,7 +422,7 @@
           "settings": {
             "product_card_gap": 8,
             "inherit_color_scheme": true,
-            "color_scheme": "",
+            "color_scheme": "scheme-1",
             "border": "solid",
             "border_width": 1,
             "border_opacity": 25,
@@ -482,7 +482,7 @@
                 "show_installments": false,
                 "show_tax_info": false,
                 "type_preset": "paragraph",
-                "width": "100%",
+                "width": "fit-content",
                 "alignment": "left",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
