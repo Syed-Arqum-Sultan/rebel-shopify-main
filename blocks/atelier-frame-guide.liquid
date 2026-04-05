@@ -4,7 +4,7 @@
 -%}
 
 <div
-  class="atelier-frame-guide spacing-style"
+  class="atelier-frame-guide spacing-style{% unless block.settings.inherit_color_scheme %} color-{{ block.settings.color_scheme }}{% endunless %}"
   style="{% render 'spacing-style', settings: block.settings %}"
   {{ block.shopify_attributes }}
 >
@@ -170,6 +170,23 @@
       "id": "body",
       "label": "Guide content",
       "default": "<p>Measure your favorite frames or use our chart: narrow (below 130mm), medium (130–139mm), wide (140mm+). Our opticians can help finalize lens height and bridge fit.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "checkbox",
+      "id": "inherit_color_scheme",
+      "label": "Inherit color scheme",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1",
+      "visible_if": "{{ block.settings.inherit_color_scheme == false }}"
     },
     {
       "type": "header",

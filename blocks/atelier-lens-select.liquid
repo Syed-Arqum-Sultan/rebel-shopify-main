@@ -7,7 +7,7 @@
 -%}
 
 <div
-  class="atelier-lens-select spacing-style"
+  class="atelier-lens-select spacing-style{% unless block.settings.inherit_color_scheme %} color-{{ block.settings.color_scheme }}{% endunless %}"
   style="{% render 'spacing-style', settings: block.settings %}"
   {{ block.shopify_attributes }}
 >
@@ -130,6 +130,23 @@
       "id": "required",
       "label": "Required before add to cart",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "checkbox",
+      "id": "inherit_color_scheme",
+      "label": "Inherit color scheme",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1",
+      "visible_if": "{{ block.settings.inherit_color_scheme == false }}"
     },
     {
       "type": "header",

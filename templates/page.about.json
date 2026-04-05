@@ -1,0 +1,84 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */{
+  "sections": {
+    "about": {
+      "type": "optica-about",
+      "blocks": {
+        "value_1": {
+          "type": "value",
+          "settings": {
+            "icon": "◆",
+            "title": "Heritage Craft",
+            "text": "Every piece is hand-finished by artisans with decades of expertise in their craft."
+          }
+        },
+        "value_2": {
+          "type": "value",
+          "settings": {
+            "icon": "⟡",
+            "title": "Direct Partnership",
+            "text": "We work directly with ateliers — no middlemen, no inflated pricing, just honest luxury."
+          }
+        },
+        "value_3": {
+          "type": "value",
+          "settings": {
+            "icon": "◎",
+            "title": "Optical Precision",
+            "text": "UV400 lenses, Swiss movements, and rigorous quality checks on every single piece."
+          }
+        },
+        "value_4": {
+          "type": "value",
+          "settings": {
+            "icon": "♛",
+            "title": "Concierge Service",
+            "text": "Our team treats every order with the care and attention of a private fitting."
+          }
+        }
+      },
+      "block_order": [
+        "value_1",
+        "value_2",
+        "value_3",
+        "value_4"
+      ],
+      "settings": {
+        "heading": "About OPTICA",
+        "subtext": "We believe eyewear and timepieces are more than accessories — they're an expression of identity, precision, and craftsmanship.",
+        "story_heading": "Our Story",
+        "story_body": "<p>Founded with a simple conviction: everyone deserves access to exquisitely crafted eyewear and timepieces without the traditional luxury markup. We partner directly with heritage ateliers across Italy, Japan, and Switzerland to bring you pieces that rival any maison — at a fraction of the price.</p><p>Every frame is hand-finished, every movement Swiss-certified, and every interaction backed by our concierge team who treat your order like their own.</p>",
+        "values_heading": "What We Stand For",
+        "statement": "Precision in every detail. Integrity in every interaction. Beauty in every piece.",
+        "section_width": "page-width",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 72,
+        "padding-block-end": 72
+      }
+    },
+    "newsletter": {
+      "type": "atelier-newsletter",
+      "settings": {
+        "heading": "Join the atelier list",
+        "text": "Early access to drops, private fittings, and editorial notes on craft.",
+        "placeholder": "Email address",
+        "button_label": "Subscribe",
+        "section_width": "page-width",
+        "color_scheme": "scheme-2",
+        "padding-block-start": 72,
+        "padding-block-end": 80
+      }
+    }
+  },
+  "order": [
+    "about",
+    "newsletter"
+  ]
+}

@@ -14,7 +14,7 @@
 %}
 
 {% if show %}
-  <span class="optica-pdp-save" {{ block.shopify_attributes }}>{{ block.settings.prefix | escape }} {{ pct }}%</span>
+  <span class="optica-pdp-save{% unless block.settings.inherit_color_scheme %} color-{{ block.settings.color_scheme }}{% endunless %}" {{ block.shopify_attributes }}>{{ block.settings.prefix | escape }} {{ pct }}%</span>
 {% endif %}
 
 {% schema %}
@@ -22,6 +22,19 @@
   "name": "OPTICA savings badge",
   "tag": null,
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "inherit_color_scheme",
+      "label": "Inherit color scheme",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1",
+      "visible_if": "{{ block.settings.inherit_color_scheme == false }}"
+    },
     {
       "type": "text",
       "id": "prefix",

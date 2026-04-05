@@ -15,7 +15,7 @@
   endif
 %}
 
-<div class="optica-pdp-badges" {{ block.shopify_attributes }}>
+<div class="optica-pdp-badges{% unless block.settings.inherit_color_scheme %} color-{{ block.settings.color_scheme }}{% endunless %}" {{ block.shopify_attributes }}>
   {% if show_new %}
     <span class="optica-pdp-badges__item optica-pdp-badges__item--new">{{ block.settings.new_label | escape }}</span>
   {% endif %}
@@ -29,6 +29,19 @@
   "name": "OPTICA product badges",
   "tag": null,
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "inherit_color_scheme",
+      "label": "Inherit color scheme",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1",
+      "visible_if": "{{ block.settings.inherit_color_scheme == false }}"
+    },
     {
       "type": "text",
       "id": "new_product_tag",

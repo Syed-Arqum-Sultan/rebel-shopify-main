@@ -37,7 +37,12 @@
               <div class="atelier-cat__placeholder"></div>
             {% endif %}
           </div>
-          <span class="atelier-cat__label">{{ block.settings.title | escape }}</span>
+          <div class="atelier-cat__overlay">
+            <span class="atelier-cat__label">{{ block.settings.title | escape }}</span>
+            {% if block.settings.subtitle != blank %}
+              <span class="atelier-cat__subtitle">{{ block.settings.subtitle | escape }}</span>
+            {% endif %}
+          </div>
         </a>
       </li>
     {% endfor %}
@@ -68,6 +73,7 @@
 
   .atelier-cat__link {
     display: block;
+    position: relative;
     text-decoration: none;
     color: inherit;
   }
@@ -106,13 +112,36 @@
     );
   }
 
+  .atelier-cat__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: var(--padding-lg) var(--padding-md);
+    background: linear-gradient(to top, rgb(var(--color-background-rgb, 0 0 0) / 0.7) 0%, transparent 50%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
   .atelier-cat__label {
     display: block;
-    margin-top: var(--padding-md);
     text-align: center;
     font-family: var(--font-heading--family);
     font-size: var(--font-h5--size);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-foreground);
+  }
+
+  .atelier-cat__subtitle {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
   }
 {% endstylesheet %}
 
@@ -193,6 +222,12 @@
           "type": "image_picker",
           "id": "image",
           "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "info": "Optional text shown below the category title on the tile overlay."
         }
       ]
     }

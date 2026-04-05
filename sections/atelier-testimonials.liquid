@@ -7,59 +7,84 @@
     <h2 class="atelier-testimonials__title">{{ section.settings.heading | escape }}</h2>
   {% endif %}
 
-  <div class="atelier-testimonials__wrap">
-    <button
-      type="button"
-      class="atelier-testimonials__nav atelier-testimonials__nav--prev"
-      aria-label="{{ 'accessibility.slideshow_previous' | t }}"
-      data-testimonials-prev
-    >
-      <span class="svg-wrapper">{{ 'icon-chevron-left.svg' | inline_asset_content }}</span>
-    </button>
+  {% assign layout = section.settings.layout | default: 'grid' %}
 
-    <div
-      class="atelier-testimonials__track"
-      data-testimonials-track
-      tabindex="0"
-      role="region"
-      aria-roledescription="carousel"
-      aria-label="{{ section.settings.heading | default: 'Testimonials' | escape }}"
-    >
-      <ul class="atelier-testimonials__list">
-        {% for block in section.blocks %}
-          <li
-            class="atelier-testimonials__slide"
-            data-testimonials-slide
-            {{ block.shopify_attributes }}
-          >
-            <div class="atelier-testimonials__stars" aria-hidden="true">
-              {% assign r = block.settings.rating | default: 5 | at_most: 5 | at_least: 1 %}
-              {% for i in (1..r) %}
-                <span class="atelier-testimonials__star">★</span>
-              {% endfor %}
-            </div>
-            {% if block.settings.quote != blank %}
-              <blockquote class="atelier-testimonials__quote">
-                {{ block.settings.quote | escape }}
-              </blockquote>
-            {% endif %}
-            {% if block.settings.author != blank %}
-              <cite class="atelier-testimonials__author">{{ block.settings.author | escape }}</cite>
-            {% endif %}
-          </li>
-        {% endfor %}
-      </ul>
+  {% if layout == 'carousel' %}
+    <div class="atelier-testimonials__wrap">
+      <button
+        type="button"
+        class="atelier-testimonials__nav atelier-testimonials__nav--prev"
+        aria-label="{{ 'accessibility.slideshow_previous' | t }}"
+        data-testimonials-prev
+      >
+        <span class="svg-wrapper">{{ 'icon-chevron-left.svg' | inline_asset_content }}</span>
+      </button>
+
+      <div
+        class="atelier-testimonials__track"
+        data-testimonials-track
+        tabindex="0"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="{{ section.settings.heading | default: 'Testimonials' | escape }}"
+      >
+        <ul class="atelier-testimonials__list">
+          {% for block in section.blocks %}
+            <li
+              class="atelier-testimonials__slide"
+              data-testimonials-slide
+              {{ block.shopify_attributes }}
+            >
+              <div class="atelier-testimonials__stars" aria-hidden="true">
+                {% assign r = block.settings.rating | default: 5 | at_most: 5 | at_least: 1 %}
+                {% for i in (1..r) %}
+                  <span class="atelier-testimonials__star">★</span>
+                {% endfor %}
+              </div>
+              {% if block.settings.quote != blank %}
+                <blockquote class="atelier-testimonials__quote">
+                  {{ block.settings.quote | escape }}
+                </blockquote>
+              {% endif %}
+              {% if block.settings.author != blank %}
+                <cite class="atelier-testimonials__author">{{ block.settings.author | escape }}</cite>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <button
+        type="button"
+        class="atelier-testimonials__nav atelier-testimonials__nav--next"
+        aria-label="{{ 'accessibility.slideshow_next' | t }}"
+        data-testimonials-next
+      >
+        <span class="svg-wrapper">{{ 'icon-chevron-right.svg' | inline_asset_content }}</span>
+      </button>
     </div>
-
-    <button
-      type="button"
-      class="atelier-testimonials__nav atelier-testimonials__nav--next"
-      aria-label="{{ 'accessibility.slideshow_next' | t }}"
-      data-testimonials-next
-    >
-      <span class="svg-wrapper">{{ 'icon-chevron-right.svg' | inline_asset_content }}</span>
-    </button>
-  </div>
+  {% else %}
+    <ul class="atelier-testimonials__grid">
+      {% for block in section.blocks %}
+        <li class="atelier-testimonials__slide" {{ block.shopify_attributes }}>
+          <div class="atelier-testimonials__stars" aria-hidden="true">
+            {% assign r = block.settings.rating | default: 5 | at_most: 5 | at_least: 1 %}
+            {% for i in (1..r) %}
+              <span class="atelier-testimonials__star">★</span>
+            {% endfor %}
+          </div>
+          {% if block.settings.quote != blank %}
+            <blockquote class="atelier-testimonials__quote">
+              {{ block.settings.quote | escape }}
+            </blockquote>
+          {% endif %}
+          {% if block.settings.author != blank %}
+            <cite class="atelier-testimonials__author">{{ block.settings.author | escape }}</cite>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 </div>
 
 <script>
@@ -87,6 +112,21 @@
     margin: 0 0 var(--padding-2xl);
     font-family: var(--font-heading--family);
     font-size: clamp(1.5rem, 3.5vw, var(--font-h3--size));
+  }
+
+  .atelier-testimonials__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--padding-lg);
+    max-width: 72rem;
+    margin-inline: auto;
+
+    @media screen and (min-width: 750px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   .atelier-testimonials__wrap {
@@ -195,6 +235,16 @@
       "id": "heading",
       "label": "Heading",
       "default": "Client reflections"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "grid", "label": "Grid" },
+        { "value": "carousel", "label": "Carousel" }
+      ],
+      "default": "grid"
     },
     {
       "type": "select",

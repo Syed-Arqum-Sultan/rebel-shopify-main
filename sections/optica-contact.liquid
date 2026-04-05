@@ -1,0 +1,380 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<section
+  class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} spacing-style optica-contact"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  {% if section.settings.heading != blank %}
+    <h2 class="optica-contact__heading">{{ section.settings.heading | escape }}</h2>
+  {% endif %}
+  {% if section.settings.subtext != blank %}
+    <p class="optica-contact__sub">{{ section.settings.subtext | escape }}</p>
+  {% endif %}
+
+  <div class="optica-contact__grid">
+    <div class="optica-contact__info">
+      {% if section.settings.info_heading != blank %}
+        <h3 class="optica-contact__info-heading">{{ section.settings.info_heading | escape }}</h3>
+      {% endif %}
+
+      <div class="optica-contact__details">
+        {% if section.settings.address != blank %}
+          <div class="optica-contact__detail">
+            <span class="optica-contact__detail-label">Address</span>
+            <span class="optica-contact__detail-value">{{ section.settings.address | escape }}</span>
+          </div>
+        {% endif %}
+        {% if section.settings.phone != blank %}
+          <div class="optica-contact__detail">
+            <span class="optica-contact__detail-label">Phone</span>
+            <a href="tel:{{ section.settings.phone | remove: ' ' | remove: '-' }}" class="optica-contact__detail-value optica-contact__link">{{ section.settings.phone | escape }}</a>
+          </div>
+        {% endif %}
+        {% if section.settings.email != blank %}
+          <div class="optica-contact__detail">
+            <span class="optica-contact__detail-label">Email</span>
+            <a href="mailto:{{ section.settings.email | escape }}" class="optica-contact__detail-value optica-contact__link">{{ section.settings.email | escape }}</a>
+          </div>
+        {% endif %}
+        {% if section.settings.hours != blank %}
+          <div class="optica-contact__detail">
+            <span class="optica-contact__detail-label">Hours</span>
+            <span class="optica-contact__detail-value">{{ section.settings.hours | escape }}</span>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="optica-contact__form-wrap">
+      {% assign form_id = 'OpticaContact-' | append: section.id %}
+      {%- form 'contact', class: 'optica-contact__form' %}
+        <input type="hidden" name="contact[id]" value="{{ form_id }}">
+        <input type="hidden" name="contact[tags]" value="contact-page">
+
+        <div class="optica-contact__field-row">
+          <div class="optica-contact__field">
+            <label for="ContactName-{{ section.id }}" class="optica-contact__label">Name</label>
+            <input
+              id="ContactName-{{ section.id }}"
+              class="optica-contact__input field__input"
+              type="text"
+              name="contact[name]"
+              autocomplete="name"
+              placeholder="Your full name"
+              required
+            >
+          </div>
+          <div class="optica-contact__field">
+            <label for="ContactEmail-{{ section.id }}" class="optica-contact__label">Email</label>
+            <input
+              id="ContactEmail-{{ section.id }}"
+              class="optica-contact__input field__input"
+              type="email"
+              name="contact[email]"
+              autocomplete="email"
+              placeholder="Your email address"
+              required
+            >
+          </div>
+        </div>
+
+        <div class="optica-contact__field-row">
+          <div class="optica-contact__field">
+            <label for="ContactPhone-{{ section.id }}" class="optica-contact__label">Phone</label>
+            <input
+              id="ContactPhone-{{ section.id }}"
+              class="optica-contact__input field__input"
+              type="tel"
+              name="contact[phone]"
+              autocomplete="tel"
+              placeholder="Phone number (optional)"
+            >
+          </div>
+          <div class="optica-contact__field">
+            <label for="ContactSubject-{{ section.id }}" class="optica-contact__label">Subject</label>
+            <select
+              id="ContactSubject-{{ section.id }}"
+              class="optica-contact__input field__input"
+              name="contact[subject]"
+            >
+              <option value="" disabled selected>Select a subject</option>
+              <option value="General inquiry">General inquiry</option>
+              <option value="Order support">Order support</option>
+              <option value="Returns & exchanges">Returns &amp; exchanges</option>
+              <option value="Prescription help">Prescription help</option>
+              <option value="Wholesale">Wholesale</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="optica-contact__field optica-contact__field--full">
+          <label for="ContactMessage-{{ section.id }}" class="optica-contact__label">Message</label>
+          <textarea
+            id="ContactMessage-{{ section.id }}"
+            class="optica-contact__input optica-contact__textarea field__input"
+            name="contact[body]"
+            placeholder="How can we help you?"
+            rows="5"
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" class="optica-contact__submit button">
+          {{ section.settings.submit_label | default: 'Send message' | escape }}
+        </button>
+
+        {% if form.errors %}
+          <div class="optica-contact__message optica-contact__message--error" tabindex="-1">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+        {% if form.posted_successfully? %}
+          <p class="optica-contact__message optica-contact__message--success" tabindex="-1">
+            {{ section.settings.success_message | default: 'Thank you — we'll be in touch shortly.' | escape }}
+          </p>
+        {% endif %}
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .optica-contact__heading {
+    text-align: center;
+    margin: 0 0 var(--padding-sm);
+    font-family: var(--font-heading--family);
+    font-size: clamp(1.75rem, 4vw, var(--font-h2--size));
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  .optica-contact__sub {
+    text-align: center;
+    max-width: 36rem;
+    margin: 0 auto var(--padding-2xl);
+    opacity: 0.75;
+    line-height: 1.6;
+  }
+
+  .optica-contact__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--padding-2xl);
+    max-width: var(--page-width, 1200px);
+    margin-inline: auto;
+
+    @media screen and (min-width: 900px) {
+      grid-template-columns: 1fr 1.4fr;
+      gap: clamp(2rem, 5vw, 4rem);
+    }
+  }
+
+  .optica-contact__info-heading {
+    margin: 0 0 var(--padding-lg);
+    font-family: var(--font-heading--family);
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 300;
+  }
+
+  .optica-contact__details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-lg);
+  }
+
+  .optica-contact__detail-label {
+    display: block;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 4px;
+  }
+
+  .optica-contact__detail-value {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .optica-contact__link {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .optica-contact__link:hover {
+    opacity: 0.8;
+  }
+
+  .optica-contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-md);
+  }
+
+  .optica-contact__field-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--padding-md);
+
+    @media screen and (min-width: 600px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .optica-contact__label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.55;
+  }
+
+  .optica-contact__input {
+    width: 100%;
+    min-height: 2.75rem;
+  }
+
+  .optica-contact__textarea {
+    resize: vertical;
+    min-height: 8rem;
+  }
+
+  .optica-contact__submit.button {
+    align-self: flex-start;
+    padding: 0.85rem 2rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 0;
+  }
+
+  .optica-contact__message {
+    margin-top: var(--padding-sm);
+    font-size: 0.9rem;
+  }
+
+  .optica-contact__message--success {
+    color: var(--color-primary);
+  }
+
+  .optica-contact__message--error {
+    color: #c94e6e;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "OPTICA contact",
+  "tag": "section",
+  "class": "optica-contact-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Our concierge team is available to assist with orders, prescriptions, and bespoke requests."
+    },
+    {
+      "type": "text",
+      "id": "info_heading",
+      "label": "Info column heading",
+      "default": "Visit & Connect"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address",
+      "default": "123 Atelier Lane, Suite 4\nNew York, NY 10013"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone",
+      "default": "+1 (212) 555-0199"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "concierge@optica.com"
+    },
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "Hours",
+      "default": "Mon – Sat, 10 AM – 7 PM EST"
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Submit button label",
+      "default": "Send message"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thank you — we'll be in touch shortly."
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "OPTICA contact"
+    }
+  ]
+}
+{% endschema %}
