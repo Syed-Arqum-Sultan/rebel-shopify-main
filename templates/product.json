@@ -284,6 +284,20 @@
                 }
               },
               "block_order": []
+            },
+            "variant_picker_6innnL": {
+              "type": "variant-picker",
+              "name": "t:names.product_variant_picker",
+              "settings": {
+                "variant_style": "buttons",
+                "show_swatches": true,
+                "alignment": "left",
+                "padding-block-start": 0,
+                "padding-block-end": 8,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -293,7 +307,8 @@
             "text_aEtTtq",
             "atelier_lens_mK9p",
             "atelier_frame_gT2n",
-            "buy_buttons_eYQEYi"
+            "buy_buttons_eYQEYi",
+            "variant_picker_6innnL"
           ]
         }
       },
