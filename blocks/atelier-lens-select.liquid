@@ -46,14 +46,18 @@
 {% stylesheet %}
   .atelier-lens-select__label {
     display: block;
-    margin-bottom: var(--padding-2xs);
+    margin-bottom: 12px;
     font-weight: 600;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
   }
 
   .atelier-lens-select__desc {
     margin: 0 0 var(--padding-sm);
-    font-size: 0.9em;
-    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text, 0.75));
+    font-size: 11px;
+    line-height: 1.8;
+    color: rgb(var(--color-foreground-rgb) / 0.5);
   }
 
   .atelier-lens-select .select-wrapper {
@@ -63,9 +67,15 @@
 
   .atelier-lens-select__select {
     width: 100%;
+    padding: 10px 14px;
     padding-inline-end: 2.5rem;
     appearance: none;
     cursor: pointer;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: transparent;
+    border-radius: 0;
   }
 
   .atelier-lens-select__caret {

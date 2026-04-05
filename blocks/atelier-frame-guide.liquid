@@ -72,46 +72,79 @@
 {% stylesheet %}
   .atelier-frame-guide__trigger {
     width: fit-content;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 0;
   }
 
   .atelier-frame-guide__dialog {
-    max-width: min(36rem, 94vw);
+    max-width: min(480px, 94vw);
     width: 100%;
     padding: 0;
-    border: var(--style-border-width) solid var(--color-border);
-    border-radius: var(--style-border-radius-popover);
+    border: 1px solid rgba(201,169,110,0.18);
+    border-radius: 0;
     background: var(--color-background);
     color: var(--color-foreground);
-    box-shadow: var(--shadow-popover);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.5);
   }
 
   .atelier-frame-guide__dialog::backdrop {
-    background: rgb(0 0 0 / 45%);
+    background: rgba(14,12,10,0.88);
   }
 
   .atelier-frame-guide__dialog-inner {
     position: relative;
-    padding: var(--padding-2xl) var(--padding-xl);
+    padding: 36px;
   }
 
   .atelier-frame-guide__close {
     position: absolute;
-    top: var(--padding-sm);
-    right: var(--padding-sm);
+    top: 16px;
+    right: 16px;
     padding: var(--padding-xs);
     cursor: pointer;
     color: inherit;
+    transition: color 0.2s;
   }
 
   .atelier-frame-guide__title {
-    margin: 0 0 var(--padding-md);
+    margin: 0 0 6px;
     font-family: var(--font-heading--family);
-    font-size: var(--font-h4--size);
+    font-size: 26px;
+    font-weight: 300;
   }
 
   .atelier-frame-guide__body {
     max-height: min(60vh, 28rem);
     overflow: auto;
+    font-size: 11px;
+    line-height: 1.8;
+  }
+
+  .atelier-frame-guide__body table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+  }
+
+  .atelier-frame-guide__body table th {
+    text-align: left;
+    padding: 8px 10px;
+    font-size: 8px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(201,169,110,0.18);
+    font-weight: 500;
+  }
+
+  .atelier-frame-guide__body table td {
+    padding: 10px 10px;
+    border-bottom: 1px solid rgba(201,169,110,0.08);
+  }
+
+  .atelier-frame-guide__body table tr:last-child td {
+    border-bottom: none;
   }
 {% endstylesheet %}
 

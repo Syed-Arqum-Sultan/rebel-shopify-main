@@ -1,9 +1,12 @@
 /* Atelier / OPTICA — luxury refinements */
 :root {
-  --atelier-gold: #c9a962;
-  --atelier-gold-hover: #ddb867;
-  --atelier-cream: #f5efe6;
+  --atelier-gold: #C9A96E;
+  --atelier-gold-hover: #DFC08A;
+  --atelier-cream: #F5F0E8;
   --atelier-charcoal: #141210;
+  --atelier-dark2: #1E1B18;
+  --atelier-dark3: #272320;
+  --atelier-muted: #7A7268;
 }
 
 body {
