@@ -1,0 +1,41 @@
+---
+description: 
+alwaysApply: true
+---
+
+## Shopify Editing Patterns
+
+- Use schema-driven development for sections
+- Prefer blocks over hardcoded UI
+- Keep settings flexible for merchants
+- Avoid inline styles unless necessary
+- Use Liquid conditionals instead of duplication
+
+## Performance
+
+- Avoid excessive DOM nesting
+- Reuse existing classes
+- Do not introduce heavy JS unless required
+
+## UX Consistency
+
+- Maintain OPTICA luxury look:
+  - whitespace
+  - typography hierarchy
+  - gold accents
+
+- Keep buttons consistent across:
+  - homepage
+  - PDP
+
+## Reference Documentation
+
+Always refer to:
+docs/OPTICA-THEME-REFERENCE.md
+
+This file defines:
+- file structure
+- section responsibilities
+- styling locations
+
+Follow it strictly before making changes.

@@ -1,0 +1,107 @@
+---
+description: 
+alwaysApply: true
+---
+
+You are working on a Shopify OS 2.0 theme based on Horizon, customized with OPTICA (homepage) and Atelier (components).
+
+## 🔒 Core Rules
+
+- DO NOT modify Horizon core files unless explicitly asked:
+  - assets/base.css
+  - sections/header.liquid
+  - core JS utilities
+
+- Prefer editing:
+  - assets/atelier-luxury.css (homepage styles only)
+  - assets/optica-pdp.css (product page styles only)
+  - templates/*.json (layout + structure)
+  - sections/optica-* (custom sections)
+  - sections/atelier-* (reusable components)
+
+---
+
+## 🎯 Styling Rules
+
+- Homepage styles MUST be scoped under:
+  body.template-index
+
+- Product page styles MUST be scoped under:
+  body.template-product
+
+- Do NOT add global styles without scoping.
+
+- Reuse existing gold luxury design system:
+  - borders
+  - spacing
+  - typography
+  - button styles
+
+---
+
+## 🧱 Section Rules
+
+- Sections are controlled via:
+  templates/index.json
+  templates/product.json
+
+- NEVER hardcode section order in Liquid.
+- ALWAYS modify JSON templates for layout changes.
+
+---
+
+## 🧩 Blocks (Product Page)
+
+- Product blocks are registered in:
+  blocks/_product-details.liquid
+
+- When adding features:
+  - Prefer creating a new block instead of modifying existing ones
+  - Keep compatibility with Shopify dynamic sources
+
+---
+
+## ⚠️ Safety Rules
+
+- Do NOT:
+  - Break schema structure
+  - Rename JSON keys (Shopify is strict)
+  - Remove existing settings used in Theme Editor
+  - Hardcode content that should be editable
+
+---
+
+## 🧭 Editing Strategy
+
+When making changes:
+
+1. Identify if change is:
+   - Style → CSS file
+   - Layout → JSON template
+   - Component → section/block
+
+2. Modify the smallest possible surface area
+
+3. Preserve:
+   - Theme editor compatibility
+   - Existing merchant settings
+
+---
+
+## 🧪 Output Expectations
+
+- Always return FULL updated file
+- Do NOT return partial snippets unless asked
+- Keep formatting Shopify-compatible
+
+---
+
+## 🏷 Context Awareness
+
+This theme includes:
+
+- OPTICA → homepage (luxury, editorial)
+- Atelier → reusable components
+- Horizon → base system
+
+Respect this separation at all times.

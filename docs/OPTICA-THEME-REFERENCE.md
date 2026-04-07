@@ -18,6 +18,8 @@ Internal reference for this codebase: **Shopify Horizon (OS 2.0)** base + **OPTI
 | Saved settings | `config/settings_data.json` | Live values (colors, `quick_add`, button radius, fonts). |
 | Homepage JSON | `templates/index.json` | Section order & section settings for the index template. |
 | Product template | `templates/product.json` | Product page: breadcrumb strip section + `product-information` (gallery, details blocks) + recommendations. |
+| About page templates | `sections/optica-about.liquid` + `templates/page.about.json` | Dedicated About page section and JSON template. |
+| Contact page templates | `sections/optica-contact.liquid` + `templates/page.contact.json` | Dedicated Contact page section and JSON template wiring. |
 | PDP breadcrumbs | `sections/optica-product-breadcrumbs.liquid` + `snippets/optica-breadcrumbs.liquid` | Centered Home / collection / product strip under the header (product template only). |
 | Header instance | `sections/header-group.json` | Announcement bar + header section settings (logo position, menu row, actions as text). |
 | Footer instance | `sections/footer-group.json` | Which footer sections render and their settings. |
@@ -142,4 +144,40 @@ Registered on **`blocks/_product-details.liquid`** schema so they appear inside 
 
 ---
 
-*Last aligned with OPTICA homepage + PDP (split hero, trust bar, footer columns, `template-index` / `template-product` body classes).*
+## 8. Changes since last doc update
+
+Changes detected since the previous reference update commit (`e945ad0`):
+
+- **Added page templates / sections**
+  - `sections/optica-about.liquid`
+  - `sections/optica-contact.liquid`
+  - `templates/page.about.json`
+- **Homepage + PDP template updates**
+  - `templates/index.json`
+  - `templates/product.json`
+  - `templates/page.contact.json`
+- **Section updates**
+  - `sections/optica-split-hero.liquid`
+  - `sections/optica-product-breadcrumbs.liquid`
+  - `sections/atelier-category-tiles.liquid`
+  - `sections/atelier-testimonials.liquid`
+  - `sections/atelier-trust-features.liquid`
+  - `sections/header-group.json`
+  - `sections/footer-group.json`
+- **Product block updates**
+  - `blocks/atelier-frame-guide.liquid`
+  - `blocks/atelier-lens-select.liquid`
+  - `blocks/optica-product-badges.liquid`
+  - `blocks/optica-savings-badge.liquid`
+  - `blocks/optica-wishlist-button.liquid`
+- **Styling / behavior updates**
+  - `assets/atelier-luxury.css`
+  - `assets/optica-pdp.css`
+  - `assets/auto-close-details.js`
+  - `snippets/stylesheets.liquid`
+- **Theme data update**
+  - `config/settings_data.json`
+
+---
+
+*Last updated to include post-`e945ad0` About/Contact additions and homepage/PDP refinements.*
