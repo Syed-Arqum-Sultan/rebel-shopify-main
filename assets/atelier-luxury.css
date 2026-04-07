@@ -31,26 +31,30 @@ body.template-index {
   --style-border-radius-buttons-secondary: 0;
 }
 
-/* Header: centered OPTICA navigation + utility styling on homepage */
+/*
+ * Header: OPTICA nav + cart styling on all storefront pages (layout/theme.liquid).
+ * `atelier-optica` on body replaces #header-group scoping so rules stay body-anchored.
+ * Homepage-only polish remains under body.template-index below.
+ */
 @media screen and (min-width: 750px) {
-  body.template-index .header__row--bottom .header-menu {
+  body.atelier-optica .header__row--bottom .header-menu {
     justify-content: center;
   }
 
-  body.template-index .header__columns {
+  body.atelier-optica .header__columns {
     justify-items: center;
   }
 
-  body.template-index .header__column--center .header-logo {
+  body.atelier-optica .header__column--center .header-logo {
     justify-content: center;
   }
 
-  body.template-index .header-actions__text-style,
-  body.template-index .header-actions__cart-icon {
+  body.atelier-optica .header-actions__text-style,
+  body.atelier-optica .header-actions__cart-icon {
     letter-spacing: 0.08em;
   }
 
-  body.template-index cart-icon.header-actions__cart-icon {
+  body.atelier-optica cart-icon.header-actions__cart-icon {
     border: 1px solid color-mix(in srgb, var(--color-primary) 70%, transparent);
     padding: 0.35rem 0.75rem;
     border-radius: 0;
@@ -58,7 +62,7 @@ body.template-index {
     align-items: center;
   }
 
-  body.template-index .header-logo {
+  body.atelier-optica .header-logo {
     color: var(--color-primary);
     font-family: var(--font-heading--family);
     font-weight: 400;
