@@ -78,27 +78,163 @@ body.template-index marquee-component.color-scheme-5 .marquee__content {
   color: var(--color-foreground);
 }
 
-/* Product grid: thin gold frame + darker tile feel */
-body.template-index .product-card {
+/* ===== OPTICA product cards — all storefront pages (body.atelier-optica, layout/theme.liquid) ===== */
+body.atelier-optica .product-grid__item:has(product-card) {
+  border: none;
+}
+
+body.atelier-optica .product-card {
   border: 1px solid color-mix(in srgb, var(--color-primary) 25%, var(--color-background));
   border-radius: 0;
   background: color-mix(in srgb, var(--color-background) 92%, var(--color-foreground));
+  overflow: hidden;
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
-body.template-index .product-card__link {
+body.atelier-optica .predictive-search-results__card .product-card {
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.atelier-optica .product-card,
+  body.atelier-optica .predictive-search-results__card .product-card {
+    transition: none;
+  }
+}
+
+@media (any-pointer: fine) and (prefers-reduced-motion: no-preference) {
+  body.atelier-optica .product-card:is(:hover, :focus-within) {
+    border-color: color-mix(in srgb, var(--color-primary) 52%, var(--color-background));
+    box-shadow: 0 16px 42px color-mix(in srgb, var(--color-foreground) 10%, transparent);
+  }
+
+  body.atelier-optica .header .product-card:is(:hover, :focus-within),
+  body.atelier-optica .header-drawer .product-card:is(:hover, :focus-within) {
+    box-shadow: 0 8px 22px color-mix(in srgb, var(--color-foreground) 7%, transparent);
+  }
+}
+
+body.atelier-optica .product-card__link {
   border-radius: 0;
 }
 
-/* Quick add: gold square */
-body.template-index .quick-add__button {
+body.atelier-optica .product-card .product-grid__card {
+  align-items: stretch;
+  text-align: start;
+}
+
+body.atelier-optica .product-card .card-gallery {
+  background: color-mix(in srgb, var(--color-background) 94%, var(--color-foreground));
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@media (any-pointer: fine) and (prefers-reduced-motion: no-preference) {
+  body.atelier-optica.card-hover-effect-lift .product-card:is(:hover, :focus-within) .card-gallery,
+  body.atelier-optica.card-hover-effect-none .product-card:is(:hover, :focus-within) .card-gallery {
+    transform: scale(1.035);
+  }
+}
+
+body.atelier-optica .product-card .text-block:is(.rte, .paragraph) :where(p, h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-heading--family);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 1.35;
+  color: var(--color-foreground);
+}
+
+body.atelier-optica .product-card .text-block:is(.rte, .paragraph) p {
+  margin: 0;
+}
+
+body.atelier-optica .product-card .product-grid-view-zoom-out--details .h4 {
+  font-family: var(--font-heading--family);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 1.35;
+  color: var(--color-foreground);
+}
+
+body.atelier-optica .product-card product-price .price {
+  font-family: var(--font-body--family);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  letter-spacing: 0.04em;
+  color: var(--color-foreground);
+}
+
+body.atelier-optica .product-card product-price .compare-at-price {
+  font-family: var(--font-body--family);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: color-mix(in srgb, var(--color-foreground) 52%, var(--color-background));
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.12em;
+}
+
+body.atelier-optica .product-card product-price [role='group'] {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.5rem;
+}
+
+body.atelier-optica .product-card .product-badges__badge {
   border-radius: 0;
-  border: 1px solid var(--color-primary);
-  background: color-mix(in srgb, var(--color-background) 80%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 60%, transparent);
+  background: color-mix(in srgb, var(--color-background) 88%, transparent);
+  color: var(--color-primary);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 1.2;
+  box-shadow: none;
+}
+
+body.atelier-optica .product-card .product-badges__badge--rectangle {
+  padding-block: 0.4rem;
+  padding-inline: 0.55rem;
+}
+
+body.atelier-optica .product-card .cs-brand {
+  font-family: var(--font-body--family);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--color-primary);
 }
 
-body.template-index .quick-add__button:hover {
-  background: color-mix(in srgb, var(--color-primary) 18%, transparent);
+body.atelier-optica .product-card .quick-add__button {
+  border-radius: 0;
+  border: 1px solid var(--color-primary);
+  background: color-mix(in srgb, var(--color-background) 82%, transparent);
+  color: var(--color-primary);
+  backdrop-filter: blur(14px) saturate(160%);
+  scale: 1;
+}
+
+body.atelier-optica .product-card .quick-add__button:hover {
+  background: color-mix(in srgb, var(--color-primary) 22%, transparent);
+  color: var(--color-foreground);
+  border-color: var(--color-primary);
+}
+
+body.atelier-optica .product-card .quick-add__button:active {
+  scale: 0.98;
+}
+
+body.atelier-optica .product-card:is(:hover, :focus-within) .quick-add__button {
+  opacity: 1;
 }
 
 /* Newsletter section gold CTA alignment with comp */
