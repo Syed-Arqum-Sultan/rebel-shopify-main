@@ -19,6 +19,7 @@
         "subtext": "Premium eyewear and timepieces selected like a private salon—UV400 lenses, Swiss calibres, and a concierge team behind every order.",
         "cta_1_label": "Shop Eyewear",
         "cta_1_link": "shopify://collections/all",
+        "cta_1_style": "filled",
         "cta_2_label": "Shop Watches",
         "cta_2_link": "shopify://collections/all",
         "watermark_text": "OPTICA",
@@ -151,7 +152,8 @@
           "settings": {
             "title": "Eyeglasses",
             "link": "shopify://collections/all",
-            "image": "shopify://shop_images/pexels-santiago-sauceda-gonzalez-3426899-6563025.jpg"
+            "image": "shopify://shop_images/pexels-santiago-sauceda-gonzalez-3426899-6563025.jpg",
+            "subtitle": ""
           }
         },
         "t2": {
@@ -159,7 +161,8 @@
           "settings": {
             "title": "Sunglasses",
             "link": "shopify://collections/all",
-            "image": "shopify://shop_images/pexels-lasvane-31614951-6978556.jpg"
+            "image": "shopify://shop_images/pexels-lasvane-31614951-6978556.jpg",
+            "subtitle": ""
           }
         },
         "t3": {
@@ -167,7 +170,8 @@
           "settings": {
             "title": "Watches",
             "link": "shopify://collections/all",
-            "image": "shopify://shop_images/pexels-szafran-36384644.jpg"
+            "image": "shopify://shop_images/pexels-szafran-36384644.jpg",
+            "subtitle": ""
           }
         }
       },
@@ -421,7 +425,7 @@
           "static": true,
           "settings": {
             "product_card_gap": 8,
-            "inherit_color_scheme": true,
+            "inherit_color_scheme": false,
             "color_scheme": "scheme-1",
             "border": "solid",
             "border_width": 1,
@@ -453,7 +457,7 @@
               "type": "product-title",
               "name": "t:names.product_title",
               "settings": {
-                "width": "100%",
+                "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
                 "type_preset": "rte",
@@ -467,10 +471,10 @@
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
-                "padding-block-start": 4,
+                "padding-block-start": 0,
                 "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-start": 16,
+                "padding-inline-end": 16
               },
               "blocks": {}
             },
@@ -481,19 +485,19 @@
                 "show_sale_price_first": true,
                 "show_installments": false,
                 "show_tax_info": false,
-                "type_preset": "paragraph",
+                "type_preset": "custom",
                 "width": "fit-content",
                 "alignment": "left",
                 "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
+                "font_size": "0.875rem",
+                "line_height": "tight",
                 "letter_spacing": "normal",
                 "case": "none",
                 "color": "var(--color-foreground)",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-start": 16,
+                "padding-inline-end": 16
               },
               "blocks": {}
             },
@@ -575,6 +579,7 @@
       ],
       "settings": {
         "heading": "What Our Clients Say",
+        "layout": "grid",
         "section_width": "page-width",
         "color_scheme": "scheme-1",
         "padding-block-start": 56,
