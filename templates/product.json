@@ -375,9 +375,25 @@
             "padding-inline-end": 0
           },
           "blocks": {
+            "product_card_gallery_mEy4pe": {
+              "type": "_product-card-gallery",
+              "settings": {
+                "image_ratio": "portrait",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "image_YCLxCA": {
               "type": "image",
               "name": "t:names.image",
+              "disabled": true,
               "settings": {
                 "link": "",
                 "image_ratio": "adapt",
@@ -400,6 +416,7 @@
             "product_card_gallery_DNizbJ": {
               "type": "_product-card-gallery",
               "name": "t:names.product_card_media",
+              "disabled": true,
               "settings": {
                 "image_ratio": "portrait",
                 "border": "none",
@@ -462,6 +479,7 @@
             }
           },
           "block_order": [
+            "product_card_gallery_mEy4pe",
             "image_YCLxCA",
             "product_card_gallery_DNizbJ",
             "product_title_M7MJkb",
