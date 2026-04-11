@@ -2107,6 +2107,29 @@
     ]
   },
   {
+    "name": "Product page — lens & frame blocks",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Hide the Lens type selector and Frame size guide when the shopper is in a watch context (collection URL or product membership), unless a frame/eyewear collection also applies."
+      },
+      {
+        "type": "text",
+        "id": "pdp_watch_collection_handles",
+        "label": "Watch collection handles",
+        "default": "watches, watch, timepieces",
+        "info": "Comma-separated handles. Matching the active collection or any product collection counts as watch context."
+      },
+      {
+        "type": "text",
+        "id": "pdp_frame_collection_handles",
+        "label": "Frame / eyewear collection handles (exceptions)",
+        "default": "frames, eyewear, sunglasses, glasses, optical",
+        "info": "If the current collection or any product collection matches, lens and frame blocks stay visible even in watch context."
+      }
+    ]
+  },
+  {
     "name": "t:names.search",
     "settings": [
       {

@@ -1,0 +1,45 @@
+{%- doc -%}
+  Outputs 1 when lens type + frame guide blocks should be hidden (watch context, not frame context).
+  @param product {object} required — pass closest.product from the PDP block.
+{%- enddoc -%}
+{%- if product == blank -%}
+0
+{%- else -%}
+  {%- liquid
+    assign watch_handles = settings.pdp_watch_collection_handles | default: 'watches, watch, timepieces' | downcase | split: ','
+    assign frame_handles = settings.pdp_frame_collection_handles | default: 'frames, eyewear, sunglasses, glasses, optical' | downcase | split: ','
+    assign in_watch = false
+    assign in_frame = false
+  -%}
+  {%- if collection -%}
+    {%- assign ch = collection.handle | downcase -%}
+    {%- for part in watch_handles -%}
+      {%- assign p = part | strip | downcase -%}
+      {%- if p != '' and ch == p -%}
+        {%- assign in_watch = true -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- for part in frame_handles -%}
+      {%- assign p = part | strip | downcase -%}
+      {%- if p != '' and ch == p -%}
+        {%- assign in_frame = true -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- for col in product.collections -%}
+    {%- assign ch = col.handle | downcase -%}
+    {%- for part in watch_handles -%}
+      {%- assign p = part | strip | downcase -%}
+      {%- if p != '' and ch == p -%}
+        {%- assign in_watch = true -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- for part in frame_handles -%}
+      {%- assign p = part | strip | downcase -%}
+      {%- if p != '' and ch == p -%}
+        {%- assign in_frame = true -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endfor -%}
+  {%- if in_watch and in_frame == false -%}1{%- else -%}0{%- endif -%}
+{%- endif -%}

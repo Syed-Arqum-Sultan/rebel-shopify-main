@@ -5,7 +5,9 @@
   assign field_id = 'lens-select-' | append: block.id
   assign options_list = bs.options | newline_to_br | split: '<br />'
 -%}
-
+{% capture atelier_hide_lens_frame_flag %}{% render 'atelier-pdp-hide-lens-frame', product: closest.product %}{% endcapture %}
+{% assign atelier_hide_lens_frame_flag = atelier_hide_lens_frame_flag | strip %}
+{% unless atelier_hide_lens_frame_flag == '1' %}
 <div
   class="atelier-lens-select spacing-style{% unless block.settings.inherit_color_scheme %} color-{{ block.settings.color_scheme }}{% endunless %}"
   style="{% render 'spacing-style', settings: block.settings %}"
@@ -42,6 +44,7 @@
     </span>
   </div>
 </div>
+{% endunless %}
 
 {% stylesheet %}
   .atelier-lens-select__label {
@@ -65,6 +68,12 @@
     width: 100%;
   }
 
+  .atelier-lens-select .select-wrapper:focus-within .atelier-lens-select__caret {
+    transform: translateY(-50%) rotate(180deg);
+    opacity: 1;
+    color: var(--color-primary);
+  }
+
   .atelier-lens-select__select {
     width: 100%;
     padding: 10px 14px;
@@ -76,6 +85,23 @@
     text-transform: uppercase;
     background: transparent;
     border-radius: 0;
+    color-scheme: dark light;
+  }
+
+  /* Native option list: improves contrast where browsers allow (e.g. Firefox); OS may still theme the menu */
+  .atelier-lens-select__select option,
+  .atelier-lens-select__select optgroup {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.65rem 1rem;
+  }
+
+  .atelier-lens-select__select option:checked {
+    background-color: color-mix(in srgb, var(--color-primary) 22%, var(--color-background));
+    color: var(--color-foreground);
   }
 
   .atelier-lens-select__caret {
@@ -86,6 +112,7 @@
     pointer-events: none;
     width: 0.65rem;
     opacity: 0.7;
+    transition: transform 0.2s var(--ease-out-cubic, ease-out), opacity 0.2s;
   }
 {% endstylesheet %}
 

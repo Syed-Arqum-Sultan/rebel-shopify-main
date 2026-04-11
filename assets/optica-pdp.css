@@ -321,6 +321,7 @@ body.template-product .atelier-lens-select__select {
   padding: 10px 14px;
   padding-inline-end: 2.5rem;
   transition: border-color 0.2s;
+  color-scheme: dark light;
 }
 
 body.template-product .atelier-lens-select__select:focus {
@@ -329,8 +330,30 @@ body.template-product .atelier-lens-select__select:focus {
   box-shadow: 0 0 0 1px var(--optica-primary);
 }
 
+body.template-product .atelier-lens-select .select-wrapper:focus-within .atelier-lens-select__caret {
+  transform: translateY(-50%) rotate(180deg);
+  opacity: 1;
+}
+
+body.template-product .atelier-lens-select__select option,
+body.template-product .atelier-lens-select__select optgroup {
+  background-color: var(--optica-bg);
+  color: var(--optica-fg);
+  font-family: var(--optica-sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.65rem 1rem;
+}
+
+body.template-product .atelier-lens-select__select option:checked {
+  background-color: color-mix(in srgb, var(--optica-primary) 24%, var(--optica-bg));
+  color: var(--optica-fg);
+}
+
 body.template-product .atelier-lens-select__caret {
   color: var(--optica-primary);
+  transition: transform 0.2s ease-out, opacity 0.2s;
 }
 
 /* ===== QUANTITY SELECTOR ===== */

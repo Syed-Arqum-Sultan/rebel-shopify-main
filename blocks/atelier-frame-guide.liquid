@@ -2,7 +2,9 @@
   assign bs = block.settings
   assign dialog_id = 'FrameGuide-' | append: section.id | append: '-' | append: block.id
 -%}
-
+{% capture atelier_hide_lens_frame_flag %}{% render 'atelier-pdp-hide-lens-frame', product: closest.product %}{% endcapture %}
+{% assign atelier_hide_lens_frame_flag = atelier_hide_lens_frame_flag | strip %}
+{% unless atelier_hide_lens_frame_flag == '1' %}
 <div
   class="atelier-frame-guide spacing-style{% unless block.settings.inherit_color_scheme %} color-{{ block.settings.color_scheme }}{% endunless %}"
   style="{% render 'spacing-style', settings: block.settings %}"
@@ -68,6 +70,7 @@
     });
   })();
 </script>
+{% endunless %}
 
 {% stylesheet %}
   .atelier-frame-guide__trigger {
