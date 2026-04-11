@@ -373,8 +373,9 @@ body.template-product .group-block:has(.optica-pdp-wishlist) {
   width: 100%;
 }
 
-body.template-product .add-to-cart-button.button,
-body.template-product .add-to-cart-button {
+/* Main PDP buy button only — not card quick-add (Choose / Add pill uses .quick-add__button) */
+body.template-product .add-to-cart-button.button:not(.quick-add__button),
+body.template-product .add-to-cart-button:not(.quick-add__button) {
   flex: 1;
   background-color: var(--color-primary-button-background, var(--optica-primary));
   color: var(--color-primary-button-text, var(--optica-bg));
@@ -391,14 +392,14 @@ body.template-product .add-to-cart-button {
   transition: background 0.2s;
 }
 
-body.template-product .add-to-cart-button.button:hover,
-body.template-product .add-to-cart-button:hover {
+body.template-product .add-to-cart-button.button:not(.quick-add__button):hover,
+body.template-product .add-to-cart-button:not(.quick-add__button):hover {
   background-color: var(--color-primary-button-hover-background, var(--optica-primary-hover));
   filter: none;
 }
 
-body.template-product .add-to-cart-button.added,
-body.template-product .add-to-cart-button[data-added] {
+body.template-product .add-to-cart-button.added:not(.quick-add__button),
+body.template-product .add-to-cart-button[data-added]:not(.quick-add__button) {
   background: #3a7a52;
   color: #fff;
 }
@@ -726,10 +727,6 @@ body.template-product .product-recommendations .product-card .price {
   color: var(--optica-fg);
 }
 
-body.template-product .product-recommendations .card-gallery quick-add-component {
-  opacity: 0.85;
-}
-
 /* ===== TRUST FEATURES ===== */
 body.template-product .atelier-trust-section {
   border-top: 1px solid var(--optica-border);
@@ -861,8 +858,8 @@ body.template-product .button-secondary:hover {
     font-size: 28px;
   }
 
-  body.template-product .add-to-cart-button.button,
-  body.template-product .add-to-cart-button {
+  body.template-product .add-to-cart-button.button:not(.quick-add__button),
+  body.template-product .add-to-cart-button:not(.quick-add__button) {
     width: 100%;
     padding: 14px 20px;
   }
