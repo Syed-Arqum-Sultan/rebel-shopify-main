@@ -150,7 +150,7 @@
     assign product_media_container_class = product_media_container_class | append: ' constrain-height'
   endif
   if block_settings.aspect_ratio != 'adapt'
-    assign product_media_container_class = product_media_container_class | append: ' media-fit-cover'
+    assign product_media_container_class = product_media_container_class | append: ' media-fit-' | append: block_settings.media_fit
   elsif block_settings.constrain_to_viewport
     assign product_media_container_class = product_media_container_class | append: ' media-fit-' | append: block_settings.media_fit
   else
@@ -274,6 +274,21 @@
 
     /* 3D Models (no object-fit support, just sizing) */
     .media-fit-cover model-viewer {
+      width: 100%;
+      height: 100%;
+    }
+
+    .media-fit-contain {
+      --product-media-fit: contain;
+    }
+
+    .media-fit-contain :is(img, video, iframe, .deferred-media__poster-image) {
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+    }
+
+    .media-fit-contain model-viewer {
       width: 100%;
       height: 100%;
     }

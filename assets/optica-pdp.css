@@ -661,6 +661,20 @@ body.template-product .product-information__media {
   background: var(--optica-bg-alt);
 }
 
+/* Cap gallery width on very wide viewports (equal columns still leave a large media cell) */
+body.template-product .product-information__media media-gallery {
+  display: block;
+  width: 100%;
+  max-width: min(100%, 52rem);
+  margin-inline: auto;
+}
+
+body.template-product .product-information__media .slideshow-controls__thumbnails {
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 body.template-product .media-gallery .media img {
   border-radius: 0;
 }
