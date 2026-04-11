@@ -32,6 +32,7 @@
   class="quick-add color-{{ color_scheme }} "
   ref="quickAdd"
   data-product-title="{{ product.title }}"
+  data-product-url="{{ product.url }}"
   data-quick-add-button="{{ quick_add_button }}"
   data-product-options-count="{{ product.options.size }}"
 >
@@ -70,7 +71,7 @@
           Display "Add" button and add directly to cart if:
             - There is only one variant on the product
             - There is only one product option, and it is displayed as swatches on the product card, and a swatch is selected
-          Display "Choose" button and show the quick-add modal if:
+          Display "Choose" button and navigate to the product page if:
             - There is only one product option, and it is displayed as swatches on the product card, and no swatch is selected
             - There is more than one product option
       {% endcomment %}

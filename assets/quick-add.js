@@ -20,9 +20,17 @@ export class QuickAddComponent extends Component {
     );
     const productLink = productCard?.getProductCardLink() || hotspotProduct?.getHotspotProductLink();
 
-    if (!productLink?.href) return '';
+    let href = productLink?.href ?? '';
+    if (!href && this.dataset.productUrl) {
+      try {
+        href = new URL(this.dataset.productUrl, window.location.origin).href;
+      } catch {
+        href = '';
+      }
+    }
+    if (!href) return '';
 
-    const url = new URL(productLink.href);
+    const url = new URL(href, window.location.origin);
 
     if (url.searchParams.has('variant')) {
       return url.toString();
@@ -64,43 +72,47 @@ export class QuickAddComponent extends Component {
     document.removeEventListener(ThemeEvents.variantSelected, this.#updateQuickAddButtonState.bind(this));
   }
 
-  /**
-   * Clears the cached content when cart is updated
-   */
   #handleCartUpdate = () => {
     this.#cachedContent.clear();
   };
 
   /**
-   * Re-renders the variant picker in the quick-add modal.
-   * @param {Element} newHtml - The element to re-render.
-   */
-  #updateVariantPicker(newHtml) {
-    const modalContent = document.getElementById('quick-add-modal-content');
-    if (!modalContent) return;
-    const variantPicker = /** @type {VariantPicker} */ (modalContent.querySelector('variant-picker'));
-    variantPicker.updateVariantPicker(newHtml);
-  }
-
-  /**
-   * Handles quick add button click
+   * Theme editor still opens the quick-add modal (see theme-editor.js); storefront navigates to the PDP.
    * @param {Event} event - The click event
    */
   handleClick = async (event) => {
     event.preventDefault();
 
+    if (window.Shopify?.designMode) {
+      await this.#openQuickAddModalFlow();
+      return;
+    }
+
+    const currentUrl = this.productPageUrl;
+    if (!currentUrl) return;
+
+    const url = new URL(currentUrl, window.location.origin);
+    const shouldOpenInNewTab =
+      event instanceof MouseEvent && (event.metaKey || event.ctrlKey || event.shiftKey || event.button === 1);
+
+    if (shouldOpenInNewTab) {
+      window.open(url.href, '_blank');
+      return;
+    }
+
+    window.location.assign(url.href);
+  };
+
+  async #openQuickAddModalFlow() {
     const currentUrl = this.productPageUrl;
 
-    // Check if we have cached content for this URL
     let productGrid = this.#cachedContent.get(currentUrl);
 
     if (!productGrid) {
-      // Fetch and cache the content
       const html = await this.fetchProductPage(currentUrl);
       if (html) {
         const gridElement = html.querySelector('[data-product-grid-content]');
         if (gridElement) {
-          // Cache the cloned element to avoid modifying the original
           productGrid = /** @type {Element} */ (gridElement.cloneNode(true));
           this.#cachedContent.set(currentUrl, productGrid);
         }
@@ -108,14 +120,13 @@ export class QuickAddComponent extends Component {
     }
 
     if (productGrid) {
-      // Use a fresh clone from the cache
       const freshContent = /** @type {Element} */ (productGrid.cloneNode(true));
       await this.updateQuickAddModal(freshContent);
       this.#updateVariantPicker(productGrid);
     }
 
     this.#openQuickAddModal();
-  };
+  }
 
   #resetScroll() {
     const dialogComponent = document.getElementById('quick-add-dialog');
@@ -144,8 +155,6 @@ export class QuickAddComponent extends Component {
 
     dialogComponent.showDialog();
 
-    // is nondeterministic when the open attribute is set on the dialog element after .showDialog() is called.
-    // Waiting until the open animation starts seemed to be the most reliable metric here.
     const dialog = dialogComponent.refs?.dialog;
     if (!dialog) return;
     dialog.addEventListener('animationstart', this.#resetScroll.bind(this), { once: true });
@@ -159,14 +168,13 @@ export class QuickAddComponent extends Component {
   };
 
   /**
-   * Fetches the product page content
+   * Fetches PDP HTML for the quick-add modal. Skipped on the live storefront (Choose navigates to the PDP).
    * @param {string} productPageUrl - The URL of the product page to fetch
    * @returns {Promise<Document | null>}
    */
   async fetchProductPage(productPageUrl) {
-    if (!productPageUrl) return null;
+    if (!productPageUrl || !window.Shopify?.designMode) return null;
 
-    // We use this to abort the previous fetch request if it's still pending.
     this.#abortController?.abort();
     this.#abortController = new AbortController();
 
@@ -195,7 +203,6 @@ export class QuickAddComponent extends Component {
   }
 
   /**
-   * Re-renders the variant picker.
    * @param {Element} productGrid - The product grid element
    */
   async updateQuickAddModal(productGrid) {
@@ -211,7 +218,6 @@ export class QuickAddComponent extends Component {
       const productTitle = document.createElement('a');
       productTitle.textContent = this.dataset.productTitle || '';
 
-      // Make product title as a link to the product page
       productTitle.href = this.productPageUrl;
 
       const productHeader = document.createElement('div');
@@ -238,6 +244,13 @@ export class QuickAddComponent extends Component {
     this.#syncVariantSelection(modalContent);
   }
 
+  #updateVariantPicker(newHtml) {
+    const modalContent = document.getElementById('quick-add-modal-content');
+    if (!modalContent) return;
+    const variantPicker = /** @type {VariantPicker} */ (modalContent.querySelector('variant-picker'));
+    variantPicker.updateVariantPicker(newHtml);
+  }
+
   /**
    * Updates the quick-add button state based on whether a swatch is selected
    * @param {VariantSelectedEvent} event - The variant selected event
@@ -250,15 +263,10 @@ export class QuickAddComponent extends Component {
     this.setAttribute('data-quick-add-button', quickAddButton);
   }
 
-  /**
-   * Syncs the variant selection from the product card to the modal
-   * @param {Element} modalContent - The modal content element
-   */
   #syncVariantSelection(modalContent) {
     const selectedVariantId = this.#getSelectedVariantId();
     if (!selectedVariantId) return;
 
-    // Find and check the corresponding input in the modal
     const modalInputs = modalContent.querySelectorAll('input[type="radio"][data-variant-id]');
     for (const input of modalInputs) {
       if (input instanceof HTMLInputElement && input.dataset.variantId === selectedVariantId && !input.checked) {
