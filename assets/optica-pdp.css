@@ -251,11 +251,46 @@ body.template-product .variant-option__button-label:hover {
   color: var(--optica-fg);
 }
 
-body.template-product .variant-option__button-label:has(input:checked) {
+/*
+ * Selected text buttons (e.g. Band color): Horizon’s sliding pill uses --color-selected-variant-background
+ * and checked text uses --color-selected-variant-text; with OPTICA gold primary both read as gold → invisible label.
+ * Force high contrast: gold fill + page-background text (and same on hover).
+ */
+body.template-product
+  .variant-option--buttons:not(.variant-option--swatches)
+  .variant-option__button-label:has(input:checked)
+  .variant-option__button-label__pill {
+  background: var(--optica-primary);
+}
+
+body.template-product
+  .variant-option--buttons:not(.variant-option--swatches)
+  .variant-option__button-label:has(input:checked),
+body.template-product
+  .variant-option--buttons:not(.variant-option--swatches)
+  .variant-option__button-label:has(input:checked)
+  .variant-option__button-label__text {
+  color: var(--color-primary-button-text, var(--optica-bg));
   border-color: var(--optica-primary);
-  color: var(--optica-primary);
-  background: rgb(var(--color-primary-rgb) / 0.06);
   box-shadow: none;
+}
+
+body.template-product
+  .variant-option--buttons:not(.variant-option--swatches)
+  .variant-option__button-label:has(input:checked):hover
+  .variant-option__button-label__pill {
+  background: var(--optica-primary-hover);
+}
+
+body.template-product
+  .variant-option--buttons:not(.variant-option--swatches)
+  .variant-option__button-label:has(input:checked):hover,
+body.template-product
+  .variant-option--buttons:not(.variant-option--swatches)
+  .variant-option__button-label:has(input:checked):hover
+  .variant-option__button-label__text {
+  color: var(--color-primary-button-hover-text, var(--color-primary-button-text, var(--optica-bg)));
+  border-color: var(--optica-primary-hover);
 }
 
 /* ===== LENS SELECT ===== */
