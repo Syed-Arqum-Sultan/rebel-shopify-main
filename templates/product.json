@@ -378,7 +378,7 @@
             "product_card_gallery_mEy4pe": {
               "type": "_product-card-gallery",
               "settings": {
-                "image_ratio": "portrait",
+                "image_ratio": "square",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
@@ -418,7 +418,7 @@
               "name": "t:names.product_card_media",
               "disabled": true,
               "settings": {
-                "image_ratio": "portrait",
+                "image_ratio": "square",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
@@ -497,7 +497,7 @@
         "layout_type": "grid",
         "carousel_on_mobile": true,
         "max_products": 6,
-        "columns": 3,
+        "columns": 4,
         "mobile_columns": "2",
         "columns_gap": 16,
         "rows_gap": 28,

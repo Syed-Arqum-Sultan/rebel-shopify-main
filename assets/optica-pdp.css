@@ -776,6 +776,18 @@ body.template-product .product-recommendations .card-gallery {
   background: var(--optica-bg);
 }
 
+/* Mobile recos carousel: inline --slide-width-max wins over CSS vars; cap slide width here */
+body.template-product .product-recommendations .resource-list.hidden--desktop .resource-list__carousel .resource-list__slide {
+  max-width: min(240px, 78vw);
+}
+
+/* Desktop: prefer more columns so each product image cell stays narrower */
+@media screen and (min-width: 750px) {
+  body.template-product .product-recommendations .resource-list--grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 body.template-product .product-recommendations .product-card .product-card__vendor,
 body.template-product .product-recommendations .product-card .cs-brand {
   font-family: var(--optica-sans);
