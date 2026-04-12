@@ -506,7 +506,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>Go behind the lens: how we fit, finish, and photograph every drop before it reaches you.</p>",
+                "text": "<p><em>Go behind the lens: how we fit, finish, and photograph every drop before it reaches you.</em></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -533,7 +533,7 @@
               "name": "t:names.button",
               "settings": {
                 "label": "Watch the story",
-                "link": "shopify://collections/all",
+                "link": "shopify://collections/spectacle-collections",
                 "open_in_new_tab": false,
                 "style_class": "link",
                 "width": "fit-content",
@@ -567,7 +567,7 @@
         "section_width": "full-width",
         "section_height": "",
         "section_height_custom": 50,
-        "color_scheme": "scheme-2",
+        "color_scheme": "scheme-3",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
@@ -981,7 +981,7 @@
       },
       "name": "Curated selection",
       "settings": {
-        "collection": "all",
+        "collection": "watch-collection",
         "layout_type": "grid",
         "carousel_on_mobile": true,
         "max_products": 4,
@@ -995,7 +995,7 @@
         "section_width": "page-width",
         "horizontal_alignment": "flex-start",
         "gap": 24,
-        "color_scheme": "scheme-5",
+        "color_scheme": "scheme-2",
         "padding-block-start": 32,
         "padding-block-end": 40
       }
