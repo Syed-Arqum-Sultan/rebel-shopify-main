@@ -1,7 +1,7 @@
 {%- doc -%}
   Calculate the sizes attribute for product media images in the product media gallery.
 
-  @param {object} block - Block object containing media gallery settings
+  @param {object} block_settings - Media gallery block settings (same as block.settings)
   @param {object} section - Section object containing layout settings
   @param {object} settings - Theme settings object containing page width configuration
   @param {boolean} [is_first_image] - Whether this is the first image (for large_first_image mode)
@@ -10,14 +10,13 @@
 
   @example
   {% capture media_sizes %}
-    {% render 'util-product-media-sizes-attr', block: block, section: section, settings: settings, is_single_column: is_single_column %}
+    {% render 'util-product-media-sizes-attr', block_settings: block_settings, section: section, settings: settings, is_single_column: is_single_column %}
   {% endcapture %}
   {% assign media_sizes = media_sizes | strip %}
   {{ media | image_url: width: 800 | image_tag: sizes: media_sizes }}
 {%- enddoc -%}
 
 {%- liquid
-  assign block_settings = block.settings
   # Constants
   assign page_margin = '40px'
   # Section gap divided by 2 (used for single column layouts)

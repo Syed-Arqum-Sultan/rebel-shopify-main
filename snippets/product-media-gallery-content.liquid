@@ -7,6 +7,8 @@
   @param {object} block_settings - Block settings object
   @param {string} block_id - Block ID for unique element IDs
   @param {string} block_shopify_attributes - Block shopify attributes
+  @param {object} section - Parent section (required for responsive image sizes)
+  @param {object} settings - Theme settings (e.g. transition_to_main_product)
 
   @example
   {% render 'product-media-gallery-content',
@@ -14,6 +16,8 @@
     block_settings: block.settings,
     block_id: block.id,
     block_shopify_attributes: block.shopify_attributes,
+    section: section,
+    settings: settings,
   %}
 {% enddoc %}
 {%- if block_settings.zoom -%}
@@ -134,14 +138,14 @@
   if needs_both_sizes
     # Calculate sizes for single column (first image)
     capture sizes_single
-      render 'util-product-media-sizes-attr', block: block, section: section, settings: settings, is_first_image: true, is_single_column: true, needs_both_sizes: true
+      render 'util-product-media-sizes-attr', block_settings: block_settings, section: section, settings: settings, is_first_image: true, is_single_column: true, needs_both_sizes: true
     endcapture
     assign sizes_single = sizes_single | strip
   endif
 
   # Calculate sizes value for regular grid/carousel items
   capture sizes
-    render 'util-product-media-sizes-attr', block: block, section: section, settings: settings, is_first_image: false, is_single_column: is_single_column, needs_both_sizes: needs_both_sizes
+    render 'util-product-media-sizes-attr', block_settings: block_settings, section: section, settings: settings, is_first_image: false, is_single_column: is_single_column, needs_both_sizes: needs_both_sizes
   endcapture
   assign sizes = sizes | strip
 

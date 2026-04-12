@@ -18,8 +18,8 @@ body.template-product {
   --optica-subdued: rgb(var(--color-foreground-rgb) / 0.4);
   --optica-border: rgb(var(--color-primary-rgb) / 0.18);
   --optica-border2: rgb(var(--color-primary-rgb) / 0.35);
-  --optica-serif: 'Cormorant Garamond', var(--font-heading--family), Georgia, serif;
-  --optica-sans: 'Montserrat', var(--font-body--family), system-ui, sans-serif;
+  --optica-serif: var(--font-heading--family);
+  --optica-sans: var(--font-body--family);
 }
 
 /* ===== GLOBAL OVERRIDES ===== */
