@@ -151,7 +151,7 @@
           "type": "category",
           "settings": {
             "title": "Eyeglasses",
-            "link": "shopify://collections/all",
+            "link": "shopify://collections/spectacle-collections",
             "image": "shopify://shop_images/pexels-santiago-sauceda-gonzalez-3426899-6563025.jpg",
             "subtitle": ""
           }
@@ -160,7 +160,7 @@
           "type": "category",
           "settings": {
             "title": "Sunglasses",
-            "link": "shopify://collections/all",
+            "link": "shopify://collections/sunglasses-collection",
             "image": "shopify://shop_images/pexels-lasvane-31614951-6978556.jpg",
             "subtitle": ""
           }
@@ -169,7 +169,7 @@
           "type": "category",
           "settings": {
             "title": "Watches",
-            "link": "shopify://collections/all",
+            "link": "shopify://collections/watch-collection",
             "image": "shopify://shop_images/pexels-szafran-36384644.jpg",
             "subtitle": ""
           }
