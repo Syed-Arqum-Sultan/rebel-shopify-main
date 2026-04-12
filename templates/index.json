@@ -1107,7 +1107,7 @@
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
                 "background": true,
-                "background_color": "#ffffff",
+                "background_color": "#3d3830",
                 "corner_radius": 0,
                 "padding-block-start": 4,
                 "padding-block-end": 4,
@@ -1144,7 +1144,11 @@
       ],
       "name": "Collection grid",
       "settings": {
-        "collection_list": [],
+        "collection_list": [
+          "spectacle-collections",
+          "sunglasses-collection",
+          "watch-collection"
+        ],
         "layout_type": "grid",
         "carousel_on_mobile": false,
         "columns": 3,
