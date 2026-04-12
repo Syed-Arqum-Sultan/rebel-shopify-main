@@ -341,7 +341,7 @@
               "name": "Button",
               "settings": {
                 "label": "Shop watches",
-                "link": "shopify://collections/watches",
+                "link": "shopify://collections/watch-collection",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
