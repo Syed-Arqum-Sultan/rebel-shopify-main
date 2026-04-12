@@ -31,6 +31,45 @@ body.template-index {
   --style-border-radius-buttons-secondary: 0;
 }
 
+/* Hero: replaces former section custom_css grid padding */
+@media screen and (min-width: 900px) {
+  body.template-index .optica-split-hero__grid {
+    padding-inline: clamp(1.25rem, 5vw, 4.375rem);
+  }
+}
+
+/* Video band (Horizon section): caption width + inset on full-width */
+body.template-index .section.section--full-width:has(video-component) {
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
+}
+
+body.template-index .section.section--full-width:has(video-component) .group-block-content {
+  max-width: var(--page-width, 1200px);
+  margin-inline: auto;
+}
+
+body.template-index .media-with-content .media-with-content__content .group-block-content {
+  padding-block: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+/* UGC grid: match category / testimonial heading cadence */
+body.template-index .atelier-ugc-section .atelier-ugc__title {
+  font-family: var(--font-heading--family);
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+body.template-index .atelier-ugc-section .atelier-ugc__sub {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  opacity: 0.82;
+}
+
+/* Collection list on home: subtle card framing */
+body.template-index .ui-test-collection-list .collection-card {
+  border: 1px solid color-mix(in srgb, var(--color-primary) 22%, var(--color-background));
+}
+
 /*
  * Header: OPTICA nav + cart styling on all storefront pages (layout/theme.liquid).
  * `atelier-optica` on body replaces #header-group scoping so rules stay body-anchored.
