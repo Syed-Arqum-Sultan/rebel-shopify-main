@@ -979,6 +979,7 @@
           ]
         }
       },
+      "disabled": true,
       "name": "Curated selection",
       "settings": {
         "collection": "watch-collection",
