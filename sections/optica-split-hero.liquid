@@ -34,19 +34,35 @@
 
     <div class="optica-split-hero__visual" aria-hidden="true">
       <span class="optica-split-hero__watermark">{{ section.settings.watermark_text | escape }}</span>
-      <div class="optica-split-hero__illustration">
-        <svg class="optica-split-hero__svg optica-split-hero__svg--glasses" viewBox="0 0 120 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M8 28 C8 18 18 12 32 12 C46 12 52 18 60 22 C68 18 74 12 88 12 C102 12 112 18 112 28 C112 36 104 40 88 40 C72 40 66 34 60 30 C54 34 48 40 32 40 C16 40 8 36 8 28 Z" stroke="currentColor" stroke-width="1.2" fill="none"/>
-          <path d="M60 22 L60 34" stroke="currentColor" stroke-width="1" opacity="0.6"/>
-          <path d="M2 26 L8 26 M112 26 L118 26" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
-        </svg>
-        <svg class="optica-split-hero__svg optica-split-hero__svg--watch" viewBox="0 0 64 88" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="14" y="10" width="36" height="68" rx="10" stroke="currentColor" stroke-width="1.2" fill="none"/>
-          <circle cx="32" cy="44" r="14" stroke="currentColor" stroke-width="1" fill="none"/>
-          <path d="M32 34 L32 44 L38 48" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-          <path d="M32 6 L32 10 M32 78 L32 82" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-        </svg>
-      </div>
+      {% if section.settings.visual_style == 'photograph' and section.settings.hero_image != blank %}
+        <div class="optica-split-hero__photo">
+          {{
+            section.settings.hero_image
+            | image_url: width: 1200
+            | image_tag:
+              loading: 'eager',
+              fetchpriority: 'high',
+              sizes: '(min-width: 900px) 45vw, 90vw',
+              widths: '400, 600, 800, 1000, 1200',
+              class: 'optica-split-hero__photo-img',
+              alt: ''
+          }}
+        </div>
+      {% else %}
+        <div class="optica-split-hero__illustration">
+          <svg class="optica-split-hero__svg optica-split-hero__svg--glasses" viewBox="0 0 120 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M8 28 C8 18 18 12 32 12 C46 12 52 18 60 22 C68 18 74 12 88 12 C102 12 112 18 112 28 C112 36 104 40 88 40 C72 40 66 34 60 30 C54 34 48 40 32 40 C16 40 8 36 8 28 Z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+            <path d="M60 22 L60 34" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+            <path d="M2 26 L8 26 M112 26 L118 26" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+          </svg>
+          <svg class="optica-split-hero__svg optica-split-hero__svg--watch" viewBox="0 0 64 88" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="14" y="10" width="36" height="68" rx="10" stroke="currentColor" stroke-width="1.2" fill="none"/>
+            <circle cx="32" cy="44" r="14" stroke="currentColor" stroke-width="1" fill="none"/>
+            <path d="M32 34 L32 44 L38 48" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+            <path d="M32 6 L32 10 M32 78 L32 82" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      {% endif %}
     </div>
   </div>
 </section>
@@ -171,9 +187,27 @@
     }
   }
 
+  .optica-split-hero__photo {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 420px);
+    margin-inline: auto;
+    border: 1px solid color-mix(in srgb, var(--color-primary) 45%, var(--color-background));
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--color-foreground) 4%, var(--color-background));
+  }
+
+  .optica-split-hero__photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
   .optica-split-hero__watermark {
     position: absolute;
-    right : 2px;
+    right: 2px;
     inset: 0;
     display: flex;
     align-items: center;
@@ -267,6 +301,23 @@
       "id": "watermark_text",
       "label": "Background word",
       "default": "OPTICA"
+    },
+    {
+      "type": "select",
+      "id": "visual_style",
+      "label": "Right column visual",
+      "options": [
+        { "value": "line_art", "label": "Line art (glasses & watch)" },
+        { "value": "photograph", "label": "Photograph" }
+      ],
+      "default": "line_art"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero photograph",
+      "info": "Shown when visual style is Photograph. Leave blank to fall back to line art.",
+      "visible_if": "{{ section.settings.visual_style == 'photograph' }}"
     },
     {
       "type": "select",

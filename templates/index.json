@@ -11,22 +11,21 @@
   "sections": {
     "optica_split_hero": {
       "type": "optica-split-hero",
-      "custom_css": [
-        "/* .optica-split-hero__watermark {right: 2px;} */.optica-split-hero__grid {padding: 0px 70px;}"
-      ],
       "settings": {
-        "heading": "<h1>  See the World in <em>Style</em></h1>",
+        "heading": "<h1>See the World in <em>Style</em></h1>",
         "subtext": "Premium eyewear and timepieces selected like a private salon—UV400 lenses, Swiss calibres, and a concierge team behind every order.",
         "cta_1_label": "Shop Eyewear",
-        "cta_1_link": "shopify://collections/all",
+        "cta_1_link": "shopify://collections/eyeglasses",
         "cta_1_style": "filled",
         "cta_2_label": "Shop Watches",
-        "cta_2_link": "shopify://collections/all",
+        "cta_2_link": "shopify://collections/watches",
         "watermark_text": "OPTICA",
+        "visual_style": "photograph",
+        "hero_image": "shopify://shop_images/pexels-lasvane-31614951-6978556.jpg",
         "section_width": "full-width",
         "color_scheme": "scheme-1",
-        "padding-block-start": 24,
-        "padding-block-end": 32
+        "padding-block-start": 32,
+        "padding-block-end": 40
       }
     },
     "marquee_strip": {
@@ -104,7 +103,7 @@
           "settings": {
             "icon": "warranty",
             "title": "2-Year Warranty",
-            "subtitle": ""
+            "subtitle": "Frames & movements"
           }
         },
         "t2": {
@@ -112,7 +111,7 @@
           "settings": {
             "icon": "shipping",
             "title": "Free Shipping",
-            "subtitle": ""
+            "subtitle": "On orders over $150"
           }
         },
         "t3": {
@@ -120,7 +119,7 @@
           "settings": {
             "icon": "uv",
             "title": "UV400 Lenses",
-            "subtitle": ""
+            "subtitle": "Certified sun protection"
           }
         },
         "t4": {
@@ -128,7 +127,7 @@
           "settings": {
             "icon": "exchange",
             "title": "30-Day Exchange",
-            "subtitle": ""
+            "subtitle": "Hassle-free returns"
           }
         }
       },
@@ -139,9 +138,9 @@
         "t4"
       ],
       "settings": {
-        "color_scheme": "scheme-1",
-        "padding-block-start": 8,
-        "padding-block-end": 8
+        "color_scheme": "scheme-2",
+        "padding-block-start": 12,
+        "padding-block-end": 12
       }
     },
     "category_tiles": {
@@ -153,7 +152,7 @@
             "title": "Eyeglasses",
             "link": "shopify://collections/spectacle-collections",
             "image": "shopify://shop_images/pexels-santiago-sauceda-gonzalez-3426899-6563025.jpg",
-            "subtitle": ""
+            "subtitle": "Optical-grade clarity"
           }
         },
         "t2": {
@@ -162,7 +161,7 @@
             "title": "Sunglasses",
             "link": "shopify://collections/sunglasses-collection",
             "image": "shopify://shop_images/pexels-lasvane-31614951-6978556.jpg",
-            "subtitle": ""
+            "subtitle": "UV400 & polarized"
           }
         },
         "t3": {
@@ -171,7 +170,7 @@
             "title": "Watches",
             "link": "shopify://collections/watch-collection",
             "image": "shopify://shop_images/pexels-szafran-36384644.jpg",
-            "subtitle": ""
+            "subtitle": "Swiss & Japanese calibres"
           }
         }
       },
@@ -184,9 +183,240 @@
         "heading": "Shop by Category",
         "section_width": "page-width",
         "color_scheme": "scheme-1",
+        "padding-block-start": 52,
+        "padding-block-end": 52
+      }
+    },
+    "home_editorial": {
+      "type": "media-with-content",
+      "name": "Editorial spotlight",
+      "block_order": ["media", "content"],
+      "settings": {
+        "media_position": "left",
+        "media_width": "wide",
+        "media_height": "60svh",
+        "section_width": "full-width",
+        "extend_media": true,
+        "color_scheme": "scheme-4",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      },
+      "blocks": {
+        "media": {
+          "type": "_media-without-appearance",
+          "static": true,
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/pexels-szafran-36384644.jpg",
+            "link": "shopify://collections/watches",
+            "image_position": "cover",
+            "video_loop": true,
+            "video_autoplay": false,
+            "video_position": "cover"
+          }
+        },
+        "content": {
+          "type": "_content-without-appearance",
+          "static": true,
+          "settings": {
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 24
+          },
+          "blocks": {
+            "caption": {
+              "type": "text",
+              "name": "Caption",
+              "settings": {
+                "text": "<p>Behind the dial</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h6",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "0.12em",
+                "case": "uppercase",
+                "wrap": "pretty",
+                "color": "var(--color-primary)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "editorial_group": {
+              "type": "group",
+              "name": "Story",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "heading_ed": {
+                  "type": "text",
+                  "name": "Heading",
+                  "settings": {
+                    "text": "<h2>Timepieces, chosen like heirlooms</h2>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h3",
+                    "font": "var(--font-heading--family)",
+                    "font_size": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "body_ed": {
+                  "type": "text",
+                  "name": "Body",
+                  "settings": {
+                    "text": "<p>Every watch in our edit is vetted for finishing, movement integrity, and everyday wear—so what you strap on feels as considered as the frames on your face.</p>",
+                    "width": "fit-content",
+                    "max_width": "narrow",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": ["heading_ed", "body_ed"]
+            },
+            "cta_btn": {
+              "type": "button",
+              "name": "Button",
+              "settings": {
+                "label": "Shop watches",
+                "link": "shopify://collections/watches",
+                "open_in_new_tab": false,
+                "style_class": "button",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              }
+            }
+          },
+          "block_order": ["caption", "editorial_group", "cta_btn"]
+        }
+      }
+    },
+    "home_ugc": {
+      "type": "atelier-ugc-grid",
+      "name": "Community grid",
+      "settings": {
+        "heading": "Seen on you",
+        "subheading": "Share your fit—tag us for a chance to appear in our salon feed.",
+        "section_width": "full-width",
+        "color_scheme": "scheme-1",
         "padding-block-start": 48,
         "padding-block-end": 48
-      }
+      },
+      "blocks": {
+        "ugc_1": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/pexels-santiago-sauceda-gonzalez-3426899-6563025.jpg",
+            "link": ""
+          }
+        },
+        "ugc_2": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/pexels-lasvane-31614951-6978556.jpg",
+            "link": ""
+          }
+        },
+        "ugc_3": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/pexels-szafran-36384644.jpg",
+            "link": ""
+          }
+        },
+        "ugc_4": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/pexels-lasvane-31614951-6978556.jpg",
+            "link": ""
+          }
+        },
+        "ugc_5": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/pexels-santiago-sauceda-gonzalez-3426899-6563025.jpg",
+            "link": ""
+          }
+        },
+        "ugc_6": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/pexels-szafran-36384644.jpg",
+            "link": ""
+          }
+        }
+      },
+      "block_order": ["ugc_1", "ugc_2", "ugc_3", "ugc_4", "ugc_5", "ugc_6"]
     },
     "section_dqikDA": {
       "type": "section",
@@ -206,8 +436,8 @@
             "aspect_ratio": "16/9",
             "border": "solid",
             "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
+            "border_opacity": 28,
+            "border_radius": 2,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -259,7 +489,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>Take a look behind the scenes of our latest product launch.</p>",
+                "text": "<p>Go behind the lens: how we fit, finish, and photograph every drop before it reaches you.</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -285,7 +515,7 @@
               "type": "button",
               "name": "t:names.button",
               "settings": {
-                "label": "Discover the collection",
+                "label": "Watch the story",
                 "link": "shopify://collections/all",
                 "open_in_new_tab": false,
                 "style_class": "link",
@@ -316,11 +546,11 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 16,
-        "section_width": "page-width",
+        "gap": 20,
+        "section_width": "full-width",
         "section_height": "",
         "section_height_custom": 50,
-        "color_scheme": "",
+        "color_scheme": "scheme-2",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
@@ -332,8 +562,8 @@
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
-        "padding-block-start": 32,
-        "padding-block-end": 32
+        "padding-block-start": 48,
+        "padding-block-end": 48
       }
     },
     "new_arrivals": {
@@ -377,7 +607,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h2>Featured Collection</h2>",
+                "text": "<h2>New arrivals</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -541,7 +771,356 @@
         "gap": 24,
         "color_scheme": "scheme-1",
         "padding-block-start": 40,
-        "padding-block-end": 56
+        "padding-block-end": 48
+      }
+    },
+    "curated_products": {
+      "type": "product-list",
+      "name": "Curated selection",
+      "blocks": {
+        "static-header": {
+          "type": "_product-list-content",
+          "name": "t:names.header",
+          "static": true,
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_list_text": {
+              "type": "_product-list-text",
+              "name": "t:names.collection_title",
+              "settings": {
+                "text": "<h2>Curated for you</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h3",
+                "font": "var(--font-heading--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_list_button": {
+              "type": "_product-list-button",
+              "name": "t:names.product_list_button",
+              "settings": {
+                "label": "View all",
+                "open_in_new_tab": false,
+                "style_class": "link",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_list_text",
+            "product_list_button"
+          ]
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 8,
+            "inherit_color_scheme": false,
+            "color_scheme": "scheme-1",
+            "border": "solid",
+            "border_width": 1,
+            "border_opacity": 25,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product-card-gallery": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "portrait",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_title": {
+              "type": "product-title",
+              "name": "t:names.product_title",
+              "settings": {
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.875rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-primary)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 16,
+                "padding-block-end": 0,
+                "padding-inline-start": 16,
+                "padding-inline-end": 16
+              },
+              "blocks": {}
+            },
+            "price": {
+              "type": "price",
+              "name": "t:names.product_price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "custom",
+                "width": "fit-content",
+                "alignment": "left",
+                "font": "var(--font-accent--family)",
+                "font_size": "0.875rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 0,
+                "padding-block-end": 16,
+                "padding-inline-start": 16,
+                "padding-inline-end": 16
+              },
+              "blocks": {}
+            },
+            "swatches": {
+              "type": "swatches",
+              "name": "t:names.swatches",
+              "settings": {
+                "product_swatches_alignment": "flex-start",
+                "product_swatches_alignment_mobile": "flex-start",
+                "hide_padding": false,
+                "product_swatches_padding_top": 4,
+                "product_swatches_padding_bottom": 0,
+                "product_swatches_padding_left": 0,
+                "product_swatches_padding_right": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product-card-gallery",
+            "product_title",
+            "price",
+            "swatches"
+          ]
+        }
+      },
+      "settings": {
+        "collection": "all",
+        "layout_type": "grid",
+        "carousel_on_mobile": true,
+        "max_products": 4,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 16,
+        "rows_gap": 28,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "horizontal_alignment": "flex-start",
+        "gap": 24,
+        "color_scheme": "scheme-5",
+        "padding-block-start": 32,
+        "padding-block-end": 40
+      }
+    },
+    "collection_discovery": {
+      "type": "collection-list",
+      "name": "Collection grid",
+      "blocks": {
+        "group_header_collections": {
+          "type": "group",
+          "name": "t:names.header",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_collections_intro": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<h2>Explore collections</h2><p>Discover edits for every mood—from daily opticals to statement sun and mechanical watches.</p>",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "padding-block-start": 0,
+                "padding-block-end": 16,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            }
+          },
+          "block_order": ["text_collections_intro"]
+        },
+        "static-collection-card": {
+          "type": "_collection-card",
+          "name": "t:names.collection_card",
+          "static": true,
+          "settings": {
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-start",
+            "placement": "on_image",
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0
+          },
+          "blocks": {
+            "collection-card-image": {
+              "type": "_collection-card-image",
+              "name": "t:names.collection_card_image",
+              "static": true,
+              "settings": {
+                "image_ratio": "adapt"
+              }
+            },
+            "collection-title": {
+              "type": "collection-title",
+              "name": "t:names.collection_title",
+              "settings": {
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "background": true,
+                "background_color": "#ffffff",
+                "padding-block-start": 4,
+                "padding-block-end": 4,
+                "padding-inline-start": 8,
+                "padding-inline-end": 8
+              }
+            }
+          },
+          "block_order": ["collection-title"]
+        }
+      },
+      "block_order": ["group_header_collections"],
+      "settings": {
+        "collection_list": [],
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "columns": 3,
+        "mobile_columns": "2",
+        "columns_gap": 12,
+        "rows_gap": 12,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "gap": 16,
+        "color_scheme": "scheme-3",
+        "padding-block-start": 40,
+        "padding-block-end": 48
+      }
+    },
+    "home_divider": {
+      "type": "divider",
+      "name": "Section divider",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "section_width": "page-width",
+        "thickness": 1,
+        "width_percent": 100,
+        "padding-block-start": 12,
+        "padding-block-end": 12
       }
     },
     "testimonials": {
@@ -581,9 +1160,9 @@
         "heading": "What Our Clients Say",
         "layout": "grid",
         "section_width": "page-width",
-        "color_scheme": "scheme-1",
-        "padding-block-start": 56,
-        "padding-block-end": 56
+        "color_scheme": "scheme-4",
+        "padding-block-start": 48,
+        "padding-block-end": 48
       }
     },
     "newsletter": {
@@ -595,7 +1174,7 @@
         "button_label": "Subscribe",
         "section_width": "page-width",
         "color_scheme": "scheme-1",
-        "padding-block-start": 64,
+        "padding-block-start": 56,
         "padding-block-end": 72
       }
     }
@@ -605,8 +1184,13 @@
     "marquee_strip",
     "optica_trust",
     "category_tiles",
+    "home_editorial",
+    "home_ugc",
     "section_dqikDA",
     "new_arrivals",
+    "curated_products",
+    "collection_discovery",
+    "home_divider",
     "testimonials",
     "newsletter"
   ]
