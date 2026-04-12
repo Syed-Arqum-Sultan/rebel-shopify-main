@@ -20,8 +20,7 @@
         "cta_2_label": "Shop Watches",
         "cta_2_link": "shopify://collections/watches",
         "watermark_text": "OPTICA",
-        "visual_style": "photograph",
-        "hero_image": "shopify://shop_images/pexels-lasvane-31614951-6978556.jpg",
+        "visual_style": "line_art",
         "section_width": "full-width",
         "color_scheme": "scheme-1",
         "padding-block-start": 32,
@@ -189,18 +188,6 @@
     },
     "home_editorial": {
       "type": "media-with-content",
-      "name": "Editorial spotlight",
-      "block_order": ["media", "content"],
-      "settings": {
-        "media_position": "left",
-        "media_width": "wide",
-        "media_height": "60svh",
-        "section_width": "full-width",
-        "extend_media": true,
-        "color_scheme": "scheme-4",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      },
       "blocks": {
         "media": {
           "type": "_media-without-appearance",
@@ -209,11 +196,12 @@
             "media_type": "image",
             "image": "shopify://shop_images/pexels-szafran-36384644.jpg",
             "link": "shopify://collections/watches",
-            "image_position": "cover",
             "video_loop": true,
             "video_autoplay": false,
+            "image_position": "cover",
             "video_position": "cover"
-          }
+          },
+          "blocks": {}
         },
         "content": {
           "type": "_content-without-appearance",
@@ -247,7 +235,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "editorial_group": {
               "type": "group",
@@ -312,7 +301,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "body_ed": {
                   "type": "text",
@@ -337,10 +327,14 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 }
               },
-              "block_order": ["heading_ed", "body_ed"]
+              "block_order": [
+                "heading_ed",
+                "body_ed"
+              ]
             },
             "cta_btn": {
               "type": "button",
@@ -354,25 +348,39 @@
                 "custom_width": 100,
                 "width_mobile": "fit-content",
                 "custom_width_mobile": 100
-              }
+              },
+              "blocks": {}
             }
           },
-          "block_order": ["caption", "editorial_group", "cta_btn"]
+          "block_order": [
+            "caption",
+            "editorial_group",
+            "cta_btn"
+          ]
         }
+      },
+      "name": "Editorial spotlight",
+      "settings": {
+        "media_position": "left",
+        "media_width": "wide",
+        "media_height": "60svh",
+        "section_width": "full-width",
+        "extend_media": true,
+        "color_scheme": "scheme-4",
+        "padding-block-start": 0,
+        "padding-block-end": 0
       }
     },
     "home_ugc": {
       "type": "atelier-ugc-grid",
-      "name": "Community grid",
-      "settings": {
-        "heading": "Seen on you",
-        "subheading": "Share your fit—tag us for a chance to appear in our salon feed.",
-        "section_width": "full-width",
-        "color_scheme": "scheme-1",
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      },
       "blocks": {
+        "photo_P7Ygzf": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/75106B76-C317-4EAD-AB7D-3597CFA299F9.jpg",
+            "link": ""
+          }
+        },
         "ugc_1": {
           "type": "photo",
           "settings": {
@@ -397,7 +405,7 @@
         "ugc_4": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/pexels-lasvane-31614951-6978556.jpg",
+            "image": "shopify://shop_images/image_9e53e7da-5d0c-43b4-9be5-1476493ae9d7.jpg",
             "link": ""
           }
         },
@@ -407,16 +415,25 @@
             "image": "shopify://shop_images/pexels-santiago-sauceda-gonzalez-3426899-6563025.jpg",
             "link": ""
           }
-        },
-        "ugc_6": {
-          "type": "photo",
-          "settings": {
-            "image": "shopify://shop_images/pexels-szafran-36384644.jpg",
-            "link": ""
-          }
         }
       },
-      "block_order": ["ugc_1", "ugc_2", "ugc_3", "ugc_4", "ugc_5", "ugc_6"]
+      "block_order": [
+        "photo_P7Ygzf",
+        "ugc_1",
+        "ugc_2",
+        "ugc_3",
+        "ugc_4",
+        "ugc_5"
+      ],
+      "name": "Community grid",
+      "settings": {
+        "heading": "Seen on you",
+        "subheading": "Share your fit—tag us for a chance to appear in our salon feed.",
+        "section_width": "full-width",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
     },
     "section_dqikDA": {
       "type": "section",
@@ -776,7 +793,6 @@
     },
     "curated_products": {
       "type": "product-list",
-      "name": "Curated selection",
       "blocks": {
         "static-header": {
           "type": "_product-list-content",
@@ -963,6 +979,7 @@
           ]
         }
       },
+      "name": "Curated selection",
       "settings": {
         "collection": "all",
         "layout_type": "grid",
@@ -985,7 +1002,6 @@
     },
     "collection_discovery": {
       "type": "collection-list",
-      "name": "Collection grid",
       "blocks": {
         "group_header_collections": {
           "type": "group",
@@ -995,6 +1011,7 @@
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "center",
+            "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
             "gap": 12,
@@ -1013,6 +1030,13 @@
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -1024,6 +1048,9 @@
               "name": "t:names.text",
               "settings": {
                 "text": "<h2>Explore collections</h2><p>Discover edits for every mood—from daily opticals to statement sun and mechanical watches.</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
                 "font_size": "",
@@ -1031,26 +1058,31 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 16,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             }
           },
-          "block_order": ["text_collections_intro"]
+          "block_order": [
+            "text_collections_intro"
+          ]
         },
         "static-collection-card": {
           "type": "_collection-card",
           "name": "t:names.collection_card",
           "static": true,
           "settings": {
+            "placement": "on_image",
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "flex-start",
-            "placement": "on_image",
+            "collection_card_gap": 8,
             "inherit_color_scheme": true,
             "color_scheme": "",
             "border": "none",
@@ -1059,18 +1091,13 @@
             "border_radius": 0
           },
           "blocks": {
-            "collection-card-image": {
-              "type": "_collection-card-image",
-              "name": "t:names.collection_card_image",
-              "static": true,
-              "settings": {
-                "image_ratio": "adapt"
-              }
-            },
             "collection-title": {
               "type": "collection-title",
               "name": "t:names.collection_title",
               "settings": {
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
                 "font_size": "",
@@ -1078,30 +1105,55 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
+                "color": "var(--color-foreground)",
                 "background": true,
                 "background_color": "#ffffff",
+                "corner_radius": 0,
                 "padding-block-start": 4,
                 "padding-block-end": 4,
                 "padding-inline-start": 8,
                 "padding-inline-end": 8
-              }
+              },
+              "blocks": {}
+            },
+            "collection-card-image": {
+              "type": "_collection-card-image",
+              "name": "t:names.collection_card_image",
+              "static": true,
+              "settings": {
+                "image_ratio": "adapt",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0
+              },
+              "blocks": {}
             }
           },
-          "block_order": ["collection-title"]
+          "block_order": [
+            "collection-title"
+          ]
         }
       },
-      "block_order": ["group_header_collections"],
+      "block_order": [
+        "group_header_collections"
+      ],
+      "name": "Collection grid",
       "settings": {
         "collection_list": [],
         "layout_type": "grid",
         "carousel_on_mobile": false,
         "columns": 3,
         "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
         "columns_gap": 12,
+        "bento_gap": 8,
         "rows_gap": 12,
+        "max_collections": 4,
         "icons_style": "arrow",
         "icons_shape": "none",
         "section_width": "page-width",
@@ -1118,7 +1170,9 @@
         "color_scheme": "scheme-1",
         "section_width": "page-width",
         "thickness": 1,
+        "corner_radius": "square",
         "width_percent": 100,
+        "alignment_horizontal": "center",
         "padding-block-start": 12,
         "padding-block-end": 12
       }
