@@ -17,7 +17,11 @@
 {% if bs.disable_metafield_gate %}
   {% assign is_enabled_for_product = true %}
 {% endif %}
-{% if is_frame_context and is_enabled_for_product %}
+{% assign show_in_editor_debug = false %}
+{% if request.design_mode and is_frame_context and is_enabled_for_product == false %}
+  {% assign show_in_editor_debug = true %}
+{% endif %}
+{% if is_frame_context and is_enabled_for_product or show_in_editor_debug %}
   <div
     class="atelier-prescription-input spacing-style{% unless bs.inherit_color_scheme %} color-{{ bs.color_scheme }}{% endunless %}"
     style="{% render 'spacing-style', settings: bs %}"
@@ -57,6 +61,11 @@
     <div class="atelier-prescription-input__warning" data-rx-warning hidden>
       {{ bs.rx_required_message | escape }}
     </div>
+    {% if show_in_editor_debug %}
+      <div class="atelier-prescription-input__warning">
+        Theme editor preview: this block is visible for setup. Turn on product metafield `custom.enable_prescription` to show it live.
+      </div>
+    {% endif %}
 
     <div class="atelier-prescription-input__fields" data-rx-fields>
       <div class="atelier-prescription-input__row atelier-prescription-input__row--head">
