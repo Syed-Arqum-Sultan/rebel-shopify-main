@@ -356,6 +356,123 @@ body.template-product .atelier-lens-select__caret {
   transition: transform 0.2s ease-out, opacity 0.2s;
 }
 
+/* ===== PRESCRIPTION INPUT ===== */
+body.template-product .atelier-prescription-input {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--optica-border);
+  background: color-mix(in srgb, var(--optica-primary) 4%, var(--optica-bg));
+}
+
+body.template-product .atelier-prescription-input__heading {
+  margin: 0;
+  font-family: var(--optica-sans);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--optica-fg);
+}
+
+body.template-product .atelier-prescription-input__description {
+  margin: 0;
+  font-family: var(--optica-sans);
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--optica-subdued);
+}
+
+body.template-product .atelier-prescription-input__method {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+body.template-product .atelier-prescription-input__method-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--optica-sans);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--optica-fg);
+}
+
+body.template-product .atelier-prescription-input__warning {
+  padding: 10px 12px;
+  border: 1px solid var(--optica-border2);
+  background: rgb(var(--color-primary-rgb) / 0.08);
+  font-family: var(--optica-sans);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--optica-primary);
+}
+
+body.template-product .atelier-prescription-input__fields {
+  display: grid;
+  gap: 8px;
+}
+
+body.template-product .atelier-prescription-input__row {
+  display: grid;
+  grid-template-columns: 40px repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  align-items: center;
+}
+
+body.template-product .atelier-prescription-input__row--head span {
+  font-family: var(--optica-sans);
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--optica-muted);
+}
+
+body.template-product .atelier-prescription-input__eye {
+  font-family: var(--optica-sans);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--optica-fg);
+}
+
+body.template-product .atelier-prescription-input input[type='text'],
+body.template-product .atelier-prescription-input input[type='number'] {
+  min-height: 40px;
+  border: 1px solid var(--optica-border);
+  background: transparent;
+  color: var(--optica-fg);
+  border-radius: 0;
+  padding-inline: 10px;
+  font-family: var(--optica-sans);
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+body.template-product .atelier-prescription-input input:focus {
+  outline: none;
+  border-color: var(--optica-primary);
+  box-shadow: 0 0 0 1px var(--optica-primary);
+}
+
+body.template-product .atelier-prescription-input__pd label {
+  display: grid;
+  gap: 6px;
+  max-width: 180px;
+}
+
+body.template-product .atelier-prescription-input__pd span {
+  font-family: var(--optica-sans);
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--optica-muted);
+}
+
 /* ===== QUANTITY SELECTOR ===== */
 body.template-product .quantity-selector {
   display: flex;
@@ -950,5 +1067,17 @@ body.template-product .button-secondary:hover {
 
   body.template-product .product-recommendations .resource-list--grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  body.template-product .atelier-prescription-input {
+    padding: 12px;
+  }
+
+  body.template-product .atelier-prescription-input__row {
+    grid-template-columns: 32px 1fr 1fr;
+  }
+
+  body.template-product .atelier-prescription-input__row--head {
+    display: none;
   }
 }
