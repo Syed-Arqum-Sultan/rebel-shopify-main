@@ -54,7 +54,6 @@
         "product-details": {
           "type": "_product-details",
           "name": "Product details",
-          "disabled": true,
           "static": true,
           "settings": {
             "width": "fill",
