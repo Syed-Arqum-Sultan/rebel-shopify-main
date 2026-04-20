@@ -231,7 +231,7 @@
                 "heading": "Lens type",
                 "description": "Select lens finishing for eyewear.",
                 "property_key": "Lens type",
-                "lens_packages": "Demo / display lenses|47825695375581|0|false\nBlue-light filter (non Rx)|47825695408349|3500|false\nPolarized sun (non-Rx)||6000|false\nPhotochromic (non-Rx)||7000|false\nSingle vision (standard)||8000|true\nProgressive (standard)||16000|true\nBifocal||13000|true",
+                "lens_packages": "Demo / display lenses|47825695375581|0|false\nBlue-light filter (non-Rx)|47825695408349|3500|false\nPolarized sun (non-Rx)|47825695441117|6000|false\nPhotochromic (non-Rx)|47825695473885|7000|false\nSingle vision (standard)|47825695506653|8000|true\nProgressive (standard)||16000|true\nBifocal||13000|true",
                 "placeholder": "Select a lens type",
                 "required": false,
                 "inherit_color_scheme": true,
