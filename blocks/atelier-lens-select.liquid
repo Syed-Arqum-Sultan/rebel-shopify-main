@@ -85,9 +85,6 @@
       const root = document.currentScript.closest('[data-atelier-lens-root]');
       if (!root) return;
       const formId = root.dataset.productFormId;
-      const form = document.getElementById(formId);
-      if (!form) return;
-
       const lensSelect = root.querySelector('.atelier-lens-select__select');
       const hiddenLensVariantId = root.querySelector('[data-lens-addon-variant-id]');
       const hiddenLensPrice = root.querySelector('[data-lens-addon-price]');
@@ -95,9 +92,15 @@
       const basePriceEl = root.querySelector('[data-lens-base-price]');
       const addonPriceEl = root.querySelector('[data-lens-addon-price-display]');
       const totalPriceEl = root.querySelector('[data-lens-total-price]');
-      const addToCartTextError = form.closest('product-form-component')?.querySelector('[ref="addToCartTextError"]');
 
       let basePriceCents = Number(root.dataset.basePrice || 0);
+
+      const getForm = () => document.getElementById(formId);
+      const getAddToCartTextError = () => {
+        const form = getForm();
+        if (!form) return null;
+        return form.closest('product-form-component')?.querySelector('[ref="addToCartTextError"]') || null;
+      };
 
       const formatMoney = (cents) => {
         if (window.Shopify && typeof window.Shopify.formatMoney === 'function') {
@@ -125,6 +128,7 @@
       };
 
       const clearError = () => {
+        const addToCartTextError = getAddToCartTextError();
         if (!addToCartTextError) return;
         addToCartTextError.classList.add('hidden');
       };
@@ -148,6 +152,8 @@
       };
 
       const getPropertiesFromForm = () => {
+        const form = getForm();
+        if (!form) return {};
         const formData = new FormData(form);
         const properties = {};
         formData.forEach((value, key) => {
@@ -160,6 +166,7 @@
       };
 
       const showMissingWarning = () => {
+        const addToCartTextError = getAddToCartTextError();
         if (!addToCartTextError) return;
         const message = 'Prescription details are recommended for this lens. You can still add to cart and send later.';
         addToCartTextError.classList.remove('hidden');
@@ -172,6 +179,8 @@
       };
 
       const addBundleToCart = async () => {
+        const form = getForm();
+        if (!form) throw new Error('Product form not ready. Please try again.');
         const lens = parseSelectedLens();
         if (!lens.variantId) return false;
 
@@ -260,9 +269,11 @@
       lensSelect?.addEventListener('change', updateLensState);
       updateLensState();
 
-      form.addEventListener(
+      document.addEventListener(
         'submit',
         async (event) => {
+          const form = getForm();
+          if (!form || event.target !== form) return;
           const lens = parseSelectedLens();
           if (!lens.variantId) return;
           if (form.dataset.atelierBundleSubmitting === 'true') {
@@ -277,6 +288,7 @@
           try {
             await addBundleToCart();
           } catch (error) {
+            const addToCartTextError = getAddToCartTextError();
             if (addToCartTextError) {
               addToCartTextError.classList.remove('hidden');
               const textNode = addToCartTextError.childNodes[2];

@@ -126,11 +126,9 @@
 
   <script>
     (function () {
-      const root = document.currentScript.previousElementSibling;
+      const root = document.currentScript.closest('[data-atelier-rx-root]');
       if (!root) return;
       const formId = root.dataset.productFormId;
-      const form = document.getElementById(formId);
-      if (!form) return;
 
       const warning = root.querySelector('[data-rx-warning]');
       const missingWarning = root.querySelector('[data-rx-missing-warning]');
