@@ -231,7 +231,7 @@
                 "heading": "Lens type",
                 "description": "Select lens finishing for eyewear. Skip for watches.",
                 "property_key": "Lens type",
-                "options": "Demo / display lenses\nSingle vision\nProgressive\nBlue-light filter\nPolarized sun",
+                "lens_packages": "Demo / display lenses||0|false\nSingle vision||0|true\nProgressive||0|true\nBlue-light filter||0|false\nPolarized sun||0|false",
                 "placeholder": "Select a lens type",
                 "required": false,
                 "inherit_color_scheme": true,

@@ -3,8 +3,6 @@
   assign product_form_id = 'BuyButtons-ProductForm-' | append: section.id
   assign method_name = bs.method_property_key | default: 'Prescription method'
   assign status_name = bs.status_property_key | default: 'Prescription status'
-  assign rx_lens_options = bs.rx_lens_options | downcase | newline_to_br | split: '<br />'
-  assign lens_property_key = bs.lens_property_key | default: 'Lens type'
   assign enable_metafield = closest.product.metafields.custom.enable_prescription
 -%}
 {% assign is_enabled_for_product = enable_metafield.value %}
@@ -23,8 +21,7 @@
     class="atelier-prescription-input spacing-style{% unless bs.inherit_color_scheme %} color-{{ bs.color_scheme }}{% endunless %}"
     style="{% render 'spacing-style', settings: bs %}"
     data-atelier-rx-root
-    data-lens-property-key="{{ lens_property_key | escape }}"
-    data-rx-lens-options="{% for lens in rx_lens_options %}{% assign clean_lens = lens | strip %}{% if clean_lens != blank %}{{ clean_lens | escape }}{% unless forloop.last %}|{% endunless %}{% endif %}{% endfor %}"
+    data-product-form-id="{{ product_form_id }}"
     {{ block.shopify_attributes }}
   >
     {% if bs.heading != blank %}
@@ -36,9 +33,15 @@
 
     <div class="atelier-prescription-input__method">
       <label class="atelier-prescription-input__method-option">
-        <input type="radio" name="properties[{{ method_name | strip | replace: '"', '' }}]" value="Manual entry" form="{{ product_form_id }}" checked>
+        <input type="radio" name="properties[{{ method_name | strip | replace: '"', '' }}]" value="Manual entry" form="{{ product_form_id }}">
         <span>{{ bs.manual_entry_label | escape }}</span>
       </label>
+      {% if bs.enable_upload_method %}
+        <label class="atelier-prescription-input__method-option">
+          <input type="radio" name="properties[{{ method_name | strip | replace: '"', '' }}]" value="Upload later" form="{{ product_form_id }}">
+          <span>{{ bs.upload_later_label | escape }}</span>
+        </label>
+      {% endif %}
       {% if bs.enable_send_later %}
         <label class="atelier-prescription-input__method-option">
           <input type="radio" name="properties[{{ method_name | strip | replace: '"', '' }}]" value="Send later" form="{{ product_form_id }}">
@@ -46,6 +49,9 @@
         </label>
       {% endif %}
     </div>
+    {% if bs.upload_helper_text != blank %}
+      <p class="atelier-prescription-input__description">{{ bs.upload_helper_text | escape }}</p>
+    {% endif %}
 
     <input
       type="hidden"
@@ -57,6 +63,9 @@
 
     <div class="atelier-prescription-input__warning" data-rx-warning hidden>
       {{ bs.rx_required_message | escape }}
+    </div>
+    <div class="atelier-prescription-input__warning atelier-prescription-input__warning--soft" data-rx-missing-warning hidden>
+      {{ bs.rx_missing_method_message | escape }}
     </div>
     {% if show_in_editor_debug %}
       <div class="atelier-prescription-input__warning">
@@ -119,40 +128,42 @@
     (function () {
       const root = document.currentScript.previousElementSibling;
       if (!root) return;
-      const formId = {{ product_form_id | json }};
+      const formId = root.dataset.productFormId;
       const form = document.getElementById(formId);
       if (!form) return;
 
       const warning = root.querySelector('[data-rx-warning]');
+      const missingWarning = root.querySelector('[data-rx-missing-warning]');
       const fieldsWrap = root.querySelector('[data-rx-fields]');
       const methodInputs = root.querySelectorAll('input[name^="properties[{{ method_name | strip | replace: '"', '' }}]"]');
       const statusInput = root.querySelector('[data-rx-status]');
-      const rxLensListRaw = root.dataset.rxLensOptions || '';
-      const rxLensList = rxLensListRaw.split('|').map((item) => item.trim().toLowerCase()).filter(Boolean);
-      const lensPropertyKey = root.dataset.lensPropertyKey || 'Lens type';
-
-      const lensSelect = form.querySelector(`select[name="properties[${lensPropertyKey}]"]`);
       const numericFields = fieldsWrap ? fieldsWrap.querySelectorAll('input') : [];
-
-      function lensRequiresPrescription() {
-        if (!lensSelect || !lensSelect.value) return false;
-        return rxLensList.includes(lensSelect.value.trim().toLowerCase());
-      }
+      let rxRequired = false;
 
       function activeMethod() {
         const selected = Array.from(methodInputs).find((input) => input.checked);
-        return selected ? selected.value : 'Manual entry';
+        return selected ? selected.value : '';
+      }
+
+      function setMissingWarning(show) {
+        if (missingWarning) missingWarning.hidden = !show;
       }
 
       function updateUi() {
-        const rxRequired = lensRequiresPrescription();
-        const sendLater = activeMethod() === 'Send later';
+        const method = activeMethod();
+        const sendLater = method === 'Send later' || method === 'Upload later';
         const showManualFields = rxRequired && !sendLater;
 
         if (warning) warning.hidden = !rxRequired;
         if (fieldsWrap) fieldsWrap.hidden = !showManualFields;
         if (statusInput) {
-          statusInput.value = sendLater ? 'Send later' : (rxRequired ? 'Manual entry' : 'Not required');
+          if (!rxRequired) {
+            statusInput.value = 'Not required';
+          } else if (!method) {
+            statusInput.value = 'Missing method';
+          } else {
+            statusInput.value = sendLater ? method : 'Manual entry';
+          }
         }
       }
 
@@ -165,13 +176,22 @@
         }
       }
 
-      if (lensSelect) {
-        lensSelect.addEventListener('change', updateUi);
-      }
       methodInputs.forEach((input) => input.addEventListener('change', updateUi));
       numericFields.forEach((field) => {
         field.addEventListener('input', () => validateField(field));
         field.addEventListener('blur', () => validateField(field));
+      });
+
+      document.addEventListener('atelier:lens-change', (event) => {
+        if (event.detail?.productFormId !== formId) return;
+        rxRequired = Boolean(event.detail?.lens?.requiresRx);
+        setMissingWarning(false);
+        updateUi();
+      });
+
+      document.addEventListener('atelier:rx-warning', (event) => {
+        if (event.detail?.productFormId !== formId) return;
+        setMissingWarning(Boolean(event.detail?.show));
       });
 
       updateUi();
@@ -298,18 +318,6 @@
       "default": "Enter your prescription now or choose send later at checkout."
     },
     {
-      "type": "textarea",
-      "id": "rx_lens_options",
-      "label": "Lens options that require prescription (one per line)",
-      "default": "Single vision\nProgressive"
-    },
-    {
-      "type": "text",
-      "id": "lens_property_key",
-      "label": "Lens line item property key",
-      "default": "Lens type"
-    },
-    {
       "type": "text",
       "id": "method_property_key",
       "label": "Prescription method property key",
@@ -340,10 +348,34 @@
       "default": "Send prescription later"
     },
     {
+      "type": "checkbox",
+      "id": "enable_upload_method",
+      "label": "Enable upload-later option",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "upload_later_label",
+      "label": "Upload-later option label",
+      "default": "Upload prescription later"
+    },
+    {
+      "type": "text",
+      "id": "upload_helper_text",
+      "label": "Upload helper text",
+      "default": "You can place the order now and upload your prescription after checkout."
+    },
+    {
       "type": "text",
       "id": "rx_required_message",
       "label": "Message when selected lens requires prescription",
       "default": "This lens type needs prescription details."
+    },
+    {
+      "type": "text",
+      "id": "rx_missing_method_message",
+      "label": "Message when no method is selected",
+      "default": "Please choose a prescription method. You can still continue and share details later."
     },
     {
       "type": "checkbox",
