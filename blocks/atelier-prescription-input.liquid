@@ -177,108 +177,108 @@
       updateUi();
     })();
   </script>
-
-  {% stylesheet %}
-    .atelier-prescription-input {
-      display: grid;
-      gap: 12px;
-    }
-
-    .atelier-prescription-input__heading {
-      margin: 0;
-      font-size: 9px;
-      font-weight: 600;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
-
-    .atelier-prescription-input__description {
-      margin: 0;
-      font-size: 11px;
-      line-height: 1.7;
-      color: rgb(var(--color-foreground-rgb) / 0.6);
-    }
-
-    .atelier-prescription-input__method {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .atelier-prescription-input__method-option {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 10px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .atelier-prescription-input__warning {
-      padding: 10px 12px;
-      border: 1px solid rgb(var(--color-primary-rgb) / 0.28);
-      background: rgb(var(--color-primary-rgb) / 0.08);
-      font-size: 10px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .atelier-prescription-input__fields {
-      display: grid;
-      gap: 8px;
-    }
-
-    .atelier-prescription-input__row {
-      display: grid;
-      grid-template-columns: 44px repeat(4, minmax(0, 1fr));
-      gap: 8px;
-      align-items: center;
-    }
-
-    .atelier-prescription-input__row input {
-      width: 100%;
-      min-height: 40px;
-      border-radius: 0;
-    }
-
-    .atelier-prescription-input__row--head span {
-      font-size: 8px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: rgb(var(--color-foreground-rgb) / 0.6);
-    }
-
-    .atelier-prescription-input__eye {
-      font-size: 9px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .atelier-prescription-input__pd label {
-      display: grid;
-      gap: 6px;
-      max-width: 180px;
-    }
-
-    .atelier-prescription-input__pd span {
-      font-size: 8px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: rgb(var(--color-foreground-rgb) / 0.6);
-    }
-
-    @media screen and (max-width: 749px) {
-      .atelier-prescription-input__row {
-        grid-template-columns: 32px 1fr 1fr;
-      }
-
-      .atelier-prescription-input__row--head {
-        display: none;
-      }
-    }
-  {% endstylesheet %}
 {% endif %}
+
+{% stylesheet %}
+  .atelier-prescription-input {
+    display: grid;
+    gap: 12px;
+  }
+
+  .atelier-prescription-input__heading {
+    margin: 0;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .atelier-prescription-input__description {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.7;
+    color: rgb(var(--color-foreground-rgb) / 0.6);
+  }
+
+  .atelier-prescription-input__method {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .atelier-prescription-input__method-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .atelier-prescription-input__warning {
+    padding: 10px 12px;
+    border: 1px solid rgb(var(--color-primary-rgb) / 0.28);
+    background: rgb(var(--color-primary-rgb) / 0.08);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .atelier-prescription-input__fields {
+    display: grid;
+    gap: 8px;
+  }
+
+  .atelier-prescription-input__row {
+    display: grid;
+    grid-template-columns: 44px repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    align-items: center;
+  }
+
+  .atelier-prescription-input__row input {
+    width: 100%;
+    min-height: 40px;
+    border-radius: 0;
+  }
+
+  .atelier-prescription-input__row--head span {
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgb(var(--color-foreground-rgb) / 0.6);
+  }
+
+  .atelier-prescription-input__eye {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .atelier-prescription-input__pd label {
+    display: grid;
+    gap: 6px;
+    max-width: 180px;
+  }
+
+  .atelier-prescription-input__pd span {
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgb(var(--color-foreground-rgb) / 0.6);
+  }
+
+  @media screen and (max-width: 749px) {
+    .atelier-prescription-input__row {
+      grid-template-columns: 32px 1fr 1fr;
+    }
+
+    .atelier-prescription-input__row--head {
+      display: none;
+    }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
