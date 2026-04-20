@@ -7,7 +7,6 @@
   assign lens_property_key = bs.lens_property_key | default: 'Lens type'
   assign enable_metafield = closest.product.metafields.custom.enable_prescription
 -%}
--%}
 {% assign is_enabled_for_product = enable_metafield.value %}
 {% if is_enabled_for_product == blank %}
   {% assign is_enabled_for_product = false %}
