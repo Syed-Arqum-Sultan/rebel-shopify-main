@@ -229,9 +229,8 @@
               "type": "atelier-lens-select",
               "settings": {
                 "heading": "Lens type",
-                "description": "Select lens finishing for eyewear. Skip for watches.",
+                "description": "Select lens finishing for eyewear.",
                 "property_key": "Lens type",
-                "lens_packages": "Demo / display lenses||0|false\nSingle vision||0|true\nProgressive||0|true\nBlue-light filter||0|false\nPolarized sun||0|false",
                 "placeholder": "Select a lens type",
                 "required": false,
                 "inherit_color_scheme": true,
@@ -243,6 +242,7 @@
             },
             "atelier_frame_gT2n": {
               "type": "atelier-frame-guide",
+              "disabled": true,
               "settings": {
                 "trigger_label": "Frame size guide",
                 "heading": "Find your fit",
@@ -310,8 +310,6 @@
               "settings": {
                 "heading": "Prescription details",
                 "description": "Enter your prescription now or choose send later at checkout.",
-                "rx_lens_options": "Single vision\nProgressive",
-                "lens_property_key": "Lens type",
                 "method_property_key": "Prescription method",
                 "status_property_key": "Prescription status",
                 "manual_entry_label": "Enter manually",
