@@ -146,6 +146,8 @@
       const root = document.currentScript.closest('[data-atelier-rx-root]');
       if (!root) return;
       const formId = root.dataset.productFormId;
+      const form = document.getElementById(formId);
+      if (!form) return;
 
       const rxContent = root.querySelector('[data-rx-content]');
       const warning = root.querySelector('[data-rx-warning]');
@@ -174,11 +176,26 @@
         return { method: '', status: 'Missing method' };
       }
 
+      function resolveRxRequiredFromForm() {
+        const hiddenRxField = form.querySelector('[data-lens-requires-rx]');
+        if (hiddenRxField && (hiddenRxField.value == 'true' || hiddenRxField.value == 'false')) {
+          return hiddenRxField.value == 'true';
+        }
+
+        const lensSelect = form.querySelector('.atelier-lens-select__select');
+        const lensOption = lensSelect?.selectedOptions?.[0];
+        if (lensOption?.dataset?.requiresRx) {
+          return lensOption.dataset.requiresRx == 'true';
+        }
+        return false;
+      }
+
       function updateUi() {
         const sendLater = Boolean(sendLaterCheckbox?.checked);
         const showManualFields = rxRequired && !sendLater;
         const methodAndStatus = getMethodAndStatus();
 
+        root.hidden = !rxRequired;
         if (rxContent) rxContent.hidden = !rxRequired;
         if (warning) warning.hidden = !rxRequired;
         if (fieldsWrap) fieldsWrap.hidden = !showManualFields;
@@ -228,6 +245,7 @@
         setMissingWarning(Boolean(event.detail?.show));
       });
 
+      rxRequired = resolveRxRequiredFromForm();
       updateUi();
     })();
   </script>
