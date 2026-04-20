@@ -303,6 +303,28 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "atelier_prescription_input_GtMyHw": {
+              "type": "atelier-prescription-input",
+              "name": "Prescription input",
+              "settings": {
+                "heading": "Prescription details",
+                "description": "Enter your prescription now or choose send later at checkout.",
+                "rx_lens_options": "Single vision\nProgressive",
+                "lens_property_key": "Lens type",
+                "method_property_key": "Prescription method",
+                "status_property_key": "Prescription status",
+                "manual_entry_label": "Enter manually",
+                "enable_send_later": true,
+                "send_later_label": "Send prescription later",
+                "rx_required_message": "This lens type needs prescription details.",
+                "disable_metafield_gate": false,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "padding-block-start": 0,
+                "padding-block-end": 8
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -313,7 +335,8 @@
             "atelier_lens_mK9p",
             "atelier_frame_gT2n",
             "buy_buttons_eYQEYi",
-            "variant_picker_6innnL"
+            "variant_picker_6innnL",
+            "atelier_prescription_input_GtMyHw"
           ]
         }
       },
