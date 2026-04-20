@@ -72,7 +72,7 @@
     </div>
     <div class="atelier-lens-summary__row">
       <span>Lens add-on</span>
-      <span data-lens-addon-price>{{ 0 | money }}</span>
+      <span data-lens-addon-price-display>{{ 0 | money }}</span>
     </div>
     <div class="atelier-lens-summary__row atelier-lens-summary__row--total">
       <span>Estimated total</span>
@@ -82,7 +82,7 @@
 
   <script>
     (function () {
-      const root = document.currentScript.previousElementSibling;
+      const root = document.currentScript.closest('[data-atelier-lens-root]');
       if (!root) return;
       const formId = root.dataset.productFormId;
       const form = document.getElementById(formId);
@@ -93,7 +93,7 @@
       const hiddenLensPrice = root.querySelector('[data-lens-addon-price]');
       const hiddenLensRequiresRx = root.querySelector('[data-lens-requires-rx]');
       const basePriceEl = root.querySelector('[data-lens-base-price]');
-      const addonPriceEl = root.querySelector('[data-lens-addon-price]');
+      const addonPriceEl = root.querySelector('[data-lens-addon-price-display]');
       const totalPriceEl = root.querySelector('[data-lens-total-price]');
       const addToCartTextError = form.closest('product-form-component')?.querySelector('[ref="addToCartTextError"]');
 
