@@ -1,6 +1,674 @@
+{% doc %}
+  @prompt
+    Create a custom prescription block for an optical eyewear store product page. The block should include: input fields for prescription details (SPH, CYL, AXIS, ADD, and PD values) for both left and right eyes, and a file upload option for customers to upload their prescription image or document. The block should be well-organized with clear labels, a clean layout separating left eye (OS) and right eye (OD) fields, and styled to match a professional optical store. All prescription values should be saved as line item properties so they appear on the order.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-prescription-block-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.padding }}px;
+    background-color: {{ block.settings.background_color }};
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    margin: 0 auto;
+  }
+
+  .ai-prescription-block__header-{{ ai_gen_id }} {
+    margin-bottom: 24px;
+  }
+
+  .ai-prescription-block__title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 8px 0;
+    font-weight: 600;
+  }
+
+  .ai-prescription-block__description-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  .ai-prescription-block__grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  .ai-prescription-block__eye-section-{{ ai_gen_id }} {
+    background-color: {{ block.settings.section_background }};
+    padding: 20px;
+    border-radius: {{ block.settings.section_border_radius }}px;
+    border: 1px solid {{ block.settings.section_border_color }};
+  }
+
+  .ai-prescription-block__eye-label-{{ ai_gen_id }} {
+    font-size: 16px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ai-prescription-block__eye-abbr-{{ ai_gen_id }} {
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  .ai-prescription-block__field-{{ ai_gen_id }} {
+    margin-bottom: 16px;
+  }
+
+  .ai-prescription-block__field-{{ ai_gen_id }}:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-prescription-block__label-{{ ai_gen_id }} {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: {{ block.settings.text_color }};
+    margin-bottom: 6px;
+  }
+
+  .ai-prescription-block__input-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 12px;
+    border: {{ block.settings.input_border_width }}px solid {{ block.settings.input_border_color }};
+    border-radius: {{ block.settings.input_border_radius }}px;
+    background-color: {{ block.settings.input_background }};
+    color: {{ block.settings.input_text_color }};
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+  }
+
+  .ai-prescription-block__input-{{ ai_gen_id }}:focus {
+    outline: none;
+    border-color: {{ block.settings.input_focus_color }};
+  }
+
+  .ai-prescription-block__input-{{ ai_gen_id }}::placeholder {
+    color: {{ block.settings.input_text_color }};
+    opacity: 0.5;
+  }
+
+  .ai-prescription-block__upload-section-{{ ai_gen_id }} {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid {{ block.settings.section_border_color }};
+  }
+
+  .ai-prescription-block__upload-label-{{ ai_gen_id }} {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    margin-bottom: 12px;
+  }
+
+  .ai-prescription-block__upload-wrapper-{{ ai_gen_id }} {
+    position: relative;
+  }
+
+  .ai-prescription-block__file-input-{{ ai_gen_id }} {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .ai-prescription-block__file-button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .ai-prescription-block__file-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text }};
+    border-color: {{ block.settings.button_hover_border }};
+  }
+
+  .ai-prescription-block__file-icon-{{ ai_gen_id }} {
+    width: 18px;
+    height: 18px;
+  }
+
+  .ai-prescription-block__file-name-{{ ai_gen_id }} {
+    margin-top: 8px;
+    font-size: 13px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.7;
+  }
+
+  .ai-prescription-block__help-text-{{ ai_gen_id }} {
+    margin-top: 8px;
+    font-size: 12px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.6;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-prescription-block__grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .ai-prescription-block__eye-section-{{ ai_gen_id }} {
+      padding: 16px;
+    }
+
+    .ai-prescription-block-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding | times: 0.75 }}px;
+    }
+  }
+{% endstyle %}
+
+<prescription-form-{{ ai_gen_id }}
+  class="ai-prescription-block-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-prescription-block__header-{{ ai_gen_id }}">
+    <h3 class="ai-prescription-block__title-{{ ai_gen_id }}">{{ block.settings.title }}</h3>
+    {% if block.settings.description != blank %}
+      <p class="ai-prescription-block__description-{{ ai_gen_id }}">{{ block.settings.description }}</p>
+    {% endif %}
+  </div>
+
+  <div class="ai-prescription-block__grid-{{ ai_gen_id }}">
+    <div class="ai-prescription-block__eye-section-{{ ai_gen_id }}">
+      <h4 class="ai-prescription-block__eye-label-{{ ai_gen_id }}">
+        {{ block.settings.right_eye_label }}
+        <span class="ai-prescription-block__eye-abbr-{{ ai_gen_id }}">(OD)</span>
+      </h4>
+
+      <div class="ai-prescription-block__field-{{ ai_gen_id }}">
+        <label class="ai-prescription-block__label-{{ ai_gen_id }}" for="rx-od-sph-{{ ai_gen_id }}">
+          SPH (Sphere)
+        </label>
+        <input
+          type="text"
+          id="rx-od-sph-{{ ai_gen_id }}"
+          name="properties[Right Eye SPH]"
+          class="ai-prescription-block__input-{{ ai_gen_id }}"
+          placeholder="e.g., -2.00"
+        >
+      </div>
+
+      <div class="ai-prescription-block__field-{{ ai_gen_id }}">
+        <label class="ai-prescription-block__label-{{ ai_gen_id }}" for="rx-od-cyl-{{ ai_gen_id }}">
+          CYL (Cylinder)
+        </label>
+        <input
+          type="text"
+          id="rx-od-cyl-{{ ai_gen_id }}"
+          name="properties[Right Eye CYL]"
+          class="ai-prescription-block__input-{{ ai_gen_id }}"
+          placeholder="e.g., -0.50"
+        >
+      </div>
+
+      <div class="ai-prescription-block__field-{{ ai_gen_id }}">
+        <label class="ai-prescription-block__label-{{ ai_gen_id }}" for="rx-od-axis-{{ ai_gen_id }}">
+          AXIS
+        </label>
+        <input
+          type="text"
+          id="rx-od-axis-{{ ai_gen_id }}"
+          name="properties[Right Eye AXIS]"
+          class="ai-prescription-block__input-{{ ai_gen_id }}"
+          placeholder="e.g., 180"
+        >
+      </div>
+
+      <div class="ai-prescription-block__field-{{ ai_gen_id }}">
+        <label class="ai-prescription-block__label-{{ ai_gen_id }}" for="rx-od-add-{{ ai_gen_id }}">
+          ADD
+        </label>
+        <input
+          type="text"
+          id="rx-od-add-{{ ai_gen_id }}"
+          name="properties[Right Eye ADD]"
+          class="ai-prescription-block__input-{{ ai_gen_id }}"
+          placeholder="e.g., +2.00"
+        >
+      </div>
+    </div>
+
+    <div class="ai-prescription-block__eye-section-{{ ai_gen_id }}">
+      <h4 class="ai-prescription-block__eye-label-{{ ai_gen_id }}">
+        {{ block.settings.left_eye_label }}
+        <span class="ai-prescription-block__eye-abbr-{{ ai_gen_id }}">(OS)</span>
+      </h4>
+
+      <div class="ai-prescription-block__field-{{ ai_gen_id }}">
+        <label class="ai-prescription-block__label-{{ ai_gen_id }}" for="rx-os-sph-{{ ai_gen_id }}">
+          SPH (Sphere)
+        </label>
+        <input
+          type="text"
+          id="rx-os-sph-{{ ai_gen_id }}"
+          name="properties[Left Eye SPH]"
+          class="ai-prescription-block__input-{{ ai_gen_id }}"
+          placeholder="e.g., -2.00"
+        >
+      </div>
+
+      <div class="ai-prescription-block__field-{{ ai_gen_id }}">
+        <label class="ai-prescription-block__label-{{ ai_gen_id }}" for="rx-os-cyl-{{ ai_gen_id }}">
+          CYL (Cylinder)
+        </label>
+        <input
+          type="text"
+          id="rx-os-cyl-{{ ai_gen_id }}"
+          name="properties[Left Eye CYL]"
+          class="ai-prescription-block__input-{{ ai_gen_id }}"
+          placeholder="e.g., -0.50"
+        >
+      </div>
+
+      <div class="ai-prescription-block__field-{{ ai_gen_id }}">
+        <label class="ai-prescription-block__label-{{ ai_gen_id }}" for="rx-os-axis-{{ ai_gen_id }}">
+          AXIS
+        </label>
+        <input
+          type="text"
+          id="rx-os-axis-{{ ai_gen_id }}"
+          name="properties[Left Eye AXIS]"
+          class="ai-prescription-block__input-{{ ai_gen_id }}"
+          placeholder="e.g., 180"
+        >
+      </div>
+
+      <div class="ai-prescription-block__field-{{ ai_gen_id }}">
+        <label class="ai-prescription-block__label-{{ ai_gen_id }}" for="rx-os-add-{{ ai_gen_id }}">
+          ADD
+        </label>
+        <input
+          type="text"
+          id="rx-os-add-{{ ai_gen_id }}"
+          name="properties[Left Eye ADD]"
+          class="ai-prescription-block__input-{{ ai_gen_id }}"
+          placeholder="e.g., +2.00"
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="ai-prescription-block__field-{{ ai_gen_id }}">
+    <label class="ai-prescription-block__label-{{ ai_gen_id }}" for="rx-pd-{{ ai_gen_id }}">
+      PD (Pupillary Distance)
+    </label>
+    <input
+      type="text"
+      id="rx-pd-{{ ai_gen_id }}"
+      name="properties[PD]"
+      class="ai-prescription-block__input-{{ ai_gen_id }}"
+      placeholder="e.g., 63mm"
+    >
+  </div>
+
+  <div class="ai-prescription-block__upload-section-{{ ai_gen_id }}">
+    <label class="ai-prescription-block__upload-label-{{ ai_gen_id }}">
+      {{ block.settings.upload_label }}
+    </label>
+    <div class="ai-prescription-block__upload-wrapper-{{ ai_gen_id }}">
+      <input
+        type="file"
+        id="rx-file-{{ ai_gen_id }}"
+        class="ai-prescription-block__file-input-{{ ai_gen_id }}"
+        accept="image/*,.pdf"
+        data-file-input
+      >
+      <label for="rx-file-{{ ai_gen_id }}" class="ai-prescription-block__file-button-{{ ai_gen_id }}">
+        <svg class="ai-prescription-block__file-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+        <span data-button-text>{{ block.settings.upload_button_text }}</span>
+      </label>
+      <div class="ai-prescription-block__file-name-{{ ai_gen_id }}" data-file-name></div>
+    </div>
+    {% if block.settings.upload_help_text != blank %}
+      <p class="ai-prescription-block__help-text-{{ ai_gen_id }}">{{ block.settings.upload_help_text }}</p>
+    {% endif %}
+  </div>
+
+  <input type="hidden" name="properties[Prescription File]" data-file-data>
+</prescription-form-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class PrescriptionForm{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.fileInput = this.querySelector('[data-file-input]');
+        this.fileNameDisplay = this.querySelector('[data-file-name]');
+        this.buttonText = this.querySelector('[data-button-text]');
+        this.fileDataInput = this.querySelector('[data-file-data]');
+
+        if (this.fileInput) {
+          this.fileInput.addEventListener('change', this.handleFileChange.bind(this));
+        }
+      }
+
+      handleFileChange(event) {
+        const file = event.target.files[0];
+        
+        if (file) {
+          this.fileNameDisplay.textContent = file.name;
+          this.buttonText.textContent = '{{ block.settings.upload_button_text_selected }}';
+          
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            this.fileDataInput.value = file.name;
+          };
+          reader.readAsDataURL(file);
+        } else {
+          this.fileNameDisplay.textContent = '';
+          this.buttonText.textContent = '{{ block.settings.upload_button_text }}';
+          this.fileDataInput.value = '';
+        }
+      }
+    }
+
+    customElements.define('prescription-form-{{ ai_gen_id }}', PrescriptionForm{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Prescription form",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Enter Your Prescription"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Please enter your prescription details or upload your prescription document"
+    },
+    {
+      "type": "text",
+      "id": "right_eye_label",
+      "label": "Right eye label",
+      "default": "Right Eye"
+    },
+    {
+      "type": "text",
+      "id": "left_eye_label",
+      "label": "Left eye label",
+      "default": "Left Eye"
+    },
+    {
+      "type": "text",
+      "id": "upload_label",
+      "label": "Upload section label",
+      "default": "Upload Prescription Document"
+    },
+    {
+      "type": "text",
+      "id": "upload_button_text",
+      "label": "Upload button text",
+      "default": "Choose File"
+    },
+    {
+      "type": "text",
+      "id": "upload_button_text_selected",
+      "label": "Upload button text after selection",
+      "default": "Change File"
+    },
+    {
+      "type": "text",
+      "id": "upload_help_text",
+      "label": "Upload help text",
+      "default": "Accepted formats: JPG, PNG, PDF (Max 5MB)"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Padding",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "section_border_radius",
+      "label": "Eye section border radius",
+      "min": 0,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f5efe6"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#e0d6c8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#1c1916"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Eye section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "section_border_color",
+      "label": "Eye section border",
+      "default": "#e0d6c8"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Input fields"
+    },
+    {
+      "type": "color",
+      "id": "input_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_text_color",
+      "label": "Text",
+      "default": "#1c1916"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Border",
+      "default": "#c9a962"
+    },
+    {
+      "type": "color",
+      "id": "input_focus_color",
+      "label": "Focus border",
+      "default": "#8a6f3a"
+    },
+    {
+      "type": "range",
+      "id": "input_border_width",
+      "label": "Border width",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "input_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Upload button"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "default": "#c9a962"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#141210"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border",
+      "default": "#c9a962"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Hover background",
+      "default": "#f0d89a"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text",
+      "label": "Hover text",
+      "default": "#141210"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border",
+      "label": "Hover border",
+      "default": "#ddb867"
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Prescription form"
+    }
+  ]
+}
 {% endschema %}
