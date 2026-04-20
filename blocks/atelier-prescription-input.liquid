@@ -7,9 +7,7 @@
   assign lens_property_key = bs.lens_property_key | default: 'Lens type'
   assign enable_metafield = closest.product.metafields.custom.enable_prescription
 -%}
-{% capture atelier_hide_lens_frame_flag %}{% render 'atelier-pdp-hide-lens-frame', product: closest.product %}{% endcapture %}
-{% assign atelier_hide_lens_frame_flag = atelier_hide_lens_frame_flag | strip %}
-{% assign is_frame_context = atelier_hide_lens_frame_flag != '1' %}
+-%}
 {% assign is_enabled_for_product = enable_metafield.value %}
 {% if is_enabled_for_product == blank %}
   {% assign is_enabled_for_product = false %}
@@ -18,10 +16,10 @@
   {% assign is_enabled_for_product = true %}
 {% endif %}
 {% assign show_in_editor_debug = false %}
-{% if request.design_mode and is_frame_context and is_enabled_for_product == false %}
+{% if request.design_mode and is_enabled_for_product == false %}
   {% assign show_in_editor_debug = true %}
 {% endif %}
-{% if is_frame_context and is_enabled_for_product or show_in_editor_debug %}
+{% if is_enabled_for_product or show_in_editor_debug %}
   <div
     class="atelier-prescription-input spacing-style{% unless bs.inherit_color_scheme %} color-{{ bs.color_scheme }}{% endunless %}"
     style="{% render 'spacing-style', settings: bs %}"
@@ -63,7 +61,10 @@
     </div>
     {% if show_in_editor_debug %}
       <div class="atelier-prescription-input__warning">
-        Theme editor preview: this block is visible for setup. Turn on product metafield `custom.enable_prescription` to show it live.
+        Theme editor preview mode: this block is visible for setup.
+        {% unless is_enabled_for_product %}
+          Turn on product metafield `custom.enable_prescription` to show it live.
+        {% endunless %}
       </div>
     {% endif %}
 
@@ -76,7 +77,8 @@
         <span>ADD</span>
       </div>
 
-      {% for eye in 'OD,OS' | split: ',' %}
+      {% assign eyes = 'OD,OS' | split: ',' %}
+      {% for eye in eyes %}
         <div class="atelier-prescription-input__row">
           <span class="atelier-prescription-input__eye">{{ eye }}</span>
           <label>
