@@ -53,6 +53,7 @@
         },
         "product-details": {
           "type": "_product-details",
+          "name": "Product details",
           "static": true,
           "settings": {
             "width": "fill",
@@ -240,27 +241,6 @@
               },
               "blocks": {}
             },
-            "atelier_prescription_J4kL": {
-              "type": "atelier-prescription-input",
-              "settings": {
-                "heading": "Prescription details",
-                "description": "Enter your prescription now or choose send later at checkout.",
-                "rx_lens_options": "Single vision\nProgressive",
-                "lens_property_key": "Lens type",
-                "method_property_key": "Prescription method",
-                "status_property_key": "Prescription status",
-                "manual_entry_label": "Enter manually",
-                "enable_send_later": true,
-                "send_later_label": "Send prescription later",
-                "rx_required_message": "This lens type needs prescription details.",
-                "disable_metafield_gate": false,
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "padding-block-start": 0,
-                "padding-block-end": 8
-              },
-              "blocks": {}
-            },
             "atelier_frame_gT2n": {
               "type": "atelier-frame-guide",
               "settings": {
@@ -331,7 +311,6 @@
             "divider_VJhene",
             "text_aEtTtq",
             "atelier_lens_mK9p",
-            "atelier_prescription_J4kL",
             "atelier_frame_gT2n",
             "buy_buttons_eYQEYi",
             "variant_picker_6innnL"
