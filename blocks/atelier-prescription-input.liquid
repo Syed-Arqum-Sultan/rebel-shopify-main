@@ -177,12 +177,16 @@
       }
 
       function resolveRxRequiredFromForm() {
-        const hiddenRxField = form.querySelector('[data-lens-requires-rx]');
+        const hiddenRxField = document.querySelector(
+          `[data-lens-requires-rx][form="${CSS.escape(formId)}"]`
+        );
         if (hiddenRxField && (hiddenRxField.value == 'true' || hiddenRxField.value == 'false')) {
           return hiddenRxField.value == 'true';
         }
 
-        const lensSelect = form.querySelector('.atelier-lens-select__select');
+        const lensSelect = document.querySelector(
+          `.atelier-lens-select__select[form="${CSS.escape(formId)}"]`
+        );
         const lensOption = lensSelect?.selectedOptions?.[0];
         if (lensOption?.dataset?.requiresRx) {
           return lensOption.dataset.requiresRx == 'true';
@@ -237,6 +241,14 @@
         if (!rxRequired) {
           setMissingWarning(false);
         }
+        updateUi();
+      });
+
+      const externalLensSelect = document.querySelector(
+        `.atelier-lens-select__select[form="${CSS.escape(formId)}"]`
+      );
+      externalLensSelect?.addEventListener('change', () => {
+        rxRequired = resolveRxRequiredFromForm();
         updateUi();
       });
 
