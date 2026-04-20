@@ -356,6 +356,30 @@ body.template-product .atelier-lens-select__caret {
   transition: transform 0.2s ease-out, opacity 0.2s;
 }
 
+body.template-product .atelier-lens-summary {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--optica-border);
+  display: grid;
+  gap: 8px;
+}
+
+body.template-product .atelier-lens-summary__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--optica-sans);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--optica-muted);
+}
+
+body.template-product .atelier-lens-summary__row--total {
+  color: var(--optica-fg);
+  font-weight: 600;
+}
+
 /* ===== PRESCRIPTION INPUT ===== */
 body.template-product .atelier-prescription-input {
   display: grid;
@@ -409,6 +433,10 @@ body.template-product .atelier-prescription-input__warning {
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--optica-primary);
+}
+
+body.template-product .atelier-prescription-input__warning--soft {
+  border-style: dashed;
 }
 
 body.template-product .atelier-prescription-input__fields {

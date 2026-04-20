@@ -1,6 +1,6 @@
 # OPTICA / Atelier theme — structure & edit map
 
-Internal reference for this codebase: **Shopify Horizon (OS 2.0)** base + **OPTICA** homepage and **Atelier** product/custom sections.
+Internal reference for this codebase: **Shopify Horizon (OS 2.0)** base with **OPTICA** homepage patterns and **Atelier** reusable product/custom components.
 
 ---
 
@@ -44,7 +44,7 @@ Internal reference for this codebase: **Shopify Horizon (OS 2.0)** base + **OPTI
 | File | Role |
 |------|------|
 | `sections/atelier-category-tiles.liquid` | Three category tiles (image, title, URL). |
-| `sections/atelier-trust-features.liquid` | Icon grid “why choose us” (not used on current index if replaced by `optica-trust-bar`). |
+| `sections/atelier-trust-features.liquid` | Icon grid “why choose us” section (optional when `optica-trust-bar` is used). |
 | `sections/atelier-testimonials.liquid` | Testimonial cards + scroll / arrows. |
 | `sections/atelier-ugc.liquid` | UGC grid (optional; not on current index). |
 | `sections/atelier-newsletter.liquid` | Email signup + gold CTA styling. |
@@ -58,6 +58,7 @@ Registered on **`blocks/_product-details.liquid`** schema so they appear inside 
 | File | Role |
 |------|------|
 | `blocks/atelier-lens-select.liquid` | `<select>` line item property (lens options). |
+| `blocks/atelier-prescription-input.liquid` | Prescription capture (OD/OS + PD) with method selection (manual / upload later / send later), gated by `custom.enable_prescription` and lens requirement events. |
 | `blocks/atelier-frame-guide.liquid` | `<dialog>` frame size guide. |
 | `blocks/optica-product-badges.liquid` | “NEW ARRIVAL” (tag-driven) + “IN STOCK” badges. |
 | `blocks/optica-savings-badge.liquid` | “SAVE X%” when `compare_at_price` &gt; price. |
@@ -104,21 +105,21 @@ Registered on **`blocks/_product-details.liquid`** schema so they appear inside 
 
 ### Trust bar copy
 
-- **`sections/optica-trust-bar.liquid`** blocks or editor.
+- **`sections/optica-trust-bar.liquid`**: edit blocks in code or Theme Editor.
 
 ### New Arrivals grid
 
 - **`templates/index.json`** → `new_arrivals` (`product-list`): `collection`, `max_products`, `columns`, `color_scheme`, and nested `static-header` / `static-product-card` blocks.
 
-### Product page: lens / frame / swatches / recommendations
+### Product page: layout, lens flow, and recommendations
 
-- **`templates/product.json`**: `order` starts with `optica-product-breadcrumbs`, then `main` (`product-information`), then `product-recommendations`. Inside `product-details`: badges, vendor, title, SKU + reviews, price + savings badge, `variant-picker`, lens + frame guide, inventory + buy buttons + wishlist, accordion (details / shipping / authenticity).
+- **`templates/product.json`**: `order` starts with `optica-product-breadcrumbs`, then `main` (`product-information`), then `product-recommendations`. Inside `product-details`: badges, vendor, title, SKU + reviews, price + savings badge, `variant-picker`, lens + prescription input + frame guide, inventory + buy buttons + wishlist, and accordion blocks (details / shipping / authenticity).
 - **`assets/optica-pdp.css`**: PDP-only visual polish (`body.template-product`).
 - **`product-recommendations`**: “COMPLETE THE LOOK” / “You May Also Like” header group + “VIEW ALL” button; `columns` 4, `max_products` 4, `complementary` intent.
 
 ### Global “luxury” tweaks without touching Horizon core
 
-- Prefer **`assets/atelier-luxury.css`**: **`body.atelier-optica`** for shared header styling; **`body.template-index`** for homepage-only sections; and **`assets/optica-pdp.css`** for product page content (still uses **`body.template-product`**).
+- Prefer **`assets/atelier-luxury.css`** for shared UI: use **`body.atelier-optica`** for cross-template header styling and **`body.template-index`** for homepage-only sections. Use **`assets/optica-pdp.css`** for product-page styling under **`body.template-product`**.
 
 ---
 
@@ -167,6 +168,7 @@ Changes detected since the previous reference update commit (`e945ad0`):
   - `sections/header-group.json`
   - `sections/footer-group.json`
 - **Product block updates**
+  - `blocks/atelier-prescription-input.liquid`
   - `blocks/atelier-frame-guide.liquid`
   - `blocks/atelier-lens-select.liquid`
   - `blocks/optica-product-badges.liquid`

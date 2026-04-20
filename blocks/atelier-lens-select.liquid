@@ -3,7 +3,8 @@
   assign product_form_id = 'BuyButtons-ProductForm-' | append: section.id
   assign property_name = bs.property_key | default: 'Lens type'
   assign field_id = 'lens-select-' | append: block.id
-  assign options_list = bs.options | newline_to_br | split: '<br />'
+  assign packages_list = bs.lens_packages | newline_to_br | split: '<br />'
+  assign selected_variant = closest.product.selected_or_first_available_variant
 -%}
 {% capture atelier_hide_lens_frame_flag %}{% render 'atelier-pdp-hide-lens-frame', product: closest.product %}{% endcapture %}
 {% assign atelier_hide_lens_frame_flag = atelier_hide_lens_frame_flag | strip %}
@@ -11,6 +12,9 @@
 <div
   class="atelier-lens-select spacing-style{% unless block.settings.inherit_color_scheme %} color-{{ block.settings.color_scheme }}{% endunless %}"
   style="{% render 'spacing-style', settings: block.settings %}"
+  data-atelier-lens-root
+  data-product-form-id="{{ product_form_id }}"
+  data-base-price="{{ selected_variant.price | default: 0 }}"
   {{ block.shopify_attributes }}
 >
   {% if bs.heading != blank %}
@@ -32,10 +36,24 @@
       {% if bs.placeholder != blank %}
         <option value="" disabled selected>{{ bs.placeholder | escape }}</option>
       {% endif %}
-      {% for opt in options_list %}
-        {% assign opt_clean = opt | strip %}
-        {% if opt_clean != blank %}
-          <option value="{{ opt_clean | escape }}">{{ opt_clean | escape }}</option>
+      {% for package in packages_list %}
+        {% assign package_clean = package | strip %}
+        {% if package_clean != blank %}
+          {% assign parts = package_clean | split: '|' %}
+          {% assign lens_label = parts[0] | default: '' | strip %}
+          {% assign lens_variant_id = parts[1] | default: '' | strip %}
+          {% assign lens_price = parts[2] | default: '0' | strip %}
+          {% assign lens_requires_rx = parts[3] | default: 'false' | strip | downcase %}
+          {% if lens_label != blank %}
+            <option
+              value="{{ lens_label | escape }}"
+              data-lens-variant-id="{{ lens_variant_id | escape }}"
+              data-lens-price="{{ lens_price | escape }}"
+              data-requires-rx="{{ lens_requires_rx | escape }}"
+            >
+              {{ lens_label | escape }}
+            </option>
+          {% endif %}
         {% endif %}
       {% endfor %}
     </select>
@@ -43,6 +61,250 @@
       {{- 'icon-caret.svg' | inline_asset_content -}}
     </span>
   </div>
+  <input type="hidden" form="{{ product_form_id }}" name="properties[Lens add-on variant id]" value="" data-lens-addon-variant-id>
+  <input type="hidden" form="{{ product_form_id }}" name="properties[Lens add-on price]" value="0" data-lens-addon-price>
+  <input type="hidden" form="{{ product_form_id }}" name="properties[_Lens requires Rx]" value="false" data-lens-requires-rx>
+
+  <div class="atelier-lens-summary" data-atelier-lens-summary>
+    <div class="atelier-lens-summary__row">
+      <span>Frame</span>
+      <span data-lens-base-price>{{ selected_variant.price | money }}</span>
+    </div>
+    <div class="atelier-lens-summary__row">
+      <span>Lens add-on</span>
+      <span data-lens-addon-price>{{ 0 | money }}</span>
+    </div>
+    <div class="atelier-lens-summary__row atelier-lens-summary__row--total">
+      <span>Estimated total</span>
+      <span data-lens-total-price>{{ selected_variant.price | money }}</span>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const root = document.currentScript.previousElementSibling;
+      if (!root) return;
+      const formId = root.dataset.productFormId;
+      const form = document.getElementById(formId);
+      if (!form) return;
+
+      const lensSelect = root.querySelector('.atelier-lens-select__select');
+      const hiddenLensVariantId = root.querySelector('[data-lens-addon-variant-id]');
+      const hiddenLensPrice = root.querySelector('[data-lens-addon-price]');
+      const hiddenLensRequiresRx = root.querySelector('[data-lens-requires-rx]');
+      const basePriceEl = root.querySelector('[data-lens-base-price]');
+      const addonPriceEl = root.querySelector('[data-lens-addon-price]');
+      const totalPriceEl = root.querySelector('[data-lens-total-price]');
+      const addToCartTextError = form.closest('product-form-component')?.querySelector('[ref="addToCartTextError"]');
+
+      let basePriceCents = Number(root.dataset.basePrice || 0);
+
+      const formatMoney = (cents) => {
+        if (window.Shopify && typeof window.Shopify.formatMoney === 'function') {
+          return window.Shopify.formatMoney(cents);
+        }
+        const currency = window.Shopify?.currency?.active || 'USD';
+        return new Intl.NumberFormat(undefined, { style: 'currency', currency }).format((cents || 0) / 100);
+      };
+
+      const parseSelectedLens = () => {
+        const option = lensSelect?.selectedOptions?.[0];
+        if (!option) return { label: '', variantId: '', price: 0, requiresRx: false };
+        return {
+          label: option.value || '',
+          variantId: option.dataset.lensVariantId || '',
+          price: Number(option.dataset.lensPrice || 0),
+          requiresRx: (option.dataset.requiresRx || 'false') === 'true',
+        };
+      };
+
+      const updateSummary = (lens) => {
+        if (basePriceEl) basePriceEl.textContent = formatMoney(basePriceCents);
+        if (addonPriceEl) addonPriceEl.textContent = formatMoney(lens.price);
+        if (totalPriceEl) totalPriceEl.textContent = formatMoney(basePriceCents + lens.price);
+      };
+
+      const clearError = () => {
+        if (!addToCartTextError) return;
+        addToCartTextError.classList.add('hidden');
+      };
+
+      const updateLensState = () => {
+        const lens = parseSelectedLens();
+        if (hiddenLensVariantId) hiddenLensVariantId.value = lens.variantId;
+        if (hiddenLensPrice) hiddenLensPrice.value = String(lens.price);
+        if (hiddenLensRequiresRx) hiddenLensRequiresRx.value = lens.requiresRx ? 'true' : 'false';
+        updateSummary(lens);
+        clearError();
+        document.dispatchEvent(
+          new CustomEvent('atelier:lens-change', {
+            bubbles: true,
+            detail: {
+              productFormId: formId,
+              lens,
+            },
+          })
+        );
+      };
+
+      const getPropertiesFromForm = () => {
+        const formData = new FormData(form);
+        const properties = {};
+        formData.forEach((value, key) => {
+          if (key.startsWith('properties[')) {
+            const name = key.replace('properties[', '').replace(']', '');
+            properties[name] = String(value);
+          }
+        });
+        return properties;
+      };
+
+      const showMissingWarning = () => {
+        if (!addToCartTextError) return;
+        const message = 'Prescription details are recommended for this lens. You can still add to cart and send later.';
+        addToCartTextError.classList.remove('hidden');
+        const textNode = addToCartTextError.childNodes[2];
+        if (textNode) {
+          textNode.textContent = message;
+        } else {
+          addToCartTextError.appendChild(document.createTextNode(message));
+        }
+      };
+
+      const addBundleToCart = async () => {
+        const lens = parseSelectedLens();
+        if (!lens.variantId) return false;
+
+        const quantityInput = form.querySelector('input[name="quantity"]');
+        const quantity = Number(quantityInput?.value || 1);
+        const frameVariantId = Number(form.querySelector('input[name="id"]')?.value || 0);
+        if (!frameVariantId) return false;
+
+        const properties = getPropertiesFromForm();
+        const prescriptionMethod = properties['Prescription method'] || '';
+        if (lens.requiresRx && !prescriptionMethod) {
+          showMissingWarning();
+          document.dispatchEvent(
+            new CustomEvent('atelier:rx-warning', {
+              bubbles: true,
+              detail: { productFormId: formId, show: true },
+            })
+          );
+        } else {
+          document.dispatchEvent(
+            new CustomEvent('atelier:rx-warning', {
+              bubbles: true,
+              detail: { productFormId: formId, show: false },
+            })
+          );
+        }
+
+        properties['Lens package'] = lens.label;
+
+        const lensProperties = {
+          'Lens package': lens.label,
+          'Prescription method': prescriptionMethod || 'Missing',
+          'Prescription status': properties['Prescription status'] || 'Pending review',
+          'Linked frame variant': String(frameVariantId),
+        };
+
+        const cartItemsComponents = document.querySelectorAll('cart-items-component');
+        const sectionIds = [];
+        cartItemsComponents.forEach((item) => {
+          if (item instanceof HTMLElement && item.dataset.sectionId) {
+            sectionIds.push(item.dataset.sectionId);
+          }
+        });
+
+        const payload = {
+          items: [
+            { id: frameVariantId, quantity, properties },
+            { id: Number(lens.variantId), quantity, properties: lensProperties },
+          ],
+          sections: sectionIds.join(','),
+        };
+
+        const response = await fetch((window.Theme?.routes?.cart_add_url) || '/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+        const result = await response.json();
+        if (!response.ok || result.status) {
+          throw new Error(result.description || result.message || 'Unable to add bundle to cart.');
+        }
+
+        const cartResponse = await fetch('/cart.js');
+        const cart = await cartResponse.json();
+        document.dispatchEvent(
+          new CustomEvent('cart:update', {
+            bubbles: true,
+            detail: {
+              resource: cart,
+              sourceId: formId,
+              data: {
+                source: 'atelier-lens-bundle',
+                productId: form.closest('product-form-component')?.dataset.productId || '',
+                itemCount: quantity * 2,
+                sections: result.sections || {},
+              },
+            },
+          })
+        );
+        return true;
+      };
+
+      lensSelect?.addEventListener('change', updateLensState);
+      updateLensState();
+
+      form.addEventListener(
+        'submit',
+        async (event) => {
+          const lens = parseSelectedLens();
+          if (!lens.variantId) return;
+          if (form.dataset.atelierBundleSubmitting === 'true') {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            return;
+          }
+
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          form.dataset.atelierBundleSubmitting = 'true';
+          try {
+            await addBundleToCart();
+          } catch (error) {
+            if (addToCartTextError) {
+              addToCartTextError.classList.remove('hidden');
+              const textNode = addToCartTextError.childNodes[2];
+              const message = error instanceof Error ? error.message : 'Could not add lens package.';
+              if (textNode) {
+                textNode.textContent = message;
+              } else {
+                addToCartTextError.appendChild(document.createTextNode(message));
+              }
+            }
+          } finally {
+            form.dataset.atelierBundleSubmitting = 'false';
+          }
+        },
+        true
+      );
+
+      const section = root.closest('.shopify-section, dialog, product-card');
+      section?.addEventListener('variant:update', (event) => {
+        const variantPrice = Number(event.detail?.resource?.price || 0);
+        if (variantPrice) {
+          basePriceCents = variantPrice;
+          root.dataset.basePrice = String(variantPrice);
+          updateSummary(parseSelectedLens());
+        }
+      });
+    })();
+  </script>
 </div>
 {% endunless %}
 
@@ -142,9 +404,10 @@
     },
     {
       "type": "textarea",
-      "id": "options",
-      "label": "Options (one per line)",
-      "default": "Demo / display lenses\nSingle vision\nProgressive\nBlue-light filter\nPolarized sun"
+      "id": "lens_packages",
+      "label": "Lens packages (one per line)",
+      "default": "Demo / display lenses||0|false\nSingle vision||0|true\nProgressive||0|true\nBlue-light filter||0|false",
+      "info": "Format: Label|Lens variant ID|Price in cents|Requires Rx (true/false)."
     },
     {
       "type": "text",
