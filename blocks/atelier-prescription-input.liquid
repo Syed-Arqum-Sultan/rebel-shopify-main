@@ -143,9 +143,19 @@
 
   <script>
     (function () {
-      const root = document.currentScript.closest('[data-atelier-rx-root]');
+      // Script is a sibling *after* the root div (not nested inside it), so
+      // `closest('[data-atelier-rx-root]')` is always null here. Use the root
+      // element that immediately precedes this script.
+      const root =
+        document.currentScript?.previousElementSibling?.matches?.('[data-atelier-rx-root]')
+          ? document.currentScript.previousElementSibling
+          : document.currentScript?.closest?.('[data-atelier-rx-root]');
       if (!root) return;
       const formId = root.dataset.productFormId;
+      const formIdEsc =
+        typeof CSS !== 'undefined' && typeof CSS.escape === 'function'
+          ? CSS.escape(formId)
+          : String(formId).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
       const form = document.getElementById(formId);
       if (!form) return;
 
@@ -178,14 +188,14 @@
 
       function resolveRxRequiredFromForm() {
         const hiddenRxField = document.querySelector(
-          `[data-lens-requires-rx][form="${CSS.escape(formId)}"]`
+          `[data-lens-requires-rx][form="${formIdEsc}"]`
         );
         if (hiddenRxField && (hiddenRxField.value == 'true' || hiddenRxField.value == 'false')) {
           return hiddenRxField.value == 'true';
         }
 
         const lensSelect = document.querySelector(
-          `.atelier-lens-select__select[form="${CSS.escape(formId)}"]`
+          `.atelier-lens-select__select[form="${formIdEsc}"]`
         );
         const lensOption = lensSelect?.selectedOptions?.[0];
         if (lensOption?.dataset?.requiresRx) {
@@ -245,7 +255,7 @@
       });
 
       const externalLensSelect = document.querySelector(
-        `.atelier-lens-select__select[form="${CSS.escape(formId)}"]`
+        `.atelier-lens-select__select[form="${formIdEsc}"]`
       );
       externalLensSelect?.addEventListener('change', () => {
         rxRequired = resolveRxRequiredFromForm();
