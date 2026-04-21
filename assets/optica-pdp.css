@@ -380,154 +380,68 @@ body.template-product .atelier-lens-summary__row--total {
   font-weight: 600;
 }
 
-/* ===== PRESCRIPTION INPUT (minimal, aligned with lens row) ===== */
+/* ===== PRESCRIPTION INPUT ===== */
 body.template-product .atelier-prescription-input {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid var(--optica-border);
-  font-family: var(--optica-sans);
-}
-
-body.template-product .atelier-prescription-input__panel {
   display: grid;
-  gap: 10px;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--optica-border);
+  background: color-mix(in srgb, var(--optica-primary) 4%, var(--optica-bg));
 }
 
-body.template-product .atelier-prescription-input__label {
+body.template-product .atelier-prescription-input__heading {
   margin: 0;
+  font-family: var(--optica-sans);
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--optica-muted);
+  color: var(--optica-fg);
 }
 
-body.template-product .atelier-prescription-input__hint {
+body.template-product .atelier-prescription-input__description {
   margin: 0;
+  font-family: var(--optica-sans);
   font-size: 11px;
-  line-height: 1.55;
+  line-height: 1.7;
   color: var(--optica-subdued);
 }
 
-body.template-product .atelier-prescription-input__missing {
-  margin: 0;
-  font-size: 10px;
-  line-height: 1.45;
-  letter-spacing: 0.04em;
+body.template-product .atelier-prescription-input__method {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+body.template-product .atelier-prescription-input__method-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--optica-sans);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--optica-fg);
+}
+
+body.template-product .atelier-prescription-input__warning {
+  padding: 10px 12px;
+  border: 1px solid var(--optica-border2);
+  background: rgb(var(--color-primary-rgb) / 0.08);
+  font-family: var(--optica-sans);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   color: var(--optica-primary);
 }
 
-body.template-product .atelier-prescription-input__primary {
-  display: grid;
-  gap: 6px;
-}
-
-body.template-product .atelier-prescription-input__file-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
-
-body.template-product .atelier-prescription-input__file-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 40px;
-  padding: 10px 16px;
-  border: 1px solid var(--optica-border);
-  background: transparent;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--optica-fg);
-  cursor: pointer;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-body.template-product .atelier-prescription-input__file-btn:hover {
-  border-color: var(--optica-primary);
-}
-
-body.template-product .atelier-prescription-input__file-btn:focus-within {
-  outline: none;
-}
-
-body.template-product .atelier-prescription-input__file-row:focus-within .atelier-prescription-input__file-btn {
-  border-color: var(--optica-primary);
-  box-shadow: 0 0 0 1px var(--optica-primary);
-}
-
-body.template-product .atelier-prescription-input__file-name {
-  flex: 1;
-  min-width: 0;
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  color: var(--optica-muted);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-body.template-product .atelier-prescription-input__micro {
-  margin: 0;
-  font-size: 10px;
-  line-height: 1.5;
-  letter-spacing: 0.06em;
-  color: var(--optica-subdued);
-}
-
-body.template-product .atelier-prescription-input__send-later {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin: 0;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--optica-fg);
-  cursor: pointer;
-}
-
-body.template-product .atelier-prescription-input__send-later input {
-  margin-top: 2px;
-  accent-color: var(--optica-primary);
-}
-
-body.template-product .atelier-prescription-input__manual-details {
-  border-top: 1px solid var(--optica-border);
-  padding-top: 10px;
-}
-
-body.template-product .atelier-prescription-input__manual-summary {
-  list-style: none;
-  cursor: pointer;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--optica-muted);
-}
-
-body.template-product .atelier-prescription-input__manual-summary::-webkit-details-marker {
-  display: none;
-}
-
-body.template-product .atelier-prescription-input__manual-summary:focus-visible {
-  outline: 1px solid var(--optica-primary);
-  outline-offset: 3px;
-}
-
-body.template-product .atelier-prescription-input__manual-details[open] .atelier-prescription-input__manual-summary {
-  margin-bottom: 10px;
-  color: var(--optica-fg);
+body.template-product .atelier-prescription-input__warning--soft {
+  border-style: dashed;
 }
 
 body.template-product .atelier-prescription-input__fields {
   display: grid;
   gap: 8px;
-  padding-top: 4px;
 }
 
 body.template-product .atelier-prescription-input__row {
@@ -538,6 +452,7 @@ body.template-product .atelier-prescription-input__row {
 }
 
 body.template-product .atelier-prescription-input__row--head span {
+  font-family: var(--optica-sans);
   font-size: 8px;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -545,6 +460,7 @@ body.template-product .atelier-prescription-input__row--head span {
 }
 
 body.template-product .atelier-prescription-input__eye {
+  font-family: var(--optica-sans);
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 2px;
@@ -571,16 +487,6 @@ body.template-product .atelier-prescription-input input:focus {
   box-shadow: 0 0 0 1px var(--optica-primary);
 }
 
-body.template-product .atelier-prescription-input__warning {
-  padding: 10px 12px;
-  border: 1px solid var(--optica-border2);
-  background: rgb(var(--color-primary-rgb) / 0.08);
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--optica-primary);
-}
-
 body.template-product .atelier-prescription-input__pd label {
   display: grid;
   gap: 6px;
@@ -588,6 +494,7 @@ body.template-product .atelier-prescription-input__pd label {
 }
 
 body.template-product .atelier-prescription-input__pd span {
+  font-family: var(--optica-sans);
   font-size: 8px;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -1188,6 +1095,10 @@ body.template-product .button-secondary:hover {
 
   body.template-product .product-recommendations .resource-list--grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  body.template-product .atelier-prescription-input {
+    padding: 12px;
   }
 
   body.template-product .atelier-prescription-input__row {
