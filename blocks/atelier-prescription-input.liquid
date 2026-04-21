@@ -25,10 +25,11 @@
       Add a file or type your Rx below.
     {%- endif -%}
   {% endcapture %}
-  {% if bs.rx_missing_method_message != blank %}
-    {% assign rx_missing_message = bs.rx_missing_method_message | strip %}
-  {% else %}
+  {% assign rx_missing_raw = bs.rx_missing_method_message | strip %}
+  {% if rx_missing_raw == blank or rx_missing_raw == '__atelier_rx_missing_auto__' %}
     {% assign rx_missing_message = rx_missing_default | strip %}
+  {% else %}
+    {% assign rx_missing_message = rx_missing_raw %}
   {% endif %}
   <div
     class="atelier-prescription-input spacing-style{% unless bs.inherit_color_scheme %} color-{{ bs.color_scheme }}{% endunless %}"
@@ -571,8 +572,8 @@
       "type": "text",
       "id": "rx_missing_method_message",
       "label": "Reminder when nothing is provided yet",
-      "default": "",
-      "info": "Leave blank for automatic wording (matches send-later on/off)."
+      "default": "__atelier_rx_missing_auto__",
+      "info": "Keep the default token for automatic wording (matches send-later on/off). Replace with your own message anytime."
     },
     {
       "type": "header",

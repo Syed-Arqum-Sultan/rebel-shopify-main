@@ -318,7 +318,7 @@
                 "enable_send_later": true,
                 "send_later_label": "I will send my prescription later",
                 "send_later_helper": "You can still check out. We will follow up for your Rx.",
-                "rx_missing_method_message": "",
+                "rx_missing_method_message": "__atelier_rx_missing_auto__",
                 "method_property_key": "Prescription method",
                 "status_property_key": "Prescription status",
                 "disable_metafield_gate": false,
