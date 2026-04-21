@@ -58,7 +58,7 @@ Registered on **`blocks/_product-details.liquid`** schema so they appear inside 
 | File | Role |
 |------|------|
 | `blocks/atelier-lens-select.liquid` | `<select>` line item property (lens options). |
-| `blocks/atelier-prescription-input.liquid` | Prescription capture (OD/OS + PD) with method selection (manual / upload later / send later), gated by `custom.enable_prescription` and lens requirement events. |
+| `blocks/atelier-prescription-input.liquid` | Prescription capture: upload-first, optional manual OD/OS grid in a disclosure, send-later checkbox, gated by `custom.enable_prescription` and Rx lens events. |
 | `blocks/atelier-frame-guide.liquid` | `<dialog>` frame size guide. |
 | `blocks/optica-product-badges.liquid` | “NEW ARRIVAL” (tag-driven) + “IN STOCK” badges. |
 | `blocks/optica-savings-badge.liquid` | “SAVE X%” when `compare_at_price` &gt; price. |
