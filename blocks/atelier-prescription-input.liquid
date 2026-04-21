@@ -18,18 +18,6 @@
   {% assign show_in_editor_debug = true %}
 {% endif %}
 {% if is_enabled_for_product or show_in_editor_debug %}
-  {% capture rx_missing_default %}
-    {%- if bs.enable_send_later -%}
-      Add a file, type your Rx below, or check send later.
-    {%- else -%}
-      Add a file or type your Rx below.
-    {%- endif -%}
-  {% endcapture %}
-  {% if bs.rx_missing_method_message != blank %}
-    {% assign rx_missing_message = bs.rx_missing_method_message | strip %}
-  {% else %}
-    {% assign rx_missing_message = rx_missing_default | strip %}
-  {% endif %}
   <div
     class="atelier-prescription-input spacing-style{% unless bs.inherit_color_scheme %} color-{{ bs.color_scheme }}{% endunless %}"
     style="{% render 'spacing-style', settings: bs %}"
@@ -37,6 +25,13 @@
     data-product-form-id="{{ product_form_id }}"
     {{ block.shopify_attributes }}
   >
+    {% if bs.heading != blank %}
+      <p class="atelier-prescription-input__heading">{{ bs.heading | escape }}</p>
+    {% endif %}
+    {% if bs.description != blank %}
+      <p class="atelier-prescription-input__description">{{ bs.description | escape }}</p>
+    {% endif %}
+
     <input
       type="hidden"
       form="{{ product_form_id }}"
@@ -53,120 +48,87 @@
       data-rx-status
     >
 
-    <div class="atelier-prescription-input__panel" data-rx-content hidden>
-      {% if bs.heading != blank %}
-        <p class="atelier-prescription-input__label" id="rx-heading-{{ block.id }}">{{ bs.heading | escape }}</p>
-      {% endif %}
-      {% if bs.description != blank %}
-        <p class="atelier-prescription-input__hint" id="rx-intro-{{ block.id }}">{{ bs.description | escape }}</p>
-      {% endif %}
-
-      <p class="atelier-prescription-input__missing" data-rx-missing-warning hidden role="status">
-        {{ rx_missing_message | escape }}
-      </p>
-
-      <div class="atelier-prescription-input__primary" data-rx-upload-section>
-        <div class="atelier-prescription-input__file-row">
-          <input
-            id="rx-file-{{ block.id }}"
-            class="visually-hidden"
-            type="file"
-            form="{{ product_form_id }}"
-            name="properties[{{ upload_property_name | strip | replace: '"', '' }}]"
-            accept=".jpg,.jpeg,.png,.pdf"
-            data-rx-file
-            {% liquid
-              assign rx_aria = ''
-              if bs.upload_helper_text != blank
-                assign rx_aria = 'rx-file-hint-' | append: block.id
-              endif
-              if bs.description != blank
-                if rx_aria != blank
-                  assign rx_aria = rx_aria | append: ' '
-                endif
-                assign rx_aria = rx_aria | append: 'rx-intro-' | append: block.id
-              endif
-              if bs.heading != blank
-                if rx_aria != blank
-                  assign rx_aria = rx_aria | append: ' '
-                endif
-                assign rx_aria = rx_aria | append: 'rx-heading-' | append: block.id
-              endif
-            %}
-            {% if rx_aria != blank %}
-              aria-describedby="{{ rx_aria | strip }}"
-            {% endif %}
-          >
-          <label class="atelier-prescription-input__file-btn" for="rx-file-{{ block.id }}">{{ bs.upload_label | escape }}</label>
-          <span class="atelier-prescription-input__file-name" data-rx-file-name></span>
-        </div>
-        {% if bs.upload_helper_text != blank %}
-          <p class="atelier-prescription-input__micro" id="rx-file-hint-{{ block.id }}">{{ bs.upload_helper_text | escape }}</p>
-        {% endif %}
+    <div data-rx-content hidden>
+      <div class="atelier-prescription-input__warning" data-rx-warning hidden>
+        {{ bs.rx_required_message | escape }}
+      </div>
+      <div class="atelier-prescription-input__warning atelier-prescription-input__warning--soft" data-rx-missing-warning hidden>
+        {{ bs.rx_missing_method_message | escape }}
       </div>
 
-      {% if bs.enable_send_later %}
-        <label class="atelier-prescription-input__send-later">
-          <input type="checkbox" form="{{ product_form_id }}" data-rx-send-later>
-          <span>{{ bs.send_later_label | escape }}</span>
-        </label>
-        {% if bs.send_later_helper != blank %}
-          <p class="atelier-prescription-input__micro" data-rx-send-later-note hidden>{{ bs.send_later_helper | escape }}</p>
-        {% endif %}
+      <div class="atelier-prescription-input__upload">
+        <label for="rx-file-{{ block.id }}">{{ bs.upload_label | escape }}</label>
+        <input
+          id="rx-file-{{ block.id }}"
+          class="field__input"
+          type="file"
+          form="{{ product_form_id }}"
+          name="properties[{{ upload_property_name | strip | replace: '"', '' }}]"
+          accept=".jpg,.jpeg,.png,.pdf"
+          data-rx-file
+        >
+      </div>
+
+      {% if bs.upload_helper_text != blank %}
+        <p class="atelier-prescription-input__description">{{ bs.upload_helper_text | escape }}</p>
       {% endif %}
 
-      <details class="atelier-prescription-input__manual-details" data-rx-manual-details>
-        <summary class="atelier-prescription-input__manual-summary">
-          {{- bs.manual_entry_label | default: 'Type prescription manually' | escape -}}
-        </summary>
-        <div class="atelier-prescription-input__fields" data-rx-fields>
-          <div class="atelier-prescription-input__row atelier-prescription-input__row--head">
-            <span></span>
-            <span>SPH</span>
-            <span>CYL</span>
-            <span>AXIS</span>
-            <span>ADD</span>
-          </div>
+      {% if bs.enable_send_later %}
+        <div class="atelier-prescription-input__method">
+          <label class="atelier-prescription-input__method-option">
+            <input type="checkbox" form="{{ product_form_id }}" data-rx-send-later>
+            <span>{{ bs.send_later_label | escape }}</span>
+          </label>
+        </div>
+      {% endif %}
 
-          {% assign eyes = 'OD,OS' | split: ',' %}
-          {% for eye in eyes %}
-            <div class="atelier-prescription-input__row">
-              <span class="atelier-prescription-input__eye">{{ eye }}</span>
-              <label>
-                <span class="visually-hidden">{{ eye }} SPH</span>
-                <input type="text" inputmode="decimal" form="{{ product_form_id }}" name="properties[{{ eye }} SPH]" pattern="^-?\d{0,2}(\.\d{0,2})?$" placeholder="+/-0.00" data-rx-manual-field>
-              </label>
-              <label>
-                <span class="visually-hidden">{{ eye }} CYL</span>
-                <input type="text" inputmode="decimal" form="{{ product_form_id }}" name="properties[{{ eye }} CYL]" pattern="^-?\d{0,2}(\.\d{0,2})?$" placeholder="+/-0.00" data-rx-manual-field>
-              </label>
-              <label>
-                <span class="visually-hidden">{{ eye }} AXIS</span>
-                <input type="number" inputmode="numeric" min="1" max="180" form="{{ product_form_id }}" name="properties[{{ eye }} AXIS]" placeholder="1-180" data-rx-manual-field>
-              </label>
-              <label>
-                <span class="visually-hidden">{{ eye }} ADD</span>
-                <input type="text" inputmode="decimal" form="{{ product_form_id }}" name="properties[{{ eye }} ADD]" pattern="^\+?\d{0,2}(\.\d{0,2})?$" placeholder="+0.00" data-rx-manual-field>
-              </label>
-            </div>
-          {% endfor %}
+      <div class="atelier-prescription-input__fields" data-rx-fields>
+        <div class="atelier-prescription-input__row atelier-prescription-input__row--head">
+          <span></span>
+          <span>SPH</span>
+          <span>CYL</span>
+          <span>AXIS</span>
+          <span>ADD</span>
+        </div>
 
-          <div class="atelier-prescription-input__pd">
+        {% assign eyes = 'OD,OS' | split: ',' %}
+        {% for eye in eyes %}
+          <div class="atelier-prescription-input__row">
+            <span class="atelier-prescription-input__eye">{{ eye }}</span>
             <label>
-              <span>PD</span>
-              <input
-                type="text"
-                inputmode="decimal"
-                form="{{ product_form_id }}"
-                name="properties[PD]"
-                pattern="^\d{1,2}(\.\d{0,2})?$"
-                placeholder="e.g. 63.0"
-                data-rx-manual-field
-              >
+              <span class="visually-hidden">{{ eye }} SPH</span>
+              <input type="text" inputmode="decimal" form="{{ product_form_id }}" name="properties[{{ eye }} SPH]" pattern="^-?\d{0,2}(\.\d{0,2})?$" placeholder="+/-0.00" data-rx-manual-field>
+            </label>
+            <label>
+              <span class="visually-hidden">{{ eye }} CYL</span>
+              <input type="text" inputmode="decimal" form="{{ product_form_id }}" name="properties[{{ eye }} CYL]" pattern="^-?\d{0,2}(\.\d{0,2})?$" placeholder="+/-0.00" data-rx-manual-field>
+            </label>
+            <label>
+              <span class="visually-hidden">{{ eye }} AXIS</span>
+              <input type="number" inputmode="numeric" min="1" max="180" form="{{ product_form_id }}" name="properties[{{ eye }} AXIS]" placeholder="1-180" data-rx-manual-field>
+            </label>
+            <label>
+              <span class="visually-hidden">{{ eye }} ADD</span>
+              <input type="text" inputmode="decimal" form="{{ product_form_id }}" name="properties[{{ eye }} ADD]" pattern="^\+?\d{0,2}(\.\d{0,2})?$" placeholder="+0.00" data-rx-manual-field>
             </label>
           </div>
+        {% endfor %}
+
+        <div class="atelier-prescription-input__pd">
+          <label>
+            <span>PD</span>
+            <input
+              type="text"
+              inputmode="decimal"
+              form="{{ product_form_id }}"
+              name="properties[PD]"
+              pattern="^\d{1,2}(\.\d{0,2})?$"
+              placeholder="e.g. 63.0"
+              data-rx-manual-field
+            >
+          </label>
         </div>
-      </details>
+      </div>
     </div>
 
     {% if show_in_editor_debug %}
@@ -198,23 +160,15 @@
       if (!form) return;
 
       const rxContent = root.querySelector('[data-rx-content]');
+      const warning = root.querySelector('[data-rx-warning]');
       const missingWarning = root.querySelector('[data-rx-missing-warning]');
-      const uploadSection = root.querySelector('[data-rx-upload-section]');
-      const manualDetails = root.querySelector('[data-rx-manual-details]');
-      const sendLaterNote = root.querySelector('[data-rx-send-later-note]');
-      const fileNameEl = root.querySelector('[data-rx-file-name]');
+      const fieldsWrap = root.querySelector('[data-rx-fields]');
       const methodInput = root.querySelector('[data-rx-method]');
       const statusInput = root.querySelector('[data-rx-status]');
       const sendLaterCheckbox = root.querySelector('[data-rx-send-later]');
       const fileInput = root.querySelector('[data-rx-file]');
       const manualFields = root.querySelectorAll('[data-rx-manual-field]');
       let rxRequired = false;
-
-      function syncFileName() {
-        if (!fileNameEl || !fileInput) return;
-        const f = fileInput.files && fileInput.files[0];
-        fileNameEl.textContent = f ? f.name : '';
-      }
 
       function hasManualValues() {
         return Array.from(manualFields).some((field) => String(field.value || '').trim() !== '');
@@ -252,22 +206,18 @@
 
       function updateUi() {
         const sendLater = Boolean(sendLaterCheckbox?.checked);
+        const showManualFields = rxRequired && !sendLater;
         const methodAndStatus = getMethodAndStatus();
 
         root.hidden = !rxRequired;
         if (rxContent) rxContent.hidden = !rxRequired;
-        if (uploadSection) uploadSection.hidden = sendLater;
-        if (manualDetails) {
-          manualDetails.hidden = sendLater;
-          if (sendLater) manualDetails.open = false;
-        }
-        if (sendLaterNote) sendLaterNote.hidden = !sendLater;
+        if (warning) warning.hidden = !rxRequired;
+        if (fieldsWrap) fieldsWrap.hidden = !showManualFields;
         if (methodInput) methodInput.value = methodAndStatus.method;
         if (statusInput) statusInput.value = methodAndStatus.status;
 
         const missing = rxRequired && methodAndStatus.status == 'Missing method';
         setMissingWarning(missing);
-        syncFileName();
         document.dispatchEvent(
           new CustomEvent('atelier:rx-warning', {
             bubbles: true,
@@ -286,10 +236,7 @@
       }
 
       sendLaterCheckbox?.addEventListener('change', updateUi);
-      fileInput?.addEventListener('change', () => {
-        syncFileName();
-        updateUi();
-      });
+      fileInput?.addEventListener('change', updateUi);
       manualFields.forEach((field) => {
         field.addEventListener('input', () => {
           validateField(field);
@@ -303,7 +250,6 @@
         rxRequired = Boolean(event.detail?.lens?.requiresRx);
         if (!rxRequired) {
           setMissingWarning(false);
-          if (manualDetails) manualDetails.open = false;
         }
         updateUi();
       });
@@ -313,7 +259,6 @@
       );
       externalLensSelect?.addEventListener('change', () => {
         rxRequired = resolveRxRequiredFromForm();
-        if (!rxRequired && manualDetails) manualDetails.open = false;
         updateUi();
       });
 
@@ -330,15 +275,11 @@
 
 {% stylesheet %}
   .atelier-prescription-input {
-    display: block;
-  }
-
-  .atelier-prescription-input__panel {
     display: grid;
-    gap: 10px;
+    gap: 12px;
   }
 
-  .atelier-prescription-input__label {
+  .atelier-prescription-input__heading {
     margin: 0;
     font-size: 9px;
     font-weight: 600;
@@ -346,115 +287,52 @@
     text-transform: uppercase;
   }
 
-  .atelier-prescription-input__hint {
+  .atelier-prescription-input__description {
     margin: 0;
     font-size: 11px;
-    line-height: 1.55;
-    color: rgb(var(--color-foreground-rgb) / 0.55);
+    line-height: 1.7;
+    color: rgb(var(--color-foreground-rgb) / 0.6);
   }
 
-  .atelier-prescription-input__missing {
-    margin: 0;
-    font-size: 10px;
-    line-height: 1.5;
-    letter-spacing: 0.04em;
-    color: rgb(var(--color-primary-rgb) / 0.95);
-  }
-
-  .atelier-prescription-input__primary {
-    display: grid;
-    gap: 6px;
-  }
-
-  .atelier-prescription-input__file-row {
+  .atelier-prescription-input__method {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
+    gap: 12px;
   }
 
-  .atelier-prescription-input__file-btn {
+  .atelier-prescription-input__method-option {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    min-height: 40px;
-    padding: 10px 16px;
-    border: 1px solid rgb(var(--color-primary-rgb) / 0.22);
+    gap: 8px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .atelier-prescription-input__upload {
+    display: grid;
+    gap: 8px;
+  }
+
+  .atelier-prescription-input__upload label {
     font-size: 9px;
     font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
-    cursor: pointer;
-    transition: border-color 0.2s, box-shadow 0.2s;
   }
 
-  .atelier-prescription-input__file-btn:hover {
-    border-color: rgb(var(--color-primary-rgb) / 0.45);
-  }
-
-  .atelier-prescription-input__file-name {
-    flex: 1;
-    min-width: 0;
+  .atelier-prescription-input__warning {
+    padding: 10px 12px;
+    border: 1px solid rgb(var(--color-primary-rgb) / 0.28);
+    background: rgb(var(--color-primary-rgb) / 0.08);
     font-size: 10px;
-    letter-spacing: 0.04em;
-    color: rgb(var(--color-foreground-rgb) / 0.65);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .atelier-prescription-input__micro {
-    margin: 0;
-    font-size: 10px;
-    line-height: 1.5;
-    letter-spacing: 0.06em;
-    color: rgb(var(--color-foreground-rgb) / 0.45);
-  }
-
-  .atelier-prescription-input__send-later {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin: 0;
-    font-size: 10px;
-    letter-spacing: 0.12em;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    cursor: pointer;
-  }
-
-  .atelier-prescription-input__send-later input {
-    margin-top: 2px;
-    flex-shrink: 0;
-  }
-
-  .atelier-prescription-input__manual-details {
-    border-block-start: 1px solid rgb(var(--color-primary-rgb) / 0.12);
-    padding-block-start: 10px;
-  }
-
-  .atelier-prescription-input__manual-summary {
-    list-style: none;
-    cursor: pointer;
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: rgb(var(--color-foreground-rgb) / 0.75);
-  }
-
-  .atelier-prescription-input__manual-summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .atelier-prescription-input__manual-details[open] .atelier-prescription-input__manual-summary {
-    margin-block-end: 10px;
-    color: rgb(var(--color-foreground-rgb) / 0.95);
   }
 
   .atelier-prescription-input__fields {
     display: grid;
     gap: 8px;
-    padding-block-start: 4px;
   }
 
   .atelier-prescription-input__row {
@@ -517,66 +395,13 @@
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Prescription"
+      "default": "Prescription details"
     },
     {
       "type": "text",
       "id": "description",
-      "label": "Short intro",
-      "default": "Upload a clear photo of your Rx, type the values, or send it after you order."
-    },
-    {
-      "type": "text",
-      "id": "upload_label",
-      "label": "Upload button label",
-      "default": "Upload file"
-    },
-    {
-      "type": "text",
-      "id": "upload_property_key",
-      "label": "Upload line item property key",
-      "default": "Prescription file"
-    },
-    {
-      "type": "text",
-      "id": "upload_helper_text",
-      "label": "File formats (small line under upload)",
-      "default": "JPG, PNG, or PDF."
-    },
-    {
-      "type": "text",
-      "id": "manual_entry_label",
-      "label": "Manual entry toggle label",
-      "default": "Type prescription instead"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_send_later",
-      "label": "Enable send-later option",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "send_later_label",
-      "label": "Send-later checkbox label",
-      "default": "I will send my prescription later"
-    },
-    {
-      "type": "text",
-      "id": "send_later_helper",
-      "label": "Send-later note (shown when checked)",
-      "default": "You can still check out. We will follow up for your Rx."
-    },
-    {
-      "type": "text",
-      "id": "rx_missing_method_message",
-      "label": "Reminder when nothing is provided yet",
-      "default": "",
-      "info": "Leave blank for automatic wording (matches send-later on/off)."
-    },
-    {
-      "type": "header",
-      "content": "Line item property keys"
+      "label": "Description",
+      "default": "Enter your prescription now or choose send later at checkout."
     },
     {
       "type": "text",
@@ -589,6 +414,48 @@
       "id": "status_property_key",
       "label": "Prescription status property key",
       "default": "Prescription status"
+    },
+    {
+      "type": "text",
+      "id": "upload_label",
+      "label": "Upload field label",
+      "default": "Upload prescription file"
+    },
+    {
+      "type": "text",
+      "id": "upload_property_key",
+      "label": "Upload line item property key",
+      "default": "Prescription file"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_send_later",
+      "label": "Enable send-later option",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "send_later_label",
+      "label": "Send-later option label",
+      "default": "Send prescription later"
+    },
+    {
+      "type": "text",
+      "id": "upload_helper_text",
+      "label": "Upload helper text",
+      "default": "You can place the order now and upload your prescription after checkout."
+    },
+    {
+      "type": "text",
+      "id": "rx_required_message",
+      "label": "Message when selected lens requires prescription",
+      "default": "This lens type needs prescription details."
+    },
+    {
+      "type": "text",
+      "id": "rx_missing_method_message",
+      "label": "Message when no method is selected",
+      "default": "Please choose a prescription method. You can still continue and share details later."
     },
     {
       "type": "checkbox",
