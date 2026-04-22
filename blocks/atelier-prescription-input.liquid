@@ -252,7 +252,7 @@
 {% stylesheet %}
   .atelier-prescription-input {
     display: grid;
-    gap: 8px;
+    row-gap: 10px;
   }
 
   .atelier-prescription-input__heading {
@@ -270,6 +270,10 @@
     color: rgb(var(--color-foreground-rgb) / 0.6);
   }
 
+  .atelier-prescription-input__upload {
+    margin-top: 2px;
+  }
+
   .atelier-prescription-input__editor-note {
     margin: 0;
     font-size: 10px;
@@ -284,7 +288,8 @@
   .atelier-prescription-input__method {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
+    margin-top: 2px;
   }
 
   .atelier-prescription-input__method-option {
@@ -311,6 +316,7 @@
   .atelier-prescription-input__fields {
     display: grid;
     gap: 8px;
+    margin-top: 4px;
   }
 
   .atelier-prescription-input__row {
