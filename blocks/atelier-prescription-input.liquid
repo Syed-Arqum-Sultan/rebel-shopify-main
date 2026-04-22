@@ -9,9 +9,9 @@
   assign upload_key_attr = upload_property_name | strip | replace: '"', ''
   assign enable_metafield = closest.product.metafields.custom.enable_prescription
 -%}
-{% assign is_enabled_for_product = enable_metafield.value %}
-{% if is_enabled_for_product == blank %}
-  {% assign is_enabled_for_product = false %}
+{% assign is_enabled_for_product = true %}
+{% if enable_metafield != blank and enable_metafield.value != blank %}
+  {% assign is_enabled_for_product = enable_metafield.value %}
 {% endif %}
 {% if bs.disable_metafield_gate %}
   {% assign is_enabled_for_product = true %}
@@ -151,8 +151,6 @@
         typeof CSS !== 'undefined' && typeof CSS.escape === 'function'
           ? CSS.escape(formId)
           : String(formId).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-      const form = document.getElementById(formId);
-      if (!form) return;
 
       const rxContent = root.querySelector('[data-rx-content]');
       const uploadWrap = root.querySelector('[data-rx-upload-wrap]');
