@@ -48,22 +48,29 @@
 -%}
 
 {% if color_count > 0 %}
-  <p
-    class="atelier-color-count"
-    style="--alignment: {{ block.settings.alignment }};"
+  <div
+    class="spacing-style atelier-color-count-block"
+    style="{% render 'spacing-style', settings: block.settings %}"
     {{ block.shopify_attributes }}
   >
-    {{- color_count -}}
-    {% if color_count == 1 %}
-      {{ ' ' }}{{ label_singular }}
-    {% else %}
-      {{ ' ' }}{{ label_plural }}
-    {% endif %}
-  </p>
+    <p class="atelier-color-count" style="--alignment: {{ block.settings.alignment }};">
+      {{- color_count -}}
+      {% if color_count == 1 %}
+        {{ ' ' }}{{ label_singular }}
+      {% else %}
+        {{ ' ' }}{{ label_plural }}
+      {% endif %}
+    </p>
+  </div>
 {% endif %}
 
 {% stylesheet %}
-  .atelier-color-count {
+  .atelier-color-count-block {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .atelier-color-count-block .atelier-color-count {
     text-align: var(--alignment, left);
   }
 {% endstylesheet %}
@@ -87,6 +94,50 @@
         { "value": "right", "label": "Right" }
       ],
       "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
     },
     {
       "type": "text",

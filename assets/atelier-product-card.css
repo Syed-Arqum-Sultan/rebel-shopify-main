@@ -116,6 +116,11 @@ body.atelier-optica .product-card .price del {
 /* =========================================================================
  *  Colour count caption (atelier-color-count block): small uppercase label
  * =======================================================================*/
+body.atelier-optica .product-card .atelier-color-count-block {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 body.atelier-optica .product-card .atelier-color-count {
   font-family: var(--font-body--family);
   font-size: 0.6875rem;
