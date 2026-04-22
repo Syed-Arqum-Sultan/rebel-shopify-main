@@ -58,7 +58,7 @@ Registered on **`blocks/_product-details.liquid`** schema so they appear inside 
 | File | Role |
 |------|------|
 | `blocks/atelier-lens-select.liquid` | `<select>` line item property (lens options). |
-| `blocks/atelier-prescription-input.liquid` | Prescription capture (OD/OS + PD) with method selection (manual / upload later / send later), gated by `custom.enable_prescription` and lens requirement events. |
+| `blocks/atelier-prescription-input.liquid` | Prescription capture (OD/OS + PD) shown when selected lens requires Rx; supports optional manual entry and optional file upload, plus optional send-later toggle. Uses `custom.enable_prescription` when present, with safe default-on behavior when the metafield is unset. |
 | `blocks/atelier-frame-guide.liquid` | `<dialog>` frame size guide. |
 | `blocks/optica-product-badges.liquid` | “NEW ARRIVAL” (tag-driven) + “IN STOCK” badges. |
 | `blocks/optica-savings-badge.liquid` | “SAVE X%” when `compare_at_price` &gt; price. |
@@ -113,7 +113,7 @@ Registered on **`blocks/_product-details.liquid`** schema so they appear inside 
 
 ### Product page: layout, lens flow, and recommendations
 
-- **`templates/product.json`**: `order` starts with `optica-product-breadcrumbs`, then `main` (`product-information`), then `product-recommendations`. Inside `product-details`: badges, vendor, title, SKU + reviews, price + savings badge, `variant-picker`, lens + prescription input + frame guide, inventory + buy buttons + wishlist, and accordion blocks (details / shipping / authenticity).
+- **`templates/product.json`**: `order` starts with `optica-product-breadcrumbs`, then `main` (`product-information`), then `product-recommendations`. Inside `product-details` the intent is variant-first flow, then lens, then prescription, then buy actions (with frame guide optional/disabled by default), followed by inventory, wishlist, and accordion blocks (details / shipping / authenticity).
 - **`assets/optica-pdp.css`**: PDP-only visual polish (`body.template-product`).
 - **`product-recommendations`**: “COMPLETE THE LOOK” / “You May Also Like” header group + “VIEW ALL” button; `columns` 4, `max_products` 4, `complementary` intent.
 
