@@ -244,12 +244,35 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "swatches_atelier": {
+              "type": "swatches",
+              "settings": {
+                "product_swatches_alignment": "flex-start",
+                "product_swatches_alignment_mobile": "flex-start",
+                "product_swatches_padding_top": 4,
+                "product_swatches_padding_bottom": 0,
+                "product_swatches_padding_left": 0,
+                "product_swatches_padding_right": 0
+              },
+              "blocks": {}
+            },
+            "color_count_atelier": {
+              "type": "atelier-color-count",
+              "settings": {
+                "alignment": "left",
+                "label_singular": "Color",
+                "label_plural": "Colors"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "product_card_gallery_wxYqE3",
             "product_title_83YMDL",
-            "price_A6DYPt"
+            "swatches_atelier",
+            "price_A6DYPt",
+            "color_count_atelier"
           ]
         }
       },
