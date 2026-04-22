@@ -5,6 +5,8 @@
   assign field_id = 'lens-select-' | append: block.id
   assign packages_list = bs.lens_packages | newline_to_br | split: '<br />'
   assign selected_variant = closest.product.selected_or_first_available_variant
+  assign lens_rx_method_key = bs.rx_method_property_key | default: 'Prescription method' | strip | replace: '"', ''
+  assign lens_rx_status_key = bs.rx_status_property_key | default: 'Prescription status' | strip | replace: '"', ''
 -%}
 {% capture atelier_hide_lens_frame_flag %}{% render 'atelier-pdp-hide-lens-frame', product: closest.product %}{% endcapture %}
 {% assign atelier_hide_lens_frame_flag = atelier_hide_lens_frame_flag | strip %}
@@ -15,6 +17,8 @@
   data-atelier-lens-root
   data-product-form-id="{{ product_form_id }}"
   data-base-price="{{ selected_variant.price | default: 0 }}"
+  data-lens-rx-method-key="{{ lens_rx_method_key | escape }}"
+  data-lens-rx-status-key="{{ lens_rx_status_key | escape }}"
   {{ block.shopify_attributes }}
 >
   {% if bs.heading != blank %}
@@ -96,6 +100,25 @@
       let basePriceCents = Number(root.dataset.basePrice || 0);
 
       const getForm = () => document.getElementById(formId);
+      const formIdSelectorEsc =
+        typeof CSS !== 'undefined' && typeof CSS.escape === 'function'
+          ? CSS.escape(formId)
+          : String(formId).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+      const getRxKeys = () => {
+        const rxRoot = document.querySelector(
+          `[data-atelier-rx-root][data-product-form-id="${formIdSelectorEsc}"]`
+        );
+        if (rxRoot?.dataset?.rxMethodKey && rxRoot?.dataset?.rxStatusKey) {
+          return {
+            methodKey: rxRoot.dataset.rxMethodKey,
+            statusKey: rxRoot.dataset.rxStatusKey,
+          };
+        }
+        return {
+          methodKey: root.dataset.lensRxMethodKey || 'Prescription method',
+          statusKey: root.dataset.lensRxStatusKey || 'Prescription status',
+        };
+      };
       const getAddToCartTextError = () => {
         const form = getForm();
         if (!form) return null;
@@ -165,19 +188,6 @@
         return properties;
       };
 
-      const showMissingWarning = () => {
-        const addToCartTextError = getAddToCartTextError();
-        if (!addToCartTextError) return;
-        const message = 'Prescription details are recommended for this lens. You can still add to cart and send later.';
-        addToCartTextError.classList.remove('hidden');
-        const textNode = addToCartTextError.childNodes[2];
-        if (textNode) {
-          textNode.textContent = message;
-        } else {
-          addToCartTextError.appendChild(document.createTextNode(message));
-        }
-      };
-
       const addBundleToCart = async () => {
         const form = getForm();
         if (!form) throw new Error('Product form not ready. Please try again.');
@@ -190,30 +200,15 @@
         if (!frameVariantId) return false;
 
         const properties = getPropertiesFromForm();
-        const prescriptionMethod = properties['Prescription method'] || '';
-        if (lens.requiresRx && !prescriptionMethod) {
-          showMissingWarning();
-          document.dispatchEvent(
-            new CustomEvent('atelier:rx-warning', {
-              bubbles: true,
-              detail: { productFormId: formId, show: true },
-            })
-          );
-        } else {
-          document.dispatchEvent(
-            new CustomEvent('atelier:rx-warning', {
-              bubbles: true,
-              detail: { productFormId: formId, show: false },
-            })
-          );
-        }
+        const { methodKey, statusKey } = getRxKeys();
+        const prescriptionMethod = properties[methodKey] || '';
 
         properties['Lens package'] = lens.label;
 
         const lensProperties = {
           'Lens package': lens.label,
-          'Prescription method': prescriptionMethod || 'Missing',
-          'Prescription status': properties['Prescription status'] || 'Pending review',
+          [methodKey]: prescriptionMethod || 'Pending',
+          [statusKey]: properties[statusKey] || 'Pending',
           'Linked frame variant': String(frameVariantId),
         };
 
@@ -263,6 +258,7 @@
             },
           })
         );
+        clearError();
         return true;
       };
 
@@ -413,6 +409,20 @@
       "label": "Line item property key",
       "default": "Lens type",
       "info": "Appears on the order; use a short label."
+    },
+    {
+      "type": "text",
+      "id": "rx_method_property_key",
+      "label": "Prescription method property key (fallback)",
+      "default": "Prescription method",
+      "info": "Used when the Prescription input block is not rendered on this product. Match the Prescription input block if you customize keys."
+    },
+    {
+      "type": "text",
+      "id": "rx_status_property_key",
+      "label": "Prescription status property key (fallback)",
+      "default": "Prescription status",
+      "info": "Used when the Prescription input block is not rendered on this product. Match the Prescription input block if you customize keys."
     },
     {
       "type": "textarea",
