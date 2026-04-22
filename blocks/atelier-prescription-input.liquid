@@ -4,6 +4,9 @@
   assign method_name = bs.method_property_key | default: 'Prescription method'
   assign status_name = bs.status_property_key | default: 'Prescription status'
   assign upload_property_name = bs.upload_property_key | default: 'Prescription file'
+  assign method_key_attr = method_name | strip | replace: '"', ''
+  assign status_key_attr = status_name | strip | replace: '"', ''
+  assign upload_key_attr = upload_property_name | strip | replace: '"', ''
   assign enable_metafield = closest.product.metafields.custom.enable_prescription
 -%}
 {% assign is_enabled_for_product = enable_metafield.value %}
@@ -23,6 +26,8 @@
     style="{% render 'spacing-style', settings: bs %}"
     data-atelier-rx-root
     data-product-form-id="{{ product_form_id }}"
+    data-rx-method-key="{{ method_key_attr | escape }}"
+    data-rx-status-key="{{ status_key_attr | escape }}"
     {{ block.shopify_attributes }}
   >
     {% if bs.heading != blank %}
@@ -35,7 +40,7 @@
     <input
       type="hidden"
       form="{{ product_form_id }}"
-      name="properties[{{ method_name | strip | replace: '"', '' }}]"
+      name="properties[{{ method_key_attr }}]"
       value=""
       data-rx-method
     >
@@ -43,35 +48,28 @@
     <input
       type="hidden"
       form="{{ product_form_id }}"
-      name="properties[{{ status_name | strip | replace: '"', '' }}]"
+      name="properties[{{ status_key_attr }}]"
       value="Not required"
       data-rx-status
     >
 
     <div data-rx-content hidden>
-      <div class="atelier-prescription-input__warning" data-rx-warning hidden>
-        {{ bs.rx_required_message | escape }}
-      </div>
-      <div class="atelier-prescription-input__warning atelier-prescription-input__warning--soft" data-rx-missing-warning hidden>
-        {{ bs.rx_missing_method_message | escape }}
-      </div>
 
-      <div class="atelier-prescription-input__upload">
+      <div class="atelier-prescription-input__upload" data-rx-upload-wrap>
         <label for="rx-file-{{ block.id }}">{{ bs.upload_label | escape }}</label>
         <input
           id="rx-file-{{ block.id }}"
           class="field__input"
           type="file"
           form="{{ product_form_id }}"
-          name="properties[{{ upload_property_name | strip | replace: '"', '' }}]"
+          name="properties[{{ upload_key_attr }}]"
           accept=".jpg,.jpeg,.png,.pdf"
           data-rx-file
         >
+        {% if bs.upload_helper_text != blank %}
+          <p class="atelier-prescription-input__description">{{ bs.upload_helper_text | escape }}</p>
+        {% endif %}
       </div>
-
-      {% if bs.upload_helper_text != blank %}
-        <p class="atelier-prescription-input__description">{{ bs.upload_helper_text | escape }}</p>
-      {% endif %}
 
       {% if bs.enable_send_later %}
         <div class="atelier-prescription-input__method">
@@ -132,20 +130,17 @@
     </div>
 
     {% if show_in_editor_debug %}
-      <div class="atelier-prescription-input__warning">
-        Theme editor preview mode: this block is visible for setup.
+      <p class="atelier-prescription-input__editor-note">
+        Editor preview.
         {% unless is_enabled_for_product %}
-          Turn on product metafield `custom.enable_prescription` to show it live.
+          Enable <code>custom.enable_prescription</code> on the product for the live store.
         {% endunless %}
-      </div>
+      </p>
     {% endif %}
   </div>
 
   <script>
     (function () {
-      // Script is a sibling *after* the root div (not nested inside it), so
-      // `closest('[data-atelier-rx-root]')` is always null here. Use the root
-      // element that immediately precedes this script.
       const root =
         document.currentScript?.previousElementSibling?.matches?.('[data-atelier-rx-root]')
           ? document.currentScript.previousElementSibling
@@ -160,8 +155,7 @@
       if (!form) return;
 
       const rxContent = root.querySelector('[data-rx-content]');
-      const warning = root.querySelector('[data-rx-warning]');
-      const missingWarning = root.querySelector('[data-rx-missing-warning]');
+      const uploadWrap = root.querySelector('[data-rx-upload-wrap]');
       const fieldsWrap = root.querySelector('[data-rx-fields]');
       const methodInput = root.querySelector('[data-rx-method]');
       const statusInput = root.querySelector('[data-rx-status]');
@@ -174,34 +168,36 @@
         return Array.from(manualFields).some((field) => String(field.value || '').trim() !== '');
       }
 
-      function setMissingWarning(show) {
-        if (missingWarning) missingWarning.hidden = !show;
-      }
-
       function getMethodAndStatus() {
         if (!rxRequired) return { method: '', status: 'Not required' };
-        if (fileInput?.files && fileInput.files.length > 0) return { method: 'Uploaded file', status: 'Uploaded' };
+        if (fileInput?.files && fileInput.files.length > 0) {
+          return { method: 'Uploaded file', status: 'Uploaded' };
+        }
         if (hasManualValues()) return { method: 'Manual entry', status: 'Manual entry' };
         if (sendLaterCheckbox?.checked) return { method: 'Send later', status: 'Send later' };
-        return { method: '', status: 'Missing method' };
+        return { method: '', status: 'Pending' };
       }
 
       function resolveRxRequiredFromForm() {
-        const hiddenRxField = document.querySelector(
-          `[data-lens-requires-rx][form="${formIdEsc}"]`
-        );
+        const hiddenRxField = document.querySelector(`[data-lens-requires-rx][form="${formIdEsc}"]`);
         if (hiddenRxField && (hiddenRxField.value == 'true' || hiddenRxField.value == 'false')) {
           return hiddenRxField.value == 'true';
         }
 
-        const lensSelect = document.querySelector(
-          `.atelier-lens-select__select[form="${formIdEsc}"]`
-        );
+        const lensSelect = document.querySelector(`.atelier-lens-select__select[form="${formIdEsc}"]`);
         const lensOption = lensSelect?.selectedOptions?.[0];
         if (lensOption?.dataset?.requiresRx) {
           return lensOption.dataset.requiresRx == 'true';
         }
         return false;
+      }
+
+      function syncBundleFileUi() {
+        if (uploadWrap) uploadWrap.hidden = !rxRequired;
+        if (fileInput) {
+          fileInput.disabled = !rxRequired;
+          if (!rxRequired) fileInput.value = '';
+        }
       }
 
       function updateUi() {
@@ -211,19 +207,11 @@
 
         root.hidden = !rxRequired;
         if (rxContent) rxContent.hidden = !rxRequired;
-        if (warning) warning.hidden = !rxRequired;
         if (fieldsWrap) fieldsWrap.hidden = !showManualFields;
         if (methodInput) methodInput.value = methodAndStatus.method;
         if (statusInput) statusInput.value = methodAndStatus.status;
 
-        const missing = rxRequired && methodAndStatus.status == 'Missing method';
-        setMissingWarning(missing);
-        document.dispatchEvent(
-          new CustomEvent('atelier:rx-warning', {
-            bubbles: true,
-            detail: { productFormId: formId, show: missing },
-          })
-        );
+        syncBundleFileUi();
       }
 
       function validateField(field) {
@@ -248,23 +236,13 @@
       document.addEventListener('atelier:lens-change', (event) => {
         if (event.detail?.productFormId !== formId) return;
         rxRequired = Boolean(event.detail?.lens?.requiresRx);
-        if (!rxRequired) {
-          setMissingWarning(false);
-        }
         updateUi();
       });
 
-      const externalLensSelect = document.querySelector(
-        `.atelier-lens-select__select[form="${formIdEsc}"]`
-      );
+      const externalLensSelect = document.querySelector(`.atelier-lens-select__select[form="${formIdEsc}"]`);
       externalLensSelect?.addEventListener('change', () => {
         rxRequired = resolveRxRequiredFromForm();
         updateUi();
-      });
-
-      document.addEventListener('atelier:rx-warning', (event) => {
-        if (event.detail?.productFormId !== formId) return;
-        setMissingWarning(Boolean(event.detail?.show));
       });
 
       rxRequired = resolveRxRequiredFromForm();
@@ -276,7 +254,7 @@
 {% stylesheet %}
   .atelier-prescription-input {
     display: grid;
-    gap: 12px;
+    gap: 8px;
   }
 
   .atelier-prescription-input__heading {
@@ -292,6 +270,17 @@
     font-size: 11px;
     line-height: 1.7;
     color: rgb(var(--color-foreground-rgb) / 0.6);
+  }
+
+  .atelier-prescription-input__editor-note {
+    margin: 0;
+    font-size: 10px;
+    line-height: 1.5;
+    color: rgb(var(--color-foreground-rgb) / 0.55);
+  }
+
+  .atelier-prescription-input__editor-note code {
+    font-size: 0.9em;
   }
 
   .atelier-prescription-input__method {
@@ -311,22 +300,13 @@
 
   .atelier-prescription-input__upload {
     display: grid;
-    gap: 8px;
+    gap: 6px;
   }
 
   .atelier-prescription-input__upload label {
     font-size: 9px;
     font-weight: 600;
     letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  .atelier-prescription-input__warning {
-    padding: 10px 12px;
-    border: 1px solid rgb(var(--color-primary-rgb) / 0.28);
-    background: rgb(var(--color-primary-rgb) / 0.08);
-    font-size: 10px;
-    letter-spacing: 1px;
     text-transform: uppercase;
   }
 
@@ -395,13 +375,13 @@
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Prescription details"
+      "default": "Prescription"
     },
     {
       "type": "text",
       "id": "description",
       "label": "Description",
-      "default": "Enter your prescription now or choose send later at checkout."
+      "default": "Add your Rx here, or send it later."
     },
     {
       "type": "text",
@@ -419,7 +399,7 @@
       "type": "text",
       "id": "upload_label",
       "label": "Upload field label",
-      "default": "Upload prescription file"
+      "default": "Upload file"
     },
     {
       "type": "text",
@@ -437,25 +417,27 @@
       "type": "text",
       "id": "send_later_label",
       "label": "Send-later option label",
-      "default": "Send prescription later"
+      "default": "Send later"
     },
     {
       "type": "text",
       "id": "upload_helper_text",
       "label": "Upload helper text",
-      "default": "You can place the order now and upload your prescription after checkout."
+      "default": "JPG, PNG, or PDF."
     },
     {
       "type": "text",
       "id": "rx_required_message",
-      "label": "Message when selected lens requires prescription",
-      "default": "This lens type needs prescription details."
+      "label": "Legacy Rx required message (unused)",
+      "default": "Fill in the fields or choose send later.",
+      "info": "Kept for compatibility with existing template settings. This message is not displayed."
     },
     {
       "type": "text",
       "id": "rx_missing_method_message",
-      "label": "Message when no method is selected",
-      "default": "Please choose a prescription method. You can still continue and share details later."
+      "label": "Legacy Rx missing method message (unused)",
+      "default": "Add your prescription (upload, values, or send later). You can still check out.",
+      "info": "Kept for compatibility with existing template settings. This message is not displayed."
     },
     {
       "type": "checkbox",
