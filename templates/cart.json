@@ -238,8 +238,8 @@
                 "hide_padding": false,
                 "product_swatches_padding_top": 4,
                 "product_swatches_padding_bottom": 0,
-                "product_swatches_padding_left": 0,
-                "product_swatches_padding_right": 0
+                "product_swatches_padding_left": 16,
+                "product_swatches_padding_right": 16
               },
               "blocks": {}
             },
@@ -247,6 +247,10 @@
               "type": "atelier-color-count",
               "settings": {
                 "alignment": "left",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 16,
+                "padding-inline-end": 16,
                 "label_singular": "Color",
                 "label_plural": "Colors"
               },
