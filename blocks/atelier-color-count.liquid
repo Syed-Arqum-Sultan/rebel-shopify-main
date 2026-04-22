@@ -1,0 +1,105 @@
+{%- doc -%}
+  Renders a small uppercase caption showing how many colour variants a product
+  has (for example "3 COLORS" or "1 COLOR"). Falls back to the number of
+  variants when no Color option is available.
+
+  Intended to sit inside a product card (see `blocks/_product-card.liquid`).
+{%- enddoc -%}
+
+{%- liquid
+  assign product = closest.product
+  assign color_count = 0
+
+  if product != blank
+    assign color_keywords = 'color,colour,couleur,farbe,colore'
+    assign keyword_list = color_keywords | split: ','
+
+    for option in product.options_with_values
+      assign option_name_down = option.name | downcase
+      for keyword in keyword_list
+        if option_name_down contains keyword
+          assign color_count = option.values.size
+          break
+        endif
+      endfor
+      if color_count > 0
+        break
+      endif
+    endfor
+
+    # Fallback: first option that has swatch values, else total variants
+    if color_count == 0
+      for option in product.options_with_values
+        assign swatch_count = option.values | map: 'swatch' | compact | size
+        if swatch_count > 0
+          assign color_count = swatch_count
+          break
+        endif
+      endfor
+    endif
+
+    if color_count == 0 and product.variants.size > 1
+      assign color_count = product.variants.size
+    endif
+  endif
+
+  assign label_singular = block.settings.label_singular | default: 'Color'
+  assign label_plural = block.settings.label_plural | default: 'Colors'
+-%}
+
+{% if color_count > 0 %}
+  <p
+    class="atelier-color-count"
+    style="--alignment: {{ block.settings.alignment }};"
+    {{ block.shopify_attributes }}
+  >
+    {{- color_count -}}
+    {% if color_count == 1 %}
+      {{ ' ' }}{{ label_singular }}
+    {% else %}
+      {{ ' ' }}{{ label_plural }}
+    {% endif %}
+  </p>
+{% endif %}
+
+{% stylesheet %}
+  .atelier-color-count {
+    text-align: var(--alignment, left);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Color count",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows the number of colour variants, e.g. \"3 Colors\". Hidden when the product has no colour option or variants."
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "label_singular",
+      "label": "Label (singular)",
+      "default": "Color"
+    },
+    {
+      "type": "text",
+      "id": "label_plural",
+      "label": "Label (plural)",
+      "default": "Colors"
+    }
+  ]
+}
+{% endschema %}

@@ -502,6 +502,27 @@
                 "padding-inline-end": 16
               },
               "blocks": {}
+            },
+            "swatches_atelier": {
+              "type": "swatches",
+              "settings": {
+                "product_swatches_alignment": "flex-start",
+                "product_swatches_alignment_mobile": "flex-start",
+                "product_swatches_padding_top": 4,
+                "product_swatches_padding_bottom": 4,
+                "product_swatches_padding_left": 16,
+                "product_swatches_padding_right": 16
+              },
+              "blocks": {}
+            },
+            "color_count_atelier": {
+              "type": "atelier-color-count",
+              "settings": {
+                "alignment": "left",
+                "label_singular": "Color",
+                "label_plural": "Colors"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -509,7 +530,9 @@
             "image_YCLxCA",
             "product_card_gallery_DNizbJ",
             "product_title_M7MJkb",
-            "price_gLWgA6"
+            "swatches_atelier",
+            "price_gLWgA6",
+            "color_count_atelier"
           ]
         }
       },
