@@ -181,6 +181,7 @@
         const properties = {};
         formData.forEach((value, key) => {
           if (key.startsWith('properties[')) {
+            if (typeof File !== 'undefined' && value instanceof File) return;
             const name = key.replace('properties[', '').replace(']', '');
             properties[name] = String(value);
           }
@@ -188,11 +189,19 @@
         return properties;
       };
 
+      const hasSelectedPropertyFile = (form) =>
+        Array.from(form.querySelectorAll('input[type="file"][name^="properties["]')).some(
+          (input) => !input.disabled && input.files && input.files.length > 0
+        );
+
       const addBundleToCart = async () => {
         const form = getForm();
         if (!form) throw new Error('Product form not ready. Please try again.');
         const lens = parseSelectedLens();
         if (!lens.variantId) return false;
+        if (hasSelectedPropertyFile(form)) {
+          throw new Error('Please enter prescription details manually or choose send later for lens bundles.');
+        }
 
         const quantityInput = form.querySelector('input[name="quantity"]');
         const quantity = Number(quantityInput?.value || 1);
@@ -252,7 +261,7 @@
               data: {
                 source: 'atelier-lens-bundle',
                 productId: form.closest('product-form-component')?.dataset.productId || '',
-                itemCount: quantity * 2,
+                itemCount: cart.item_count,
                 sections: result.sections || {},
               },
             },
