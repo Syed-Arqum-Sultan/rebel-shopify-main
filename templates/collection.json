@@ -136,7 +136,7 @@
             "border_opacity": 100,
             "border_radius": 0,
             "padding-block-start": 0,
-            "padding-block-end": 0,
+            "padding-block-end": 8,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
@@ -181,6 +181,19 @@
               },
               "blocks": {}
             },
+            "swatches_atelier": {
+              "type": "swatches",
+              "settings": {
+                "product_swatches_alignment": "flex-start",
+                "product_swatches_alignment_mobile": "flex-start",
+                "hide_padding": false,
+                "product_swatches_padding_top": 4,
+                "product_swatches_padding_bottom": 4,
+                "product_swatches_padding_left": 16,
+                "product_swatches_padding_right": 16
+              },
+              "blocks": {}
+            },
             "price_EzJzMm": {
               "type": "price",
               "settings": {
@@ -200,18 +213,6 @@
                 "padding-block-end": 16,
                 "padding-inline-start": 16,
                 "padding-inline-end": 16
-              },
-              "blocks": {}
-            },
-            "swatches_atelier": {
-              "type": "swatches",
-              "settings": {
-                "product_swatches_alignment": "flex-start",
-                "product_swatches_alignment_mobile": "flex-start",
-                "product_swatches_padding_top": 4,
-                "product_swatches_padding_bottom": 4,
-                "product_swatches_padding_left": 16,
-                "product_swatches_padding_right": 16
               },
               "blocks": {}
             },
