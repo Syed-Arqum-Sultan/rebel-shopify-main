@@ -1,0 +1,28 @@
+{
+  "name": "pdp_dark",
+  "adaptive": {
+    "exposure_bias": 0.05,
+    "contrast_bias": 0.08,
+    "saturation_bias": 0.02,
+    "shadow_bias": 0.08,
+    "highlight_bias": 0.06,
+    "clarity_bias": 0.1,
+    "sharpen_bias": 0.08,
+    "relight_bias": 0.1,
+    "relight_warmth": 0.35,
+    "shadow_opacity": 0.14,
+    "white_balance_bias": 0.02,
+    "max_adjustment": 0.22
+  },
+  "output": {
+    "sizes": [3000, 2500],
+    "formats": ["png", "webp"],
+    "quality": 92,
+    "pad_color": "#141210",
+    "background_mode": "solid",
+    "background_remove": false
+  },
+  "background_removal": {
+    "enabled": false
+  }
+}

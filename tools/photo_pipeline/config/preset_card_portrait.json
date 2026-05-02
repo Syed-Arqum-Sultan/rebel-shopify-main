@@ -1,0 +1,27 @@
+{
+  "name": "card_portrait",
+  "stages": {
+    "remove_background": true
+  },
+  "adaptive": {
+    "exposure_bias": 0.08,
+    "contrast_bias": 0.07,
+    "saturation_bias": 0.03,
+    "shadow_bias": 0.06,
+    "highlight_bias": 0.07,
+    "clarity_bias": 0.12,
+    "sharpen_bias": 0.10,
+    "relight_bias": 0.13,
+    "relight_warmth": 0.20,
+    "shadow_opacity": 0.15,
+    "white_balance_bias": 0.02,
+    "max_adjustment": 0.30
+  },
+  "output": {
+    "sizes": [2000, 1600, 1200],
+    "formats": ["png", "webp"],
+    "background_mode": "solid",
+    "pad_color": "#141210",
+    "quality": 92
+  }
+}
