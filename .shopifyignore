@@ -1,0 +1,12 @@
+tools/**
+docs/**
+.github/**
+.cursor/**
+.git/**
+.venv/**
+node_modules/**
+**/__pycache__/**
+*.pyc
+*.pyo
+*.DS_Store
+tmp_*/**
