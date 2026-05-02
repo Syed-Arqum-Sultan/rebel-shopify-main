@@ -38,6 +38,7 @@ Modular Python pipeline that analyzes each photo and applies adaptive correction
 - `config/preset_pdp_dark.json` - PDP dark-theme profile
 - `config/preset_card_portrait.json` - portrait card profile
 - `config/preset_square_reco.json` - recommendation square profile
+- `config/preset_black_bg_clean.json` - black-background cleanup profile
 
 ## Install
 
@@ -69,6 +70,20 @@ Optional:
   - square recommendation style
   - background removal enabled
   - output sizes: `2000`, `1200`, `600`
+- `preset_black_bg_clean.json`
+  - tuned for already-black studio backgrounds
+  - lighter relight and shadow bias to prevent haze
+  - output sizes: `2000`, `1600`, `1200`
+
+## Black background quality upgrades
+
+The pipeline now includes dark-scene safeguards:
+
+- subject/background masks are derived before grading and relighting
+- tone/clarity/relight are applied primarily on subject regions
+- black-floor protection prevents lifting near-black pixels
+- contact shadow auto-skips when image alpha covers most of the frame
+- dark-background detection can force pure-black output padding
 
 ## Report format
 
