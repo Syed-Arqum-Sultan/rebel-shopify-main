@@ -23,6 +23,17 @@ class PhotoMetrics:
 
 
 @dataclass(slots=True)
+class SceneProfile:
+    """Simple scene context used to dampen global effects."""
+
+    border_luma_mean: float
+    border_luma_std: float
+    border_dark_ratio: float
+    is_dark_background: bool
+    subject_coverage: float
+
+
+@dataclass(slots=True)
 class AdjustmentPlan:
     """Computed, bounded adjustments per photo."""
 
@@ -38,6 +49,9 @@ class AdjustmentPlan:
     relight_warmth: float
     contact_shadow_opacity: float
     white_balance_shift: float
+    black_floor: float
+    background_damping: float
+    force_black_output: bool
     notes: list[str] = field(default_factory=list)
 
 
@@ -49,6 +63,7 @@ class ProcessResult:
     output_path: str
     preset_name: str
     metrics: PhotoMetrics
+    scene: SceneProfile | None
     plan: AdjustmentPlan
     warnings: list[str] = field(default_factory=list)
 
@@ -58,6 +73,7 @@ class ProcessResult:
             "output_path": self.output_path,
             "preset_name": self.preset_name,
             "metrics": asdict(self.metrics),
+            "scene": asdict(self.scene) if self.scene else None,
             "plan": {
                 **asdict(self.plan),
                 "notes": list(self.plan.notes),

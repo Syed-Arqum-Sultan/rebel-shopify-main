@@ -20,6 +20,13 @@ def apply_contact_shadow(image: Image.Image, plan: AdjustmentPlan) -> Image.Imag
     if bbox is None:
         return rgba
 
+    total_pixels = max(1, w * h)
+    # If alpha covers most of frame, we likely do not have a true cutout.
+    opaque_pixels = sum(1 for px in alpha.getdata() if px > 16)
+    coverage = opaque_pixels / total_pixels
+    if coverage > 0.82:
+        return rgba
+
     left, top, right, bottom = bbox
     obj_w = right - left
     obj_h = bottom - top
