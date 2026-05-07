@@ -39,6 +39,28 @@ def ensure_rgb(image: Image.Image) -> Image.Image:
     return image
 
 
+def hex_to_rgb(value: str) -> tuple[int, int, int]:
+    """Parse #RGB or #RRGGBB into sRGB triple."""
+    stripped = value.strip().lstrip("#")
+    if len(stripped) == 3:
+        stripped = "".join(ch * 2 for ch in stripped)
+    if len(stripped) != 6:
+        return (20, 18, 16)
+    return (
+        int(stripped[0:2], 16),
+        int(stripped[2:4], 16),
+        int(stripped[4:6], 16),
+    )
+
+
+def flatten_rgba_on_color(image: Image.Image, pad_color: str) -> Image.Image:
+    """Composite RGBA onto a flat RGB backdrop (matches solid PDP backgrounds)."""
+    rgba = ensure_rgba(image)
+    bg = Image.new("RGB", rgba.size, hex_to_rgb(pad_color))
+    bg.paste(rgba, mask=rgba.split()[3])
+    return bg
+
+
 def choose_output_ext(formats: Iterable[str]) -> str:
     """Pick first format extension from list."""
     for fmt in formats:
