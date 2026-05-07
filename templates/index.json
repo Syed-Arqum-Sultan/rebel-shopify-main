@@ -786,7 +786,7 @@
         }
       },
       "settings": {
-        "collection": "all",
+        "collection": "spectacle-collections",
         "layout_type": "grid",
         "carousel_on_mobile": true,
         "max_products": 4,
