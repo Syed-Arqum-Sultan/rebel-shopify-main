@@ -1,0 +1,30 @@
+{
+  "name": "black_bg_clean",
+  "stages": {
+    "remove_background": false
+  },
+  "adaptive": {
+    "exposure_bias": 0.03,
+    "contrast_bias": 0.06,
+    "saturation_bias": 0.01,
+    "shadow_bias": 0.02,
+    "highlight_bias": 0.07,
+    "clarity_bias": 0.09,
+    "sharpen_bias": 0.09,
+    "relight_bias": 0.04,
+    "relight_warmth": 0.12,
+    "shadow_opacity": 0.0,
+    "white_balance_bias": 0.01,
+    "max_adjustment": 0.17
+  },
+  "output": {
+    "sizes": [2000, 1600, 1200],
+    "formats": ["png", "webp"],
+    "background_mode": "solid",
+    "pad_color": "#000000",
+    "quality": 92
+  },
+  "background_removal": {
+    "enabled": false
+  }
+}

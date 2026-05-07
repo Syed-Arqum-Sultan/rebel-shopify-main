@@ -1,5 +1,5 @@
 {
-  "name": "pdp_dark",
+  "name": "pdp_charcoal",
   "adaptive": {
     "exposure_bias": 0.05,
     "contrast_bias": 0.08,
@@ -15,14 +15,14 @@
     "max_adjustment": 0.22
   },
   "output": {
-    "sizes": [3000, 2500],
-    "formats": ["png", "webp"],
+    "sizes": [3000],
+    "formats": ["webp"],
     "quality": 92,
-    "pad_color": "#000000",
+    "pad_color": "#141210",
     "background_mode": "solid",
-    "background_remove": false
+    "background_remove": true
   },
   "background_removal": {
-    "enabled": false
+    "enabled": true
   }
 }

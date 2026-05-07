@@ -20,8 +20,11 @@ def apply_background_removal(image: Image.Image, enabled: bool) -> tuple[Image.I
     try:
         with contextlib.redirect_stderr(io.StringIO()), contextlib.redirect_stdout(io.StringIO()):
             from rembg import remove as rembg_remove  # type: ignore
-    except BaseException:
+    except Exception as exc:
         warnings.append("rembg_not_ready_background_removal_skipped")
+        detail = str(exc).strip().replace("\n", " ")
+        if detail:
+            warnings.append(f"rembg_import_error {detail[:400]}")
         return rgba, warnings
 
     try:
@@ -29,14 +32,17 @@ def apply_background_removal(image: Image.Image, enabled: bool) -> tuple[Image.I
             buffer = io.BytesIO()
             rgba.save(buffer, format="PNG")
             removed = rembg_remove(buffer.getvalue())
-    except BaseException:
+    except Exception as exc:
         warnings.append("rembg_runtime_error_background_removal_skipped")
+        detail = str(exc).strip().replace("\n", " ")
+        if detail:
+            warnings.append(f"rembg_runtime_error_detail {detail[:400]}")
         return rgba, warnings
 
     if isinstance(removed, (bytes, bytearray)):
         try:
             return ensure_rgba(Image.open(io.BytesIO(removed))), warnings
-        except BaseException:
+        except Exception:
             warnings.append("rembg_decode_error_background_removal_skipped")
             return rgba, warnings
     if isinstance(removed, Image.Image):

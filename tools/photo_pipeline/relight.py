@@ -54,3 +54,23 @@ def apply_relight(image: Image.Image, plan: AdjustmentPlan) -> Image.Image:
 
     return Image.alpha_composite(lit, rim_layer)
 
+
+def apply_relight_masked(
+    image: Image.Image,
+    plan: AdjustmentPlan,
+    subject_mask: Image.Image | None = None,
+    background_mask: Image.Image | None = None,
+) -> Image.Image:
+    """Apply relight primarily to subject to avoid hazy black backgrounds."""
+    rgba = ensure_rgba(image)
+    relit = apply_relight(rgba, plan)
+    if subject_mask is None:
+        return relit
+    composed = Image.composite(relit, rgba, subject_mask)
+    if background_mask is not None and plan.background_damping < 1.0:
+        # Reinforce deep black backdrop when scene is detected as dark.
+        background_boost = Image.new("RGBA", rgba.size, (0, 0, 0, int((1.0 - plan.background_damping) * 90)))
+        darkened = Image.alpha_composite(composed, background_boost)
+        return Image.composite(darkened, composed, background_mask)
+    return composed
+

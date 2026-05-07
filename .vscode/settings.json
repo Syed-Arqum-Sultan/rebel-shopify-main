@@ -1,4 +1,5 @@
 {
+  "python.defaultInterpreterPath": "${workspaceFolder}/tools/photo_pipeline/.venv/Scripts/python.exe",
   "files.associations": {
     ".shopifyignore": "gitignore"
   }

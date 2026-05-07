@@ -8,13 +8,14 @@ from typing import Any
 
 from PIL import Image
 
-from .analyze import PresetConfig, analyze_photo, build_adjustment_plan
+from .analyze import PresetConfig, analyze_photo, build_adjustment_plan, profile_scene
 from .background import apply_background_removal
 from .grade import apply_grade
-from .helpers import choose_output_ext, ensure_rgb, ensure_rgba
+from .helpers import choose_output_ext, ensure_rgb, ensure_rgba, flatten_rgba_on_color, hex_to_rgb
+from .mask import build_subject_mask
 from .models import ProcessResult
 from .normalize import apply_normalization
-from .relight import apply_relight
+from .relight import apply_relight_masked
 from .shadow import apply_contact_shadow
 
 
@@ -39,14 +40,58 @@ def process_image(
     """Analyze, plan, enhance and export a single image."""
     image = Image.open(source_path)
     image, bg_warnings = apply_background_removal(image, enabled=preset.remove_background)
-    metrics = analyze_photo(image)
-    plan = build_adjustment_plan(metrics, preset.config)
+    rgba = ensure_rgba(image)
+    alpha_band = rgba.split()[3]
+    has_transparent_pixels = alpha_band.getextrema()[0] < 255
+    scene = profile_scene(image)
     warnings: list[str] = list(bg_warnings)
 
-    normalized = apply_normalization(image, plan)
-    graded = apply_grade(normalized, plan)
-    relit = apply_relight(graded, plan)
-    final_rgba = apply_contact_shadow(relit, plan)
+    if preset.background_mode != "transparent":
+        analysis_rgb = flatten_rgba_on_color(rgba, preset.pad_color)
+        metrics = analyze_photo(analysis_rgb)
+        plan = build_adjustment_plan(metrics, preset.config, scene=scene)
+
+        rgba_for_work = rgba
+        shadow_baked_early = False
+        if has_transparent_pixels and plan.contact_shadow_opacity > 0:
+            rgba_for_work = apply_contact_shadow(rgba, plan)
+            shadow_baked_early = True
+        work_rgb = flatten_rgba_on_color(rgba_for_work, preset.pad_color)
+
+        subject_mask, background_mask = build_subject_mask(image)
+        normalized = apply_normalization(work_rgb, plan)
+        graded = apply_grade(
+            normalized,
+            plan,
+            subject_mask=subject_mask,
+            background_mask=background_mask,
+        )
+        relit = apply_relight_masked(
+            graded,
+            plan,
+            subject_mask=subject_mask,
+            background_mask=background_mask,
+        )
+        final_rgba = ensure_rgba(relit) if shadow_baked_early else apply_contact_shadow(relit, plan)
+    else:
+        metrics = analyze_photo(rgba)
+        plan = build_adjustment_plan(metrics, preset.config, scene=scene)
+        subject_mask, background_mask = build_subject_mask(image)
+
+        normalized = apply_normalization(image, plan)
+        graded = apply_grade(
+            normalized,
+            plan,
+            subject_mask=subject_mask,
+            background_mask=background_mask,
+        )
+        relit = apply_relight_masked(
+            graded,
+            plan,
+            subject_mask=subject_mask,
+            background_mask=background_mask,
+        )
+        final_rgba = apply_contact_shadow(relit, plan)
 
     saved_path = export_outputs(
         final_rgba,
@@ -57,6 +102,7 @@ def process_image(
         pad_color=preset.pad_color,
         background_mode=preset.background_mode,
         quality=preset.quality,
+        force_black_output=plan.force_black_output,
     )
 
     if metrics.luminance_mean < 0.23:
@@ -69,6 +115,7 @@ def process_image(
         output_path=str(saved_path),
         preset_name=preset.config.name,
         metrics=metrics,
+        scene=scene,
         plan=plan,
         warnings=warnings,
     )
@@ -83,6 +130,7 @@ def export_outputs(
     pad_color: str,
     background_mode: str,
     quality: int,
+    force_black_output: bool = False,
 ) -> Path:
     """Write one or more size/format variants and return primary path."""
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -91,7 +139,13 @@ def export_outputs(
     first_path = output_dir / f"{stem}{primary_ext}"
 
     for size in output_sizes:
-        framed = fit_to_square(image, size=size, pad_color=pad_color, background_mode=background_mode)
+        framed = fit_to_square(
+            image,
+            size=size,
+            pad_color=pad_color,
+            background_mode=background_mode,
+            force_black_output=force_black_output,
+        )
         for fmt in output_formats:
             normalized_fmt = fmt.lower().strip()
             ext = ".jpg" if normalized_fmt == "jpeg" else f".{normalized_fmt}"
@@ -109,6 +163,7 @@ def fit_to_square(
     size: int,
     pad_color: str,
     background_mode: str,
+    force_black_output: bool = False,
 ) -> Image.Image:
     """Resize with padding to square canvas."""
     rgba = ensure_rgba(image)
@@ -121,7 +176,7 @@ def fit_to_square(
     if background_mode == "transparent":
         canvas = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     else:
-        rgb = _hex_to_rgb(pad_color)
+        rgb = (0, 0, 0) if force_black_output else hex_to_rgb(pad_color)
         canvas = Image.new("RGBA", (size, size), (*rgb, 255))
 
     offset = ((size - new_w) // 2, (size - new_h) // 2)
@@ -176,13 +231,4 @@ def load_preset(raw: dict[str, Any]) -> PipelinePreset:
         quality=int(output["quality"]),
         remove_background=remove_background,
     )
-
-
-def _hex_to_rgb(value: str) -> tuple[int, int, int]:
-    stripped = value.strip().lstrip("#")
-    if len(stripped) == 3:
-        stripped = "".join(ch * 2 for ch in stripped)
-    if len(stripped) != 6:
-        return (20, 18, 16)
-    return tuple(int(stripped[i : i + 2], 16) for i in (0, 2, 4))
 
