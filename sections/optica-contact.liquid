@@ -130,7 +130,7 @@
         {% endif %}
         {% if form.posted_successfully? %}
           <p class="optica-contact__message optica-contact__message--success" tabindex="-1">
-            {{ section.settings.success_message | default: 'Thank you — we'll be in touch shortly.' | escape }}
+            {{ section.settings.success_message | default: "Thank you — we'll be in touch shortly." | escape }}
           </p>
         {% endif %}
       {% endform %}

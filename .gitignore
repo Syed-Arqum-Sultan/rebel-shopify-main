@@ -1,2 +1,5 @@
 # Shopify CLI: `shopify theme package` output (reproducible; do not commit)
 *.zip
+
+# Local SDK tooling
+tools/cursor-sdk/node_modules/
