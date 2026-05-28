@@ -5,6 +5,55 @@
   @param {string} [section_id] - The section ID for cart discount component.
 {%- enddoc -%}
 
+{%- liquid
+  assign optica_threshold = settings.optica_free_shipping_threshold | default: 0
+  assign optica_total = cart.total_price | default: 0
+  if optica_threshold > 0
+    assign optica_remaining = optica_threshold | minus: optica_total
+    if optica_remaining < 0
+      assign optica_remaining = 0
+    endif
+    assign optica_progress = optica_total | times: 100 | divided_by: optica_threshold
+    if optica_progress > 100
+      assign optica_progress = 100
+    endif
+    assign optica_met = false
+    if optica_total >= optica_threshold
+      assign optica_met = true
+    endif
+  endif
+-%}
+
+{%- if optica_threshold > 0 -%}
+  <div
+    class="optica-freeship{% if optica_met %} optica-freeship--met{% endif %}"
+    data-optica-freeship
+    data-threshold="{{ optica_threshold }}"
+    data-total="{{ optica_total }}"
+  >
+    <p class="optica-freeship__label" data-optica-freeship-label>
+      {%- if optica_met -%}
+        <span class="optica-freeship__check" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+            <path d="M3 8.5 L6.5 12 L13 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        Complimentary shipping included
+      {%- else -%}
+        Add <strong data-optica-freeship-remaining>{{ optica_remaining | money_without_trailing_zeros }}</strong>
+        to unlock complimentary shipping
+      {%- endif -%}
+    </p>
+    <div class="optica-freeship__bar" aria-hidden="true">
+      <span
+        class="optica-freeship__fill"
+        data-optica-freeship-fill
+        style="width: {{ optica_progress }}%;"
+      ></span>
+    </div>
+  </div>
+{%- endif -%}
+
 <div class="cart-totals">
   {% # We need to keep this node in place to allow morphing to work properly # %}
   <div class="cart-totals__original-container cart-primary-typography">

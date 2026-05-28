@@ -341,3 +341,128 @@ body.template-index .atelier-category-tiles-section .atelier-cat__section-title 
   font-family: var(--font-heading--family);
   letter-spacing: 0.04em;
 }
+
+/* ============================================================
+   OPTICA cart drawer polish
+   ============================================================ */
+
+/* Free-shipping progress bar */
+body.atelier-optica .optica-freeship {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-block-end: 1rem;
+  padding: 0.75rem 0;
+  border-block-end: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+}
+
+body.atelier-optica .optica-freeship__label {
+  margin: 0;
+  font-family: var(--font-body--family);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-foreground);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+body.atelier-optica .optica-freeship__label strong {
+  font-weight: 600;
+  color: var(--atelier-gold);
+}
+
+body.atelier-optica .optica-freeship__check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--atelier-gold);
+}
+
+body.atelier-optica .optica-freeship__bar {
+  position: relative;
+  height: 2px;
+  width: 100%;
+  background: color-mix(in srgb, var(--color-border) 60%, transparent);
+  overflow: hidden;
+}
+
+body.atelier-optica .optica-freeship__fill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--atelier-gold), var(--atelier-gold-hover));
+  transition: width var(--optica-dur-slow) var(--optica-ease-out);
+}
+
+body.atelier-optica .optica-freeship--met .optica-freeship__fill {
+  background: var(--atelier-gold);
+}
+
+/* Line-item properties as a single refined block */
+body.atelier-optica .optica-line-item-props {
+  margin-block-start: 0.35rem;
+}
+
+body.atelier-optica .optica-line-item-props .cart-items__property {
+  font-family: var(--font-body--family);
+  font-style: italic;
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+  color: color-mix(in srgb, var(--atelier-gold) 80%, var(--color-foreground));
+  line-height: 1.5;
+}
+
+body.atelier-optica .optica-line-item-props .cart-items__property dt {
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+body.atelier-optica .optica-line-item-props .cart-items__property dt::after {
+  content: '\00a0';
+}
+
+/* Cart drawer backdrop blur + slide-in physics */
+body.atelier-optica .cart-drawer__dialog::backdrop {
+  background: rgb(0 0 0 / 0.32);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body.atelier-optica .cart-drawer__dialog[open] {
+    animation: opticaDrawerSlideIn var(--optica-dur-base) var(--optica-ease-out);
+  }
+}
+
+@keyframes opticaDrawerSlideIn {
+  from {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Cart icon pulse on ATC */
+@media (prefers-reduced-motion: no-preference) {
+  body.atelier-optica cart-icon.optica-cart-icon--pulse {
+    animation: opticaCartPulse 600ms var(--optica-ease-out);
+  }
+}
+
+@keyframes opticaCartPulse {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.18); }
+  70% { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+
+/* Fly-to-cart clone */
+body.atelier-optica .optica-atc-fly-clone {
+  object-fit: cover;
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.25);
+}

@@ -106,6 +106,13 @@
       fetchpriority="low"
     ></script>
 
+    {%- comment -%} OPTICA: free-ship bar updates + ATC fly-to-cart animation {%- endcomment -%}
+    <script
+      src="{{ 'optica-cart-enhance.js' | asset_url }}"
+      type="module"
+      fetchpriority="low"
+    ></script>
+
     {% capture empty_cart_drawer_content %}
       <div class="cart-drawer__header">
         <button

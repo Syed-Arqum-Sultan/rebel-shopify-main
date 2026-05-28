@@ -2307,5 +2307,28 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "OPTICA cart",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Customer-experience polish for the cart drawer. Free-shipping bar threshold is in your shop's currency, in cents (e.g. 10000 = $100)."
+      },
+      {
+        "type": "number",
+        "id": "optica_free_shipping_threshold",
+        "label": "Free shipping threshold (cents)",
+        "default": 10000,
+        "info": "Set to 0 to hide the progress bar."
+      },
+      {
+        "type": "checkbox",
+        "id": "optica_atc_fly_animation",
+        "label": "Fly-to-cart animation on add to cart",
+        "default": true,
+        "info": "Animates the product image toward the cart icon when an item is added."
+      }
+    ]
   }
 ]
