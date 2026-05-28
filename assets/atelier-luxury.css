@@ -7,6 +7,13 @@
   --atelier-dark2: #1E1B18;
   --atelier-dark3: #272320;
   --atelier-muted: #7A7268;
+
+  /* OPTICA motion tokens — shared across cart, search, and page transitions */
+  --optica-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --optica-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --optica-dur-fast: 180ms;
+  --optica-dur-base: 320ms;
+  --optica-dur-slow: 560ms;
 }
 
 body {
@@ -15,12 +22,48 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  :root {
+    --optica-dur-fast: 0ms;
+    --optica-dur-base: 0ms;
+    --optica-dur-slow: 0ms;
+  }
+
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* --- OPTICA view-transition polish ---
+   Horizon enables view transitions globally (assets/base.css). These rules
+   refine the timing/easing under body.atelier-optica so PLP -> PDP morphs feel
+   editorial rather than utilitarian. */
+@media (prefers-reduced-motion: no-preference) {
+  body.atelier-optica {
+    --animation-easing: var(--optica-ease);
+  }
+
+  body.atelier-optica ::view-transition-group(product-image-transition),
+  body.atelier-optica ::view-transition-group(product-details) {
+    animation-duration: var(--optica-dur-slow);
+    animation-timing-function: var(--optica-ease-out);
+  }
+
+  body.atelier-optica ::view-transition-old(product-image-transition),
+  body.atelier-optica ::view-transition-new(product-image-transition) {
+    animation-duration: var(--optica-dur-base);
+    animation-timing-function: var(--optica-ease-out);
+  }
+
+  body.atelier-optica ::view-transition-old(main-content) {
+    animation-duration: var(--optica-dur-fast);
+  }
+
+  body.atelier-optica ::view-transition-new(main-content) {
+    animation-duration: var(--optica-dur-base);
   }
 }
 
