@@ -126,25 +126,20 @@
               item (see blocks/atelier-lens-select.liquid). To keep the drawer
               clean, we hide the add-on row and surface its price + label as a
               sub-line on its paired frame row. Cart totals are unaffected.
+
+              An item is a lens add-on when it has a non-blank "Linked frame
+              variant" property pointing at another item's variant_id.
             {%- endcomment -%}
-            {%- liquid
-              assign optica_paired_addon_keys = ''
-              for ci in cart.items
-                for p in ci.properties
-                  if p.first == 'Linked frame variant' and p.last != blank
-                    assign optica_marker = '|' | append: ci.key
-                    assign optica_paired_addon_keys = optica_paired_addon_keys | append: optica_marker
-                  endif
-                endfor
-              endfor
-            -%}
             {% for item in cart.items %}
               {%- liquid
                 assign optica_is_lens_addon = false
-                assign addon_key_marker = '|' | append: item.key
-                if optica_paired_addon_keys contains addon_key_marker
-                  assign optica_is_lens_addon = true
-                endif
+                assign optica_self_linked = ''
+                for p in item.properties
+                  if p.first == 'Linked frame variant' and p.last != blank
+                    assign optica_self_linked = p.last | strip
+                    assign optica_is_lens_addon = true
+                  endif
+                endfor
 
                 assign optica_paired_addon = null
                 assign optica_lens_label = ''
@@ -154,7 +149,7 @@
                     assign ci_linked = ''
                     assign ci_lens_pkg = ''
                     for p in ci.properties
-                      if p.first == 'Linked frame variant'
+                      if p.first == 'Linked frame variant' and p.last != blank
                         assign ci_linked = p.last | strip
                       endif
                       if p.first == 'Lens package'
@@ -169,6 +164,7 @@
                   endfor
                 endunless
               -%}
+              <!-- OPTICA lens-bundle: variant={{ item.variant_id }} is_addon={{ optica_is_lens_addon }} linked_to={{ optica_self_linked }} paired_lens={% if optica_paired_addon %}{{ optica_paired_addon.variant_id }}{% else %}none{% endif %} -->
               {%- if optica_is_lens_addon -%}
                 {%- continue -%}
               {%- endif -%}
