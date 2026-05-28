@@ -423,6 +423,42 @@ body.atelier-optica .optica-line-item-props .cart-items__property dt::after {
   content: '\00a0';
 }
 
+/* Lens add-on bundled under its frame row */
+body.atelier-optica .optica-cart-addon {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin-block-start: 0.45rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--atelier-gold) 35%, transparent);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--atelier-gold) 6%, transparent);
+  font-family: var(--font-body--family);
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--atelier-gold) 90%, var(--color-foreground));
+  max-width: 100%;
+}
+
+body.atelier-optica .optica-cart-addon__plus {
+  font-weight: 600;
+  color: var(--atelier-gold);
+}
+
+body.atelier-optica .optica-cart-addon__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body.atelier-optica .optica-cart-addon__price {
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.85;
+}
+
 /* Cart drawer backdrop blur + slide-in physics */
 body.atelier-optica .cart-drawer__dialog::backdrop {
   background: rgb(0 0 0 / 0.32);
