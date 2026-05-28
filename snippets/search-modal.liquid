@@ -9,9 +9,16 @@
   fetchpriority="low"
 ></script>
 
+{%- comment -%} OPTICA: cmdK shortcut + recent searches enhancement {%- endcomment -%}
+<script
+  src="{{ 'optica-search-enhance.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
 <dialog-component
   id="search-modal"
-  class="search-modal"
+  class="search-modal optica-search-modal"
   {{ block.shopify_attributes }}
 >
   <dialog
@@ -102,9 +109,9 @@
           </button>
         </div>
 
-        <div class="predictive-search-form__content-wrapper">
+        <div class="predictive-search-form__content-wrapper optica-search-panes">
           <div
-            class="predictive-search-form__content"
+            class="predictive-search-form__content optica-search-panes__main"
             tabindex="-1"
             ref="predictiveSearchResults"
             on:click="/handleModalClick"
@@ -115,6 +122,40 @@
               products_test_id: 'products-list-default--modal'
             %}
           </div>
+
+          {%- comment -%} OPTICA: sidebar pane for recent + popular searches, populated by optica-search-enhance.js {%- endcomment -%}
+          <aside
+            class="optica-search-sidebar"
+            data-optica-search-sidebar
+            aria-label="Search shortcuts"
+          >
+            <section
+              class="optica-search-sidebar__group"
+              data-optica-recent-group
+              hidden
+            >
+              <h3 class="optica-search-sidebar__title">Recent searches</h3>
+              <ul
+                class="optica-search-sidebar__list"
+                data-optica-recent-list
+                role="list"
+              ></ul>
+            </section>
+
+            <section class="optica-search-sidebar__group">
+              <h3 class="optica-search-sidebar__title">Popular</h3>
+              <ul class="optica-search-sidebar__list" role="list">
+                <li><a href="{{ routes.search_url }}?q=aviator">Aviator</a></li>
+                <li><a href="{{ routes.search_url }}?q=titanium">Titanium</a></li>
+                <li><a href="{{ routes.search_url }}?q=round">Round</a></li>
+                <li><a href="{{ routes.search_url }}?q=blue+light">Blue-light</a></li>
+              </ul>
+            </section>
+
+            <p class="optica-search-sidebar__hint">
+              <kbd>&#8984;</kbd><kbd>K</kbd> to open anywhere
+            </p>
+          </aside>
 
           <div class="predictive-search-form__footer">
             <button

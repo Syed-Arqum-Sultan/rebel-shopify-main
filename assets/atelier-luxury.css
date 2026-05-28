@@ -466,3 +466,122 @@ body.atelier-optica .optica-atc-fly-clone {
   object-fit: cover;
   box-shadow: 0 12px 32px rgb(0 0 0 / 0.25);
 }
+
+/* ============================================================
+   OPTICA predictive search overhaul
+   ============================================================ */
+
+/* Two-pane layout >= 900px: products on the left, sidebar on the right.
+   Below that, sidebar stacks beneath the main results. */
+@media screen and (min-width: 900px) {
+  body.atelier-optica .optica-search-panes {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(220px, 1fr);
+    gap: 0;
+  }
+
+  body.atelier-optica .optica-search-panes__main {
+    border-inline-end: 1px solid color-mix(in srgb, var(--atelier-gold) 30%, transparent);
+    max-height: var(--modal-max-height, 50dvh);
+  }
+}
+
+body.atelier-optica .optica-search-sidebar {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: color-mix(in srgb, var(--color-background) 92%, var(--atelier-cream));
+}
+
+@media screen and (max-width: 899px) {
+  body.atelier-optica .optica-search-sidebar {
+    border-block-start: 1px solid color-mix(in srgb, var(--atelier-gold) 30%, transparent);
+  }
+}
+
+body.atelier-optica .optica-search-sidebar__group[hidden] {
+  display: none;
+}
+
+body.atelier-optica .optica-search-sidebar__title {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-heading--family);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--atelier-gold) 80%, var(--color-foreground));
+}
+
+body.atelier-optica .optica-search-sidebar__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+body.atelier-optica .optica-search-sidebar__list a {
+  display: inline-block;
+  font-family: var(--font-body--family);
+  font-size: 0.9rem;
+  color: var(--color-foreground);
+  text-decoration: none;
+  padding: 0.15rem 0;
+  position: relative;
+  transition: color var(--optica-dur-fast) var(--optica-ease);
+}
+
+body.atelier-optica .optica-search-sidebar__list a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 1px;
+  background: var(--atelier-gold);
+  transition: right var(--optica-dur-base) var(--optica-ease-out);
+}
+
+body.atelier-optica .optica-search-sidebar__list a:hover,
+body.atelier-optica .optica-search-sidebar__list a:focus-visible {
+  color: var(--atelier-gold);
+}
+
+body.atelier-optica .optica-search-sidebar__list a:hover::after,
+body.atelier-optica .optica-search-sidebar__list a:focus-visible::after {
+  right: 30%;
+}
+
+body.atelier-optica .optica-search-sidebar__hint {
+  margin: auto 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--color-foreground) 55%, transparent);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+body.atelier-optica .optica-search-sidebar__hint kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4rem;
+  padding: 0.1rem 0.35rem;
+  font-family: var(--font-body--family);
+  font-size: 0.7rem;
+  background: var(--color-background);
+  border: 1px solid color-mix(in srgb, var(--atelier-gold) 40%, transparent);
+  border-radius: 3px;
+  color: var(--color-foreground);
+}
+
+/* Widen the modal so the two-pane layout breathes */
+@media screen and (min-width: 900px) {
+  body.atelier-optica .optica-search-modal .search-modal__content {
+    --modal-width: min(78dvw, 980px);
+  }
+}
