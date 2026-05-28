@@ -441,6 +441,7 @@
         "video_8ABKH8": {
           "type": "video",
           "name": "t:names.video",
+          "disabled": true,
           "settings": {
             "source": "uploaded",
             "video": "shopify://files/videos/8717595-uhd_4096_2160_25fps.mp4",
