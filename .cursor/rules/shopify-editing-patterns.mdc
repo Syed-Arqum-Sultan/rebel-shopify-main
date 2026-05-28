@@ -3,39 +3,80 @@ description:
 alwaysApply: true
 ---
 
-## Shopify Editing Patterns
+## Reference first
 
-- Use schema-driven development for sections
-- Prefer blocks over hardcoded UI
-- Keep settings flexible for merchants
-- Avoid inline styles unless necessary
-- Use Liquid conditionals instead of duplication
+Read `docs/OPTICA-THEME-REFERENCE.md` before structural changes (new sections, PDP block order, header/footer wiring, CSS scope).
+
+---
+
+## Liquid and schema patterns
+
+- Schema-driven sections: settings and blocks in `{% schema %}`, not hardcoded merchant copy.
+- Prefer blocks over duplicated markup; use Liquid conditionals instead of copy-paste variants.
+- Avoid inline styles unless required for dynamic values (e.g. per-block colors from settings).
+- Section/snippet markup should be readable; keep nesting shallow.
+
+### Naming conventions (new work)
+
+| Kind | Pattern | Example |
+|---|---|---|
+| OPTICA section | `sections/optica-{feature}.liquid` | `optica-split-hero.liquid` |
+| Atelier section | `sections/atelier-{feature}.liquid` | `atelier-newsletter.liquid` |
+| OPTICA block | `blocks/optica-{feature}.liquid` | `optica-wishlist-button.liquid` |
+| Atelier block | `blocks/atelier-{feature}.liquid` | `atelier-lens-select.liquid` |
+| Snippets | `snippets/optica-*` or `snippets/atelier-*` | `optica-breadcrumbs.liquid` |
+| CSS classes | BEM-style with prefix: `optica-`, `atelier-` | `.optica-trust-bar__item` |
+| Schema labels | Clear merchant-facing English; `id` in `snake_case` | `"id": "heading_text"` |
+
+Do not rename existing `id`, `type`, or template JSON keys to match new naming — only apply conventions to **new** artifacts.
+
+---
 
 ## Performance
 
-- Avoid excessive DOM nesting
-- Reuse existing classes
-- Do not introduce heavy JS unless required
+- Reuse existing classes and CSS before adding new rules.
+- Avoid extra wrapper divs; prefer flex/grid on existing structure.
+- Do not add JS unless behavior cannot be done in CSS/Liquid.
+- When JS is required, prefer small theme-owned files (e.g. `assets/auto-close-details.js`) over editing Horizon cart/product bundles.
+- Defer non-critical images; avoid loading heavy assets on templates that do not need them.
 
-## UX Consistency
+---
 
-- Maintain OPTICA luxury look:
-  - whitespace
-  - typography hierarchy
-  - gold accents
+## UX consistency (OPTICA luxury)
 
-- Keep buttons consistent across:
-  - homepage
-  - PDP
+- Generous whitespace, clear type hierarchy, restrained gold accents.
+- Buttons and CTAs should match patterns in `atelier-luxury.css` (homepage/header) and `optica-pdp.css` (PDP).
+- Do not introduce new button styles when an existing pattern can be extended with a scoped modifier class.
 
-## Reference Documentation
+---
 
-Always refer to:
-docs/OPTICA-THEME-REFERENCE.md
+## Common change routing
 
-This file defines:
-- file structure
-- section responsibilities
-- styling locations
+| Goal | Start here |
+|---|---|
+| Homepage section order / copy | `templates/index.json` + Theme Editor |
+| PDP block order / lens flow | `templates/product.json` |
+| Header layout / logo / menu | `sections/header-group.json` |
+| Header look (all pages) | `assets/atelier-luxury.css` under `body.atelier-optica` |
+| Homepage-only look | `assets/atelier-luxury.css` under `body.template-index` |
+| PDP look | `assets/optica-pdp.css` under `body.template-product` |
+| Global colors / fonts | Theme settings → `config/settings_data.json` (merchant-first) |
+| New PDP capability | New `blocks/*` + register in `blocks/_product-details.liquid` |
 
-Follow it strictly before making changes.
+---
+
+## Pre-edit checklist (quick)
+
+- [ ] Change type identified (style / layout / component)
+- [ ] Target file is in **Prefer** or **Allowed** tier (see `shopify-theme.mdc`)
+- [ ] Correct CSS scope prefix chosen
+- [ ] Schema IDs and JSON keys will remain stable
+
+---
+
+## Post-edit checklist (quick)
+
+- [ ] JSON valid; no orphaned block/setting references
+- [ ] New CSS scoped; no unscoped layout/color rules
+- [ ] Theme Editor settings still make sense (labels, defaults, blocks list)
+- [ ] Dynamic sources and metafields still wired (reviews, prescription, wishlist URL, etc.)

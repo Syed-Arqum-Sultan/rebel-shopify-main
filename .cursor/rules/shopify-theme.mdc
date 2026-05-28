@@ -5,103 +5,107 @@ alwaysApply: true
 
 You are working on a Shopify OS 2.0 theme based on Horizon, customized with OPTICA (homepage) and Atelier (components).
 
-## 🔒 Core Rules
+**Before the first edit in a session**, skim `docs/OPTICA-THEME-REFERENCE.md`. If this file and the reference conflict on file paths or scoping, **the reference wins**.
 
-- DO NOT modify Horizon core files unless explicitly asked:
-  - assets/base.css
-  - sections/header.liquid
-  - core JS utilities
-
-- Prefer editing:
-  - assets/atelier-luxury.css (homepage styles only)
-  - assets/optica-pdp.css (product page styles only)
-  - templates/*.json (layout + structure)
-  - sections/optica-* (custom sections)
-  - sections/atelier-* (reusable components)
+**Principle:** Strict on data and boundaries; flexible on implementation size.
 
 ---
 
-## 🎯 Styling Rules
+## File ownership
 
-- Homepage styles MUST be scoped under:
-  body.template-index
+| Tier | Paths | When to use |
+|---|-----|----|
+| **Prefer** | `assets/atelier-luxury.css`, `assets/optica-pdp.css`, `templates/*.json`, `sections/optica-*`, `sections/atelier-*`, `blocks/atelier-*`, `blocks/optica-*`, `snippets/optica-*`, `snippets/atelier-*` | Default targets for features and fixes |
+| **Allowed with care** | `layout/theme.liquid` (body classes only unless asked), `sections/header-group.json`, `sections/footer-group.json`, `snippets/stylesheets.liquid`, `config/settings_schema.json` / `settings_data.json` (additive settings only), existing custom blocks in `blocks/_product-details.liquid` schema | Cross-template wiring or merchant-facing settings |
+| **Avoid** | `sections/header.liquid`, `assets/base.css`, Horizon `sections/*.liquid` not prefixed `optica-` / `atelier-`, shared Horizon snippets | Only when no custom-layer alternative exists |
+| **Forbidden unless explicitly asked** | Bulk renames in JSON templates, removing Theme Editor settings, unscoped global CSS | Breaks merchant config or causes cross-page regressions |
 
-- Product page styles MUST be scoped under:
-  body.template-product
+### Horizon “core” (do not edit unless the user asks, or see exception below)
 
-- Do NOT add global styles without scoping.
+- `assets/base.css`
+- `sections/header.liquid`
+- Core JS: `assets/*.js` except theme-owned scripts (e.g. `assets/auto-close-details.js`)
+- Horizon product/cart utilities relied on by the header (e.g. `assets/utilities.js`, `assets/product-form.js`, `assets/cart-drawer.js`)
 
-- Reuse existing gold luxury design system:
-  - borders
-  - spacing
-  - typography
-  - button styles
+### Styling locations
 
----
+| Scope | CSS file | Required selector prefix |
+|----|----|---|
+| Storewide header (matches homepage on all templates) | `assets/atelier-luxury.css` | `body.atelier-optica` |
+| Homepage-only sections | `assets/atelier-luxury.css` | `body.template-index` |
+| Product page | `assets/optica-pdp.css` | `body.template-product` |
 
-## 🧱 Section Rules
+All **new** CSS selectors must use one of these prefixes. Shared variables or comments at file top are fine; rules that affect layout/color/type must be scoped.
 
-- Sections are controlled via:
-  templates/index.json
-  templates/product.json
-
-- NEVER hardcode section order in Liquid.
-- ALWAYS modify JSON templates for layout changes.
-
----
-
-## 🧩 Blocks (Product Page)
-
-- Product blocks are registered in:
-  blocks/_product-details.liquid
-
-- When adding features:
-  - Prefer creating a new block instead of modifying existing ones
-  - Keep compatibility with Shopify dynamic sources
+Reuse the existing luxury system: borders, spacing, typography, gold accents, button patterns.
 
 ---
 
-## ⚠️ Safety Rules
+## Layout and sections
 
-- Do NOT:
-  - Break schema structure
-  - Rename JSON keys (Shopify is strict)
-  - Remove existing settings used in Theme Editor
-  - Hardcode content that should be editable
-
----
-
-## 🧭 Editing Strategy
-
-When making changes:
-
-1. Identify if change is:
-   - Style → CSS file
-   - Layout → JSON template
-   - Component → section/block
-
-2. Modify the smallest possible surface area
-
-3. Preserve:
-   - Theme editor compatibility
-   - Existing merchant settings
+- Section **order** and instance settings live in JSON templates — especially `templates/index.json` and `templates/product.json`.
+- **Never** hardcode section order in Liquid.
+- **Always** change layout via `templates/*.json` (or section group JSON: `header-group.json`, `footer-group.json`).
+- Do not bulk-rename keys in JSON (Horizon mixes `snake_case` and `kebab-case`).
 
 ---
 
-## 🧪 Output Expectations
+## Blocks (product page)
 
-- Always return FULL updated file
-- Do NOT return partial snippets unless asked
-- Keep formatting Shopify-compatible
+- Product blocks are registered in `blocks/_product-details.liquid`.
+- **New features:** prefer a new block (`blocks/optica-*` or `blocks/atelier-*`) and register it in the schema; wire order in `templates/product.json`.
+- **Small fixes:** editing an existing custom block is OK when the change is visual/copy-only, does not add/remove/rename schema `id` or block `type`, and stays compatible with dynamic sources.
+- Keep line item properties, metafields, and app hooks backward-compatible.
 
 ---
 
-## 🏷 Context Awareness
+## Schema and Theme Editor safety
 
-This theme includes:
+**Immutable unless the user explicitly requests a migration:**
 
-- OPTICA → homepage (luxury, editorial)
-- Atelier → reusable components
-- Horizon → base system
+- Setting `id` values, block `type` strings, and JSON keys already saved in `templates/*.json` or `config/settings_data.json`
+
+**Do not:**
+
+- Break schema structure
+- Remove settings blocks merchants may have configured
+- Hardcode copy or URLs that belong in section/block settings
+
+**When deprecating:** keep the old setting, mark it legacy in label/help text, or map old values in Liquid — do not delete without approval.
+
+---
+
+## Editing workflow
+
+1. **Classify:** style → scoped CSS | layout → JSON template | component → section/block/snippet
+2. **Pick the smallest file** from the table above
+3. **Preserve** Theme Editor compatibility and saved merchant values
+4. **Validate after edit:**
+   - JSON parses (`templates/*.json`, section group JSON)
+   - No removed setting IDs still referenced in templates
+   - New CSS is scoped under `body.atelier-optica`, `body.template-index`, or `body.template-product`
+   - Liquid schema remains valid Shopify JSON
+
+### Horizon core exception
+
+Edit forbidden core files **only** for a confirmed bug with no custom-layer workaround. Document why in a brief comment near the change.
+
+---
+
+## Output expectations
+
+- Apply **minimal diffs** in the repo (only lines needed for the task).
+- In chat: summarize what changed and where; provide **full file contents only when the user asks**.
+- Keep Shopify-compatible formatting (JSON indentation, Liquid/schema structure).
+
+---
+
+## Context layers
+
+| Layer | Role |
+|----|---|
+| **OPTICA** | Homepage + editorial PDP accents (`sections/optica-*`, `blocks/optica-*`) |
+| **Atelier** | Reusable sections and product blocks (`sections/atelier-*`, `blocks/atelier-*`) |
+| **Horizon** | Base system — treat as upstream, customize via layers above |
 
 Respect this separation at all times.
