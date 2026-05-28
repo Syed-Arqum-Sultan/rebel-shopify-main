@@ -185,3 +185,65 @@ Changes detected since the previous reference update commit (`e945ad0`):
 ---
 
 *Last updated: documented `atelier-optica` on `body` (`layout/theme.liquid`) and storewide header rules in `assets/atelier-luxury.css`; §8 above remains the file delta since commit `e945ad0`.*
+
+---
+
+## 9. Phase 1 customer-experience foundation
+
+Shipped on branch `phase-1-cx-foundation` as three independent commits. All new selectors are scoped under `body.atelier-optica`; no Horizon-core JS files were forked.
+
+### Motion tokens (commit 1)
+
+Defined at the top of `assets/atelier-luxury.css` and reused across cart, search, and view transitions:
+
+| Token | Default | Purpose |
+|---|---|---|
+| `--optica-ease` | `cubic-bezier(.22,.61,.36,1)` | General-purpose easing |
+| `--optica-ease-out` | `cubic-bezier(.16,1,.3,1)` | Editorial slide / morph |
+| `--optica-dur-fast` | `180ms` | Micro-interactions |
+| `--optica-dur-base` | `320ms` | Drawer / modal slides |
+| `--optica-dur-slow` | `560ms` | View transitions, fly-to-cart |
+
+A `prefers-reduced-motion: reduce` block collapses all three durations to `0ms`.
+
+### Cart drawer (commit 2)
+
+- New file: `assets/optica-cart-enhance.js` — module loaded from `snippets/header-actions.liquid` next to `cart-drawer.js`. Listens for the existing `cart:update` event (from `assets/events.js`) and refreshes the free-ship bar without re-render flash; runs a FLIP fly-to-cart animation on `submit` of any `/cart/add` form.
+- `snippets/cart-summary.liquid` injects a free-ship progress bar above `.cart-totals`. Controlled by `settings.optica_free_shipping_threshold` (cents). Shows "Complimentary shipping included" with a line-drawn check when met.
+- `snippets/cart-products.liquid` widens the visible-property filter from the hardcoded `'Lens package'` to any non-`_` property, so Rx status, lens coatings, engraving notes, etc. all surface.
+- `layout/theme.liquid` exposes the new ATC-fly setting via `data-optica-atc-fly` on `<body>`.
+
+### Predictive search (commit 3)
+
+- New file: `assets/optica-search-enhance.js` — module loaded from `snippets/search-modal.liquid`. Binds `cmdK`/`Ctrl+K` to open the existing search dialog (uses Horizon's `showDialog()` API on `<dialog-component id="search-modal">`), maintains `localStorage` key `optica:recent_searches` (cap 6, dedupe, newest first), and implements Left/Right arrow pane navigation when the input is empty.
+- `snippets/search-modal.liquid` adds an `<aside data-optica-search-sidebar>` with Popular links and a Recent searches slot populated by JS.
+- Two-pane CSS grid layout (`.optica-search-panes`) activates ≥900px; modal width widens to `min(78dvw, 980px)`.
+
+### New theme settings (additive)
+
+Under "OPTICA cart" in `config/settings_schema.json`:
+
+| Setting id | Type | Default | Used by |
+|---|---|---|---|
+| `optica_free_shipping_threshold` | number (cents) | `10000` ($100) | Free-ship bar — set to `0` to disable |
+| `optica_atc_fly_animation` | checkbox | `true` | Fly-to-cart animation |
+
+### New body-scoped class families
+
+| Prefix | Where |
+|---|---|
+| `.optica-freeship*` | `snippets/cart-summary.liquid` + CSS in `assets/atelier-luxury.css` |
+| `.optica-line-item-props` | `snippets/cart-products.liquid` |
+| `.optica-cart-icon--pulse` | injected by `optica-cart-enhance.js` |
+| `.optica-atc-fly-clone` | injected by `optica-cart-enhance.js` |
+| `.optica-search-modal`, `.optica-search-panes*`, `.optica-search-sidebar*` | `snippets/search-modal.liquid` + CSS |
+
+### Horizon-core edits
+
+None required. The original plan reserved hooks in `sections/header.liquid` and `assets/cart-drawer.js`; both were avoided because Horizon already dispatches `cart:update` via `assets/events.js` and the search modal already exposes the `showDialog()` method and a `#cmdk-input` id. Future Horizon upstream merges therefore remain clean.
+
+### Deferred (not in this phase)
+
+- Lens-type / Rx-ready badge on predictive-search product cards (requires a merchant tag convention; revisit when collection schema is finalized).
+- Mega-menu, sticky mini-PDP header, virtual try-on, Rx OCR — see broader roadmap.
+
