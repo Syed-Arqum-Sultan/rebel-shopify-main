@@ -6,11 +6,27 @@
   count will be displayed as "99+".
 {%- enddoc -%}
 
+{%- liquid
+  # OPTICA: subtract paired lens add-on items from the displayed count so a
+  # frame + Rx lens reads as "1" rather than "2". The cart still has two
+  # underlying line items (Shopify requirement for the upcharge variant).
+  assign optica_addon_qty = 0
+  for ci in cart.items
+    for p in ci.properties
+      if p.first == 'Linked frame variant' and p.last != blank
+        assign optica_addon_qty = optica_addon_qty | plus: ci.quantity
+      endif
+    endfor
+  endfor
+  assign optica_display_count = cart.item_count | minus: optica_addon_qty
+  if optica_display_count < 0
+    assign optica_display_count = 0
+  endif
+-%}
 <div
   ref="cartBubble"
   class="cart-bubble{% if cart == empty %} visually-hidden{% endif %}"
-  {% assign item_count = cart.item_count %}
-  {% if item_count <= 99 %}
+  {% if optica_display_count <= 99 %}
     data-maintain-ratio
   {% endif %}
 >
@@ -25,7 +41,7 @@
   >
     <span class="visually-hidden">
       {{- 'accessibility.cart_count' | t -}}
-      : {{ cart.item_count }}
+      : {{ optica_display_count }}
     </span>
     <span
       class="cart-bubble__text-count{% if cart == empty %} hidden{% endif %}"
@@ -33,8 +49,8 @@
       aria-hidden="true"
       data-testid="cart-bubble"
     >
-      {%- if limit == blank or cart.item_count < limit %}
-        {{- cart.item_count -}}
+      {%- if limit == blank or optica_display_count < limit %}
+        {{- optica_display_count -}}
       {%- endif -%}
     </span>
   </span>

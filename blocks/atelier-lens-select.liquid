@@ -243,6 +243,20 @@
 
         const cartResponse = await fetch('/cart.js');
         const cart = await cartResponse.json();
+        // OPTICA: itemCount is set as the new total by cart-icon.js when
+        // source !== 'product-form-component'. Strip paired lens add-on
+        // quantities so the bubble matches the bundled drawer presentation.
+        let displayItemCount = Number(cart.item_count || 0);
+        try {
+          for (const ci of cart.items || []) {
+            const linkedProp = ci.properties && ci.properties['Linked frame variant'];
+            if (linkedProp) displayItemCount -= Number(ci.quantity || 0);
+          }
+          if (displayItemCount < 0) displayItemCount = 0;
+        } catch (_) {
+          displayItemCount = Number(cart.item_count || 0);
+        }
+
         document.dispatchEvent(
           new CustomEvent('cart:update', {
             bubbles: true,
@@ -252,7 +266,7 @@
               data: {
                 source: 'atelier-lens-bundle',
                 productId: form.closest('product-form-component')?.dataset.productId || '',
-                itemCount: quantity * 2,
+                itemCount: displayItemCount,
                 sections: result.sections || {},
               },
             },
