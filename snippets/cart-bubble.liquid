@@ -6,10 +6,25 @@
   count will be displayed as "99+".
 {%- enddoc -%}
 
+{%- liquid
+  # OPTICA: lens add-ons are paired second line items; exclude them so the
+  # bubble reflects the number of products the customer perceives.
+  assign optica_display_count = cart.item_count
+  for optica_item in cart.items
+    for optica_prop in optica_item.properties
+      if optica_prop.first == 'Linked frame variant' and optica_prop.last != blank
+        assign optica_display_count = optica_display_count | minus: optica_item.quantity
+      endif
+    endfor
+  endfor
+  if optica_display_count < 0
+    assign optica_display_count = 0
+  endif
+-%}
 <div
   ref="cartBubble"
-  class="cart-bubble{% if cart == empty %} visually-hidden{% endif %}"
-  {% assign item_count = cart.item_count %}
+  class="cart-bubble{% if cart == empty or optica_display_count == 0 %} visually-hidden{% endif %}"
+  {% assign item_count = optica_display_count %}
   {% if item_count <= 99 %}
     data-maintain-ratio
   {% endif %}
@@ -25,16 +40,16 @@
   >
     <span class="visually-hidden">
       {{- 'accessibility.cart_count' | t -}}
-      : {{ cart.item_count }}
+      : {{ optica_display_count }}
     </span>
     <span
-      class="cart-bubble__text-count{% if cart == empty %} hidden{% endif %}"
+      class="cart-bubble__text-count{% if cart == empty or optica_display_count == 0 %} hidden{% endif %}"
       ref="cartBubbleCount"
       aria-hidden="true"
       data-testid="cart-bubble"
     >
-      {%- if limit == blank or cart.item_count < limit %}
-        {{- cart.item_count -}}
+      {%- if limit == blank or optica_display_count < limit %}
+        {{- optica_display_count -}}
       {%- endif -%}
     </span>
   </span>

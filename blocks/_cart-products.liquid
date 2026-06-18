@@ -1,6 +1,6 @@
 
 
-{% render 'cart-products' %}
+{% render 'cart-products', block_settings: block.settings, block_attributes: block.shopify_attributes %}
 
 {% stylesheet %}
   .cart-page__title + .cart-page__items {

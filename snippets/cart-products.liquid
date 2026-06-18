@@ -4,13 +4,15 @@
   Renders the cart products list or empty cart state.
 
   @param {boolean} [force_empty] - Force render empty cart state
+  @param {object} [block_settings] - Settings from the cart-products block
+  @param {string} [block_attributes] - block.shopify_attributes from the cart-products block
 
   @example
   {% render 'cart-products', force_empty: true %}
 {% enddoc %}
 
 {% liquid
-  assign block_settings = block.settings
+  assign block_settings = block_settings | default: blank
 %}
 
 <script
@@ -28,9 +30,13 @@
   type="module"
   fetchpriority="low"
 ></script>
+<script
+  src="{{ 'optica-cart-bundle.js' | asset_url }}"
+  defer
+></script>
 
 <div
-  {{ block.shopify_attributes }}
+  {{ block_attributes }}
   class="cart-items__wrapper"
   {% if settings.product_title_case == 'uppercase' %}
     style="--product-title-case: uppercase;"
@@ -128,14 +134,11 @@
               sub-line on its paired frame row. Cart totals are unaffected.
             {%- endcomment -%}
             {%- liquid
-              assign optica_visible_props = 'Lens type'
               assign optica_paired_addon_keys = ''
               for ci in cart.items
                 for p in ci.properties
                   if p.first == 'Linked frame variant' and p.last != blank
-                    assign optica_paired_addon_keys = optica_paired_addon_keys
-                      | append: '|'
-                      | append: ci.key
+                    assign optica_paired_addon_keys = optica_paired_addon_keys | append: '|' | append: ci.key
                   endif
                 endfor
               endfor
@@ -164,7 +167,8 @@
                         assign ci_lens_pkg = p.last
                       endif
                     endfor
-                    if ci_linked != '' and ci_linked == item.variant_id | append: ''
+                    assign item_variant_id_str = item.variant_id | append: ''
+                    if ci_linked != '' and ci_linked == item_variant_id_str
                       assign optica_paired_addon = ci
                       assign optica_lens_label = ci.product.title | default: ci_lens_pkg
                       break
@@ -181,6 +185,10 @@
                 ref="cartItemRows[]"
                 data-parent-key="{{ item.parent_relationship.parent.key }}"
                 data-key="{{ item.key }}"
+                data-variant-id="{{ item.variant_id }}"
+                {%- if optica_paired_addon -%}
+                  data-optica-paired-addon-key="{{ optica_paired_addon.key }}"
+                {%- endif -%}
               >
                 <td
                   class="cart-items__media"
